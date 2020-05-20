@@ -1,0 +1,63 @@
+<#include "/admin/util/editor/editor.html" />
+
+<fieldset>
+	<legend>#i18n{module.workflow.dansmarue.task_push_config.title}</legend>
+	<div class="form-group">
+		<label class="<@labelStyle />" for="mobileSubject">
+			#i18n{module.workflow.dansmarue.task_push_config.mobile.subject.title} * : 
+		</label>
+		<div class="<@inputStyle />">
+			<input class="form-control input-sm" type="text" name="mobileSubject" id="mobileSubject" value="${config.mobileSubject!}" maxlength="255"/>
+			#i18n{module.workflow.dansmarue.task_push_config.mobile.subject.comment}
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="<@labelStyle />" for="mobileMessage">
+			#i18n{module.workflow.dansmarue.task_push_config.push.mobile.message.title} * : 
+		</label>
+		<div class="<@inputStyle />">
+			<div class="editor">
+				<textarea name="mobileMessage" id="mobileMessage" rows="2" cols="140" style="width:100%">${config.mobileMessage!}</textarea>
+			</div>
+			#i18n{module.workflow.dansmarue.task_push_config.push.mobile.message.comment}
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="<@labelStyle />" for="isDiffusionSuiveur">
+			#i18n{module.workflow.dansmarue.task_push_config.push.mobile.suiveur} : 
+		</label>
+		<div class="<@inputStyle />">
+			<div class="editor">
+				<input type="checkbox" id="isDiffusionSuiveur" name="isDiffusionSuiveur" value="true" <#if config.isDiffusionSuiveur!false>checked</#if> />
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="<@labelStyle />" for="isDiffusionDeclarant">
+			#i18n{module.workflow.dansmarue.task_push_config.push.mobile.declarant} : 
+		</label>
+		<div class="<@inputStyle />">
+			<div class="editor">
+				<input type="checkbox" id="isDiffusionDeclarant" name="isDiffusionDeclarant" value="true" <#if config.isDiffusionDeclarant!false>checked</#if> />
+			</div>
+		</div>
+	</div>
+</fieldset>
+<fieldset>
+	<legend>#i18n{module.workflow.dansmarue.task_push_config.freemarker.title}</legend>
+	<table class="table table-striped table-condensed">
+		<tbody>
+			<tr>
+				<th>#i18n{module.workflow.dansmarue.task_push_config.freemarker.valeur}</td>
+				<th>#i18n{module.workflow.dansmarue.task_push_config.freemarker.label}</td>
+			</tr>
+			<#list balises as balise>
+				<tr>
+					<td>${balise.nom!}</td>
+					<td>&#36;&#123;${balise.valeur!}&#125;</td>
+				</tr>
+			</#list>
+		</tbody>
+	</table>
+</fieldset>
+<@initEditor />
