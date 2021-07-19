@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -42,13 +42,12 @@ import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notification.busi
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notification.business.NotificationSignalementTaskConfigUnitDAO;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 
-
 /**
  * INotificationSignalementTaskConfigUnitService.
  */
 public class NotificationSignalementTaskConfigUnitService
 {
-    
+
     /** The dao. */
     // DAO
     @Inject
@@ -58,8 +57,10 @@ public class NotificationSignalementTaskConfigUnitService
     /**
      * Insert.
      *
-     * @param config            the task configuration
-     * @param plugin            the plugin
+     * @param config
+     *            the task configuration
+     * @param plugin
+     *            the plugin
      */
     public void insert( NotificationSignalementTaskConfigUnit config, Plugin plugin )
     {
@@ -69,8 +70,10 @@ public class NotificationSignalementTaskConfigUnitService
     /**
      * Update.
      *
-     * @param config            the task configuration
-     * @param plugin            the plugin
+     * @param config
+     *            the task configuration
+     * @param plugin
+     *            the plugin
      */
     public void update( NotificationSignalementTaskConfigUnit config, Plugin plugin )
     {
@@ -80,9 +83,12 @@ public class NotificationSignalementTaskConfigUnitService
     /**
      * Find by primary key.
      *
-     * @param nIdTask            the task id
-     * @param nIdUnit            the unit id
-     * @param plugin            the plugin
+     * @param nIdTask
+     *            the task id
+     * @param nIdUnit
+     *            the unit id
+     * @param plugin
+     *            the plugin
      * @return NotificationSignalementTaskConfigUnit
      */
     public NotificationSignalementTaskConfigUnit findByPrimaryKey( int nIdTask, int nIdUnit, Plugin plugin )
@@ -93,9 +99,12 @@ public class NotificationSignalementTaskConfigUnitService
     /**
      * Delete.
      *
-     * @param nIdTask            the task id
-     * @param nIdUnit            the unit id
-     * @param plugin            the plugin
+     * @param nIdTask
+     *            the task id
+     * @param nIdUnit
+     *            the unit id
+     * @param plugin
+     *            the plugin
      */
     public void delete( int nIdTask, int nIdUnit, Plugin plugin )
     {
@@ -105,8 +114,10 @@ public class NotificationSignalementTaskConfigUnitService
     /**
      * Find by id task.
      *
-     * @param nIdTask            the task id
-     * @param plugin            the plugin
+     * @param nIdTask
+     *            the task id
+     * @param plugin
+     *            the plugin
      * @return the list of NotificationSignalementTaskConfigUnit
      */
     public List<NotificationSignalementTaskConfigUnit> findByIdTask( int nIdTask, Plugin plugin )
@@ -117,8 +128,10 @@ public class NotificationSignalementTaskConfigUnitService
     /**
      * Find by id task with type signalement.
      *
-     * @param nIdTask            the task id
-     * @param plugin            the plugin
+     * @param nIdTask
+     *            the task id
+     * @param plugin
+     *            the plugin
      * @return the list of NotificationSignalementTaskConfigUnit
      */
     public List<NotificationSignalementTaskConfigUnit> findByIdTaskWithTypeSignalement( int nIdTask, Plugin plugin )
@@ -130,8 +143,10 @@ public class NotificationSignalementTaskConfigUnitService
     /**
      * Delete all.
      *
-     * @param nIdTask            the task id
-     * @param plugin            the plugin
+     * @param nIdTask
+     *            the task id
+     * @param plugin
+     *            the plugin
      */
     public void deleteAll( int nIdTask, Plugin plugin )
     {
@@ -141,8 +156,10 @@ public class NotificationSignalementTaskConfigUnitService
     /**
      * Find by id unit.
      *
-     * @param nIdUnit            the unit id
-     * @param plugin            the plugin
+     * @param nIdUnit
+     *            the unit id
+     * @param plugin
+     *            the plugin
      * @return the list of NotificationSignalementTaskConfigUnit
      */
     public List<NotificationSignalementTaskConfigUnit> findByIdUnit( int nIdUnit, Plugin plugin )
@@ -169,8 +186,10 @@ public class NotificationSignalementTaskConfigUnitService
     /**
      * Find by id type signalement.
      *
-     * @param nIdTypeSignalement            the report type id
-     * @param plugin            the plugin
+     * @param nIdTypeSignalement
+     *            the report type id
+     * @param plugin
+     *            the plugin
      * @return the list of NotificationSignalementTaskConfigUnit
      */
     public List<NotificationSignalementTaskConfigUnit> findByIdTypeSignalement( int nIdTypeSignalement, Plugin plugin )
@@ -181,8 +200,10 @@ public class NotificationSignalementTaskConfigUnitService
     /**
      * Update with type signalement.
      *
-     * @param configType            the task configuration
-     * @param plugin            the plugin
+     * @param configType
+     *            the task configuration
+     * @param plugin
+     *            the plugin
      */
     public void updateWithTypeSignalement( NotificationSignalementTaskConfigUnit configType, Plugin plugin )
     {
@@ -192,8 +213,10 @@ public class NotificationSignalementTaskConfigUnitService
     /**
      * Insert with type signalement.
      *
-     * @param configType the config type
-     * @param plugin            the plugin
+     * @param configType
+     *            the config type
+     * @param plugin
+     *            the plugin
      */
     public void insertWithTypeSignalement( NotificationSignalementTaskConfigUnit configType, Plugin plugin )
     {
@@ -203,9 +226,12 @@ public class NotificationSignalementTaskConfigUnitService
     /**
      * Delete by type signalement.
      *
-     * @param nIdTask            the task id
-     * @param nIdTypeSignalement            the report type id
-     * @param plugin            the plugin
+     * @param nIdTask
+     *            the task id
+     * @param nIdTypeSignalement
+     *            the report type id
+     * @param plugin
+     *            the plugin
      */
     public void deleteByTypeSignalement( int nIdTask, int nIdTypeSignalement, Plugin plugin )
     {

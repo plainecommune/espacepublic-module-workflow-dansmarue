@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -60,7 +60,7 @@ public class WebServiceSignalementTaskConfigService extends TaskConfigService
     // DAO
     @Inject
     @Named( "signalement.webserviceSignalementTaskConfigDAO" )
-    private WebServiceSignalementTaskConfigDAO     _webserviceSignalementTaskConfigDAO;
+    private WebServiceSignalementTaskConfigDAO _webserviceSignalementTaskConfigDAO;
 
     /** The webservice signalement task config unit DAO. */
     @Inject
@@ -70,7 +70,7 @@ public class WebServiceSignalementTaskConfigService extends TaskConfigService
     /** The unit service. */
     @Inject
     @Named( "unittree.unitService" )
-    private IUnitService                           _unitService;
+    private IUnitService _unitService;
 
     /**
      * Add a new WebServiceSignalementTask configuration.

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,11 +34,13 @@
 package fr.paris.lutece.plugins.workflow.modules.dansmarue.web;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -74,92 +76,94 @@ public class MessageTrackingJspBean extends AbstractJspBean
 {
 
     /** The Constant serialVersionUID. */
-    private static final long                                      serialVersionUID                              = -5430488988015810896L;
+    private static final long serialVersionUID = -5430488988015810896L;
 
     /** The Constant RIGHT_MANAGE_MESSAGE_TRACKING. */
     // RIGHT
-    public static final String                                     RIGHT_MANAGE_MESSAGE_TRACKING                 = "MESSAGE_TRACKING_MANAGEMENT";
+    public static final String RIGHT_MANAGE_MESSAGE_TRACKING = "MESSAGE_TRACKING_MANAGEMENT";
 
     /** The Constant TEMPLATE_MANAGE_TRACKING_MESSAGE. */
     // TEMPLATES
-    private static final String                                    TEMPLATE_MANAGE_TRACKING_MESSAGE              = "admin/plugins/workflow/modules/signalement/manage_tracking_message.html";
+    private static final String TEMPLATE_MANAGE_TRACKING_MESSAGE = "admin/plugins/workflow/modules/signalement/manage_tracking_message.html";
 
     /** The Constant MARK_UNITS_LIST. */
     // MARKERS
-    private static final String                                    MARK_UNITS_LIST                               = "units_list";
+    private static final String MARK_UNITS_LIST = "units_list";
 
     /** The Constant MARK_UNITS_LIST_USER. */
-    private static final String                                    MARK_UNITS_LIST_USER                          = "units_list_user";
+    private static final String MARK_UNITS_LIST_USER = "units_list_user";
 
     /** The Constant MARK_MAIL_USER. */
-    private static final String                                    MARK_MAIL_USER                                = "mail_user";
+    private static final String MARK_MAIL_USER = "mail_user";
 
     /** The Constant MARK_TYPE_LIST. */
-    private static final String                                    MARK_TYPE_LIST                                = "type_list";
+    private static final String MARK_TYPE_LIST = "type_list";
 
     /** The Constant MARK_TYPE_LIST_USER. */
-    private static final String                                    MARK_TYPE_LIST_USER                           = "type_list_user";
+    private static final String MARK_TYPE_LIST_USER = "type_list_user";
 
     /** The Constant MESSAGE_ERROR_NO_UNIT_SELECTED. */
     // MESSAGES
-    private static final String                                    MESSAGE_ERROR_NO_UNIT_SELECTED                = "module.workflow.dansmarue.message.error.noUnitSelected";
+    private static final String MESSAGE_ERROR_NO_UNIT_SELECTED = "module.workflow.dansmarue.message.error.noUnitSelected";
 
     /** The Constant MESSAGE_ERROR_UNIT_ALREADY_SELECTED. */
-    private static final String                                    MESSAGE_ERROR_UNIT_ALREADY_SELECTED           = "module.workflow.dansmarue.message.error.unitAlreadySelected";
+    private static final String MESSAGE_ERROR_UNIT_ALREADY_SELECTED = "module.workflow.dansmarue.message.error.unitAlreadySelected";
 
     /** The Constant MESSAGE_ERROR_NO_TYPE_SELECTED. */
-    private static final String                                    MESSAGE_ERROR_NO_TYPE_SELECTED                = "module.workflow.dansmarue.message.error.noTypeSelected";
+    private static final String MESSAGE_ERROR_NO_TYPE_SELECTED = "module.workflow.dansmarue.message.error.noTypeSelected";
 
     /** The Constant MESSAGE_ERROR_TYPE_ALREADY_SELECTED. */
-    private static final String                                    MESSAGE_ERROR_TYPE_ALREADY_SELECTED           = "module.workflow.dansmarue.message.error.typeAlreadySelected";
+    private static final String MESSAGE_ERROR_TYPE_ALREADY_SELECTED = "module.workflow.dansmarue.message.error.typeAlreadySelected";
 
     /** The Constant TASK_NOTIFICATION_SIGNALEMENT_NAME. */
     // PROPERTIES
-    private static final String                                    TASK_NOTIFICATION_SIGNALEMENT_NAME            = AppPropertiesService
+    private static final String TASK_NOTIFICATION_SIGNALEMENT_NAME = AppPropertiesService
             .getProperty( "workflow.signalement.taskSignalementNotification.name" );
+
+    private static final String ID_TASK_NOTIFICATION_EXCLUDE = AppPropertiesService.getProperty( "workflow.signalement.abonnementMail.idTask.exclude" );
 
     /** The Constant PARAMETER_ID_UNIT. */
     // PARAMETERS
-    private static final String                                    PARAMETER_ID_UNIT                             = "idUnit";
+    private static final String PARAMETER_ID_UNIT = "idUnit";
 
     /** The Constant PARAMETER_ID_TYPE_SIGNALEMENT. */
-    private static final String                                    PARAMETER_ID_TYPE_SIGNALEMENT                 = "idTypeSignalement";
+    private static final String PARAMETER_ID_TYPE_SIGNALEMENT = "idTypeSignalement";
 
     /** The Constant PARAMETER_BACK. */
-    private static final String                                    PARAMETER_BACK                                = "back";
+    private static final String PARAMETER_BACK = "back";
 
     /** The Constant PARAMETER_UNIT_ID_UNIT. */
-    private static final String                                    PARAMETER_UNIT_ID_UNIT                        = "unit.idUnit";
+    private static final String PARAMETER_UNIT_ID_UNIT = "unit.idUnit";
 
     /** The Constant PARAMETER_NO_UNIT_SELECTED. */
-    private static final String                                    PARAMETER_NO_UNIT_SELECTED                    = "-1";
+    private static final String PARAMETER_NO_UNIT_SELECTED = "-1";
 
     /** The Constant PARAMETER_TYPE_ID_TYPE. */
-    private static final String                                    PARAMETER_TYPE_ID_TYPE                        = "typeSignalement";
+    private static final String PARAMETER_TYPE_ID_TYPE = "typeSignalement";
 
     /** The Constant JSP_MANAGE_TRACKING_MESSAGE. */
     // JSP
-    private static final String                                    JSP_MANAGE_TRACKING_MESSAGE                   = "jsp/admin/plugins/workflow/modules/signalement/GetMessageTrackingManagement.jsp";
+    private static final String JSP_MANAGE_TRACKING_MESSAGE = "jsp/admin/plugins/workflow/modules/signalement/GetMessageTrackingManagement.jsp";
 
     /** The Constant JSP_MENU_LUTECE. */
-    private static final String                                    JSP_MENU_LUTECE                               = "jsp/admin/AdminMenu.jsp";
+    private static final String JSP_MENU_LUTECE = "jsp/admin/AdminMenu.jsp";
 
     /** The unit service. */
     // SERVICES
-    private transient IUnitService                                 _unitService                                  = SpringContextService.getBean( IUnitService.BEAN_UNIT_SERVICE );
+    private transient IUnitService _unitService = SpringContextService.getBean( IUnitService.BEAN_UNIT_SERVICE );
 
     /** The notification signalement task config unit service. */
     private transient NotificationSignalementTaskConfigUnitService _notificationSignalementTaskConfigUnitService = SpringContextService
             .getBean( "signalement.notificationSignalementTaskConfigUnitService" );
 
     /** The type signalement service. */
-    private transient ITypeSignalementService                      _typeSignalementService                       = SpringContextService.getBean( "typeSignalementService" );
+    private transient ITypeSignalementService _typeSignalementService = SpringContextService.getBean( "typeSignalementService" );
 
     /** The signalement view role service. */
-    private transient SignalementViewRoleService                   _signalementViewRoleService                   = SpringContextService.getBean( "signalement.signalementViewRoleService" );
+    private transient SignalementViewRoleService _signalementViewRoleService = SpringContextService.getBean( "signalement.signalementViewRoleService" );
 
     /** The signalement workflow service. */
-    private transient IWorkflowService                             _signalementWorkflowService                   = SpringContextService.getBean( "signalement.workflowService" );
+    private transient IWorkflowService _signalementWorkflowService = SpringContextService.getBean( "signalement.workflowService" );
 
     /**
      * signalement.signalementViewRoleService The tracking message management page
@@ -290,7 +294,8 @@ public class MessageTrackingJspBean extends AbstractJspBean
 
         for ( Long idTask : idsTask )
         {
-            List<NotificationSignalementTaskConfigUnit> lstConfigUnit = _notificationSignalementTaskConfigUnitService.findByIdTask( idTask.intValue( ), getPlugin( ) );
+            List<NotificationSignalementTaskConfigUnit> lstConfigUnit = _notificationSignalementTaskConfigUnitService.findByIdTask( idTask.intValue( ),
+                    getPlugin( ) );
 
             for ( NotificationSignalementTaskConfigUnit configUnit : lstConfigUnit )
             {
@@ -321,15 +326,17 @@ public class MessageTrackingJspBean extends AbstractJspBean
         for ( Long idTask : idsTask )
         {
 
-            List<NotificationSignalementTaskConfigUnit> lstConfigUnit = _notificationSignalementTaskConfigUnitService.findByIdTaskWithTypeSignalement( idTask.intValue( ), getPlugin( ) );
+            List<NotificationSignalementTaskConfigUnit> lstConfigUnit = _notificationSignalementTaskConfigUnitService
+                    .findByIdTaskWithTypeSignalement( idTask.intValue( ), getPlugin( ) );
 
             for ( NotificationSignalementTaskConfigUnit configUnit : lstConfigUnit )
             {
-                long exist = listTypesUser.stream( ).filter( typeSignalement -> typeSignalement.getId( ).intValue( ) == configUnit.getTypeSignalement( ).getId( ).intValue( ) ).count( );
+                long exist = listTypesUser.stream( )
+                        .filter( typeSignalement -> typeSignalement.getId( ).intValue( ) == configUnit.getTypeSignalement( ).getId( ).intValue( ) ).count( );
 
                 if ( configUnit.getDestinataires( ).contains( mailCurrentUser ) && ( exist < 1 ) )
                 {
-                    listTypesUser.add( _typeSignalementService.findByIdTypeSignalement( configUnit.getTypeSignalement( ).getId( ) ) );
+                    listTypesUser.add( _typeSignalementService.getTypeSignalementByIdWithParents( configUnit.getTypeSignalement( ).getId( ) ) );
                 }
             }
         }
@@ -356,12 +363,13 @@ public class MessageTrackingJspBean extends AbstractJspBean
             int nIdUnitToDelete = Integer.parseInt( strIdUnitToDelete );
 
             // get all the config where the email is saved
-            List<NotificationSignalementTaskConfigUnit> listConfigUnit = _notificationSignalementTaskConfigUnitService.findByIdUnit( nIdUnitToDelete, getPlugin( ) );
+            List<NotificationSignalementTaskConfigUnit> listConfigUnit = _notificationSignalementTaskConfigUnitService.findByIdUnit( nIdUnitToDelete,
+                    getPlugin( ) );
 
             // remove the email everywhere (format of destinataires : email1@mail.com;email2@mail.com;email3@mail.com)
             for ( NotificationSignalementTaskConfigUnit configUnit : listConfigUnit )
             {
-                String[] listRecipient = configUnit.getDestinataires( ).split( ";" );
+                String [ ] listRecipient = configUnit.getDestinataires( ).split( ";" );
                 List<String> listNewRecipient = new ArrayList<>( );
                 for ( String recipient : listRecipient )
                 {
@@ -411,12 +419,13 @@ public class MessageTrackingJspBean extends AbstractJspBean
             int nIdTypeToDelete = Integer.parseInt( strIdTypeToDelete );
 
             // get all the config where the email is saved
-            List<NotificationSignalementTaskConfigUnit> listConfigType = _notificationSignalementTaskConfigUnitService.findByIdTypeSignalement( nIdTypeToDelete, getPlugin( ) );
+            List<NotificationSignalementTaskConfigUnit> listConfigType = _notificationSignalementTaskConfigUnitService.findByIdTypeSignalement( nIdTypeToDelete,
+                    getPlugin( ) );
 
             // remove the email everywhere (format of destinataires : email1@mail.com;email2@mail.com;email3@mail.com)
             for ( NotificationSignalementTaskConfigUnit configType : listConfigType )
             {
-                String[] listRecipient = configType.getDestinataires( ).split( ";" );
+                String [ ] listRecipient = configType.getDestinataires( ).split( ";" );
                 List<String> listNewRecipient = new ArrayList<>( );
                 for ( String recipient : listRecipient )
                 {
@@ -496,15 +505,18 @@ public class MessageTrackingJspBean extends AbstractJspBean
                 else
                 {
                     // get all the config where the email must be added
-                    List<NotificationSignalementTaskConfigUnit> listConfigUnit = _notificationSignalementTaskConfigUnitService.findByIdUnit( nIdUnit, getPlugin( ) );
+                    List<NotificationSignalementTaskConfigUnit> listConfigUnit = _notificationSignalementTaskConfigUnitService.findByIdUnit( nIdUnit,
+                            getPlugin( ) );
 
                     if ( listConfigUnit.isEmpty( ) )
                     {
-                        // create new line(s) in database
                         List<Long> idsTask = _signalementWorkflowService.findIdTaskByTaskKey( TASK_NOTIFICATION_SIGNALEMENT_NAME );
-
+                        List<Long> idTaskExclude = Arrays.asList( ID_TASK_NOTIFICATION_EXCLUDE.split( "," ) ).stream( ).map( str -> Long.valueOf( str ) )
+                                .collect( Collectors.toList( ) );
+                        idsTask.removeAll( idTaskExclude );
                         for ( Long idTask : idsTask )
                         {
+                            // create new line(s) in database
                             NotificationSignalementTaskConfigUnit configUnit = new NotificationSignalementTaskConfigUnit( );
                             configUnit.setIdTask( idTask.intValue( ) );
                             configUnit.setDestinataires( mailCurrentUser );
@@ -517,7 +529,7 @@ public class MessageTrackingJspBean extends AbstractJspBean
                         // add the email in line that already exists (format of destinataires : email1@mail.com;email2@mail.com;email3@mail.com)
                         for ( NotificationSignalementTaskConfigUnit configUnit : listConfigUnit )
                         {
-                            String[] listRecipient = configUnit.getDestinataires( ).split( ";" );
+                            String [ ] listRecipient = configUnit.getDestinataires( ).split( ";" );
                             List<String> listNewRecipient = new ArrayList<>( );
 
                             Collections.addAll( listNewRecipient, listRecipient );
@@ -590,12 +602,16 @@ public class MessageTrackingJspBean extends AbstractJspBean
                 else
                 {
                     // get all the config where the email must be added
-                    List<NotificationSignalementTaskConfigUnit> listConfigType = _notificationSignalementTaskConfigUnitService.findByIdTypeSignalement( nIdTypeSignalement, getPlugin( ) );
+                    List<NotificationSignalementTaskConfigUnit> listConfigType = _notificationSignalementTaskConfigUnitService
+                            .findByIdTypeSignalement( nIdTypeSignalement, getPlugin( ) );
 
                     if ( listConfigType.isEmpty( ) )
                     {
                         // create new line(s) in database
                         List<Long> idsTask = _signalementWorkflowService.findIdTaskByTaskKey( TASK_NOTIFICATION_SIGNALEMENT_NAME );
+                        List<Long> idTaskExclude = Arrays.asList( ID_TASK_NOTIFICATION_EXCLUDE.split( "," ) ).stream( ).map( str -> Long.valueOf( str ) )
+                                .collect( Collectors.toList( ) );
+                        idsTask.removeAll( idTaskExclude );
 
                         for ( Long idTask : idsTask )
                         {
@@ -611,7 +627,7 @@ public class MessageTrackingJspBean extends AbstractJspBean
                         // add the email in line that already exists (format of destinataires : email1@mail.com;email2@mail.com;email3@mail.com)
                         for ( NotificationSignalementTaskConfigUnit configType : listConfigType )
                         {
-                            String[] listRecipient = configType.getDestinataires( ).split( ";" );
+                            String [ ] listRecipient = configType.getDestinataires( ).split( ";" );
                             List<String> listNewRecipient = new ArrayList<>( );
 
                             Collections.addAll( listNewRecipient, listRecipient );
@@ -644,7 +660,8 @@ public class MessageTrackingJspBean extends AbstractJspBean
     {
         String strJspBack = request.getParameter( SignalementConstants.MARK_JSP_BACK );
 
-        return StringUtils.isNotBlank( strJspBack ) ? ( AppPathService.getBaseUrl( request ) + strJspBack ) : ( AppPathService.getBaseUrl( request ) + JSP_MANAGE_TRACKING_MESSAGE );
+        return StringUtils.isNotBlank( strJspBack ) ? ( AppPathService.getBaseUrl( request ) + strJspBack )
+                : ( AppPathService.getBaseUrl( request ) + JSP_MANAGE_TRACKING_MESSAGE );
     }
 
     /**

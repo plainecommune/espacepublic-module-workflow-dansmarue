@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -43,7 +43,6 @@ import javax.servlet.http.HttpServletRequest;
 import fr.paris.lutece.plugins.dansmarue.service.ISignalementService;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.AbstractSignalementTask;
 
-
 /**
  * SurveillerSignalementTask.
  */
@@ -56,18 +55,19 @@ public class SurveillerSignalementTask extends AbstractSignalementTask
     private ISignalementService _signalementService;
 
     /** The Constant TASK_TITLE. */
-    private static final String TASK_TITLE                     = "Mise en surveillance de l'anomalie";
+    private static final String TASK_TITLE = "Mise en surveillance de l'anomalie";
 
     /** The Constant PARAMETER_MISE_EN_SURVEILLANCE. */
     private static final String PARAMETER_MISE_EN_SURVEILLANCE = "miseEnsurveillance";
-    
+
     /** The Constant PARAMETER_SIGNALEMENT_ID. */
-    private static final String PARAMETER_SIGNALEMENT_ID       = "signalement_id";
+    private static final String PARAMETER_SIGNALEMENT_ID = "signalement_id";
 
     /**
      * Gets the task form entries.
      *
-     * @param arg0 the arg 0
+     * @param arg0
+     *            the arg 0
      * @return the task form entries
      */
     @Override
@@ -79,7 +79,8 @@ public class SurveillerSignalementTask extends AbstractSignalementTask
     /**
      * Gets the title.
      *
-     * @param arg0 the arg 0
+     * @param arg0
+     *            the arg 0
      * @return the title
      */
     @Override
@@ -91,9 +92,12 @@ public class SurveillerSignalementTask extends AbstractSignalementTask
     /**
      * Process task.
      *
-     * @param nIdResource the n id resource
-     * @param request the request
-     * @param local the local
+     * @param nIdResource
+     *            the n id resource
+     * @param request
+     *            the request
+     * @param local
+     *            the local
      */
     @Override
     public void processTask( int nIdResource, HttpServletRequest request, Locale local )

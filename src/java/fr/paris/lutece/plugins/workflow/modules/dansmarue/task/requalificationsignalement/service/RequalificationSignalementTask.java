@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -64,53 +64,53 @@ public class RequalificationSignalementTask extends AbstractSignalementTask
 {
 
     /** The Constant TASK_TITLE. */
-    private static final String     TASK_TITLE                            = "Requalification du signalement";
+    private static final String TASK_TITLE = "Requalification du signalement";
 
     /** The Constant PARAMETER_WEBSERVICE_ID_TYPE_ANOMALIE. */
     // PARAMETER
-    private static final String     PARAMETER_WEBSERVICE_ID_TYPE_ANOMALIE = "idTypeAnomalie";
+    private static final String PARAMETER_WEBSERVICE_ID_TYPE_ANOMALIE = "idTypeAnomalie";
 
     /** The Constant PARAM_ID_SECTOR. */
-    private static final String     PARAM_ID_SECTOR                       = "hiddenIdSector";
+    private static final String PARAM_ID_SECTOR = "hiddenIdSector";
 
     /** The Constant PARAM_COMMENTAIRE_AGENT_TERRAIN. */
-    private static final String     PARAM_COMMENTAIRE_AGENT_TERRAIN       = "commentaireAgentTerrain";
+    private static final String PARAM_COMMENTAIRE_AGENT_TERRAIN = "commentaireAgentTerrain";
 
     /** The Constant MARK_PHOTOS. */
     // MARKERS
-    public static final String      MARK_PHOTOS                           = "photos";
+    public static final String MARK_PHOTOS = "photos";
 
     /** The Constant MARK_ADRESSE. */
-    public static final String      MARK_ADRESSE                          = "adresse";
+    public static final String MARK_ADRESSE = "adresse";
 
     /** The Constant MARK_SIGNALEUR. */
-    public static final String      MARK_SIGNALEUR                        = "signaleur";
+    public static final String MARK_SIGNALEUR = "signaleur";
 
     /** The Constant MARK_PROPOSED_ADDRESSES. */
-    public static final String      MARK_PROPOSED_ADDRESSES               = "proposedAddresses";
+    public static final String MARK_PROPOSED_ADDRESSES = "proposedAddresses";
 
     /** The Constant MARK_NO_VALID_ADDRESSES. */
-    public static final String      MARK_NO_VALID_ADDRESSES               = "noValidAddresses";
+    public static final String MARK_NO_VALID_ADDRESSES = "noValidAddresses";
 
     /** The Constant EMPTY_STRING. */
     // CONSTANTS
-    private static final String     EMPTY_STRING                          = "";
+    private static final String EMPTY_STRING = "";
 
     /** The signalement service. */
     // SERVICES
-    private ISignalementService     _signalementService                   = SpringContextService.getBean( "signalementService" );
+    private ISignalementService _signalementService = SpringContextService.getBean( "signalementService" );
 
     /** The type signalement service. */
-    private ITypeSignalementService _typeSignalementService               = SpringContextService.getBean( "typeSignalementService" );
+    private ITypeSignalementService _typeSignalementService = SpringContextService.getBean( "typeSignalementService" );
 
     /** The adresse service. */
-    private IAdresseService         _adresseService                       = SpringContextService.getBean( "adresseSignalementService" );
+    private IAdresseService _adresseService = SpringContextService.getBean( "adresseSignalementService" );
 
     /** The signalement workflow service. */
-    private IWorkflowService        _signalementWorkflowService           = SpringContextService.getBean( "signalement.workflowService" );
+    private IWorkflowService _signalementWorkflowService = SpringContextService.getBean( "signalement.workflowService" );
 
     /** The sector service. */
-    private ISectorService          _sectorService                        = SpringContextService.getBean( "unittree-dansmarue.sectorService" );
+    private ISectorService _sectorService = SpringContextService.getBean( "unittree-dansmarue.sectorService" );
 
     /**
      * Process task.
@@ -131,7 +131,7 @@ public class RequalificationSignalementTask extends AbstractSignalementTask
         if ( request.getSession( ).getAttribute( PARAM_ID_SECTOR ) != null )
         {
             // requalification effectuée par un prestataire
-            Integer idSector = ( Integer ) request.getSession( ).getAttribute( PARAM_ID_SECTOR );
+            Integer idSector = (Integer) request.getSession( ).getAttribute( PARAM_ID_SECTOR );
             requalification.setSector( idSector );
             request.getSession( ).removeAttribute( PARAM_ID_SECTOR );
         }
@@ -141,9 +141,9 @@ public class RequalificationSignalementTask extends AbstractSignalementTask
         if ( request.getSession( ).getAttribute( PARAMETER_WEBSERVICE_ID_TYPE_ANOMALIE ) != null )
         {
             // La tache est execute suite a l'appel du WS "rest/signalement/api/changeStatus" par un prestataire
-            long idTypeAnomalie = ( long ) request.getSession( ).getAttribute( PARAMETER_WEBSERVICE_ID_TYPE_ANOMALIE );
+            long idTypeAnomalie = (long) request.getSession( ).getAttribute( PARAMETER_WEBSERVICE_ID_TYPE_ANOMALIE );
             request.getSession( ).removeAttribute( PARAMETER_WEBSERVICE_ID_TYPE_ANOMALIE );
-            requalification.setTypeSignalement( ( int ) idTypeAnomalie );
+            requalification.setTypeSignalement( (int) idTypeAnomalie );
 
             ResourceHistory resourceHistory = _resourceHistoryService.findByPrimaryKey( nIdResourceHistory );
             requalification.setIdSignalement( resourceHistory.getIdResource( ) );
@@ -153,7 +153,7 @@ public class RequalificationSignalementTask extends AbstractSignalementTask
             requalification.setLat( adresse.getLat( ) );
 
             // Secteur calculé par défaut de l'anomalie
-            Unit majorUnit = _signalementService.getMajorUnit( ( int ) idTypeAnomalie, requalification.getLng( ), requalification.getLat( ) );
+            Unit majorUnit = _signalementService.getMajorUnit( (int) idTypeAnomalie, requalification.getLng( ), requalification.getLat( ) );
             Sector computedSector = null;
             if ( null != majorUnit )
             {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -43,7 +43,6 @@ import fr.paris.lutece.portal.service.rbac.ResourceType;
 import fr.paris.lutece.portal.service.rbac.ResourceTypeManager;
 import fr.paris.lutece.util.ReferenceList;
 
-
 // End of user code for imports
 
 /**
@@ -51,15 +50,15 @@ import fr.paris.lutece.util.ReferenceList;
  */
 public class WorkflowSignalementResourceIdService extends ResourceIdService
 {
-    
+
     /** The Constant KEY_ID_RESOURCE. */
-    public static final String  KEY_ID_RESOURCE                     = "GESTION_SUIVI_DES_MESSAGES_DANSMARUE";
-    
+    public static final String KEY_ID_RESOURCE = "GESTION_SUIVI_DES_MESSAGES_DANSMARUE";
+
     /** The Constant PERMISSION_GESTION_TRACKING_MESSAGE. */
-    public static final String  PERMISSION_GESTION_TRACKING_MESSAGE = "GESTION_SUIVI_MESSAGES_ADMIN";
+    public static final String PERMISSION_GESTION_TRACKING_MESSAGE = "GESTION_SUIVI_MESSAGES_ADMIN";
 
     /** The Constant PROPERTY_LABEL_RESOURCE_TYPE. */
-    private static final String PROPERTY_LABEL_RESOURCE_TYPE        = "module.workflow.dansmarue.rbac.resourceType.label.gestionDesMessagesDansMaRue";
+    private static final String PROPERTY_LABEL_RESOURCE_TYPE = "module.workflow.dansmarue.rbac.resourceType.label.gestionDesMessagesDansMaRue";
 
     // Start of user code for specific constants
 
@@ -98,7 +97,8 @@ public class WorkflowSignalementResourceIdService extends ResourceIdService
     /**
      * Gets the resource id list.
      *
-     * @param locale the locale
+     * @param locale
+     *            the locale
      * @return the resource id list
      */
     @Override
@@ -110,8 +110,10 @@ public class WorkflowSignalementResourceIdService extends ResourceIdService
     /**
      * Gets the title.
      *
-     * @param strId the str id
-     * @param locale the locale
+     * @param strId
+     *            the str id
+     * @param locale
+     *            the locale
      * @return the title
      */
     @Override

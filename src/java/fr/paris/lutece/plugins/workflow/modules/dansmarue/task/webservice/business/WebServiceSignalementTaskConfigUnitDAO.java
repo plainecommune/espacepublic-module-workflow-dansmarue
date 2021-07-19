@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,44 +40,43 @@ import fr.paris.lutece.plugins.unittree.business.unit.Unit;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.util.sql.DAOUtil;
 
-
 /**
  * WebServiceSignalementTaskConfigUnitDAO.
  */
 public class WebServiceSignalementTaskConfigUnitDAO
 {
-    
+
     /** The Constant SQL_QUERY_FIND_BY_PRIMARY_KEY. */
-    private static final String SQL_QUERY_FIND_BY_PRIMARY_KEY       = "SELECT id_task, id_unit, prestatairesansws, urlprestataire "
+    private static final String SQL_QUERY_FIND_BY_PRIMARY_KEY = "SELECT id_task, id_unit, prestatairesansws, urlprestataire "
             + " FROM signalement_workflow_webservice_config_unit WHERE id_task=? AND id_unit=?";
-    
+
     /** The Constant SQL_QUERY_FIND_BY_ID_TASK. */
-    private static final String SQL_QUERY_FIND_BY_ID_TASK           = "SELECT id_task, id_unit, prestatairesansws, urlprestataire"
+    private static final String SQL_QUERY_FIND_BY_ID_TASK = "SELECT id_task, id_unit, prestatairesansws, urlprestataire"
             + " FROM signalement_workflow_webservice_config_unit WHERE id_task=?";
-    
+
     /** The Constant SQL_QUERY_INSERT. */
-    private static final String SQL_QUERY_INSERT                    = "INSERT INTO signalement_workflow_webservice_config_unit "
+    private static final String SQL_QUERY_INSERT = "INSERT INTO signalement_workflow_webservice_config_unit "
             + "(id_task, id_unit, prestatairesansws, urlprestataire) VALUES(?,?,?,?)";
-    
+
     /** The Constant SQL_QUERY_UPDATE. */
-    private static final String SQL_QUERY_UPDATE                    = "UPDATE signalement_workflow_webservice_config_unit "
+    private static final String SQL_QUERY_UPDATE = "UPDATE signalement_workflow_webservice_config_unit "
             + "SET id_task=?, id_unit=?, prestatairesansws=?, urlprestataire=? WHERE id_task=? AND id_unit=?";
-    
+
     /** The Constant SQL_QUERY_DELETE. */
-    private static final String SQL_QUERY_DELETE                    = "DELETE FROM signalement_workflow_webservice_config_unit WHERE id_task=? AND id_unit=?";
-    
+    private static final String SQL_QUERY_DELETE = "DELETE FROM signalement_workflow_webservice_config_unit WHERE id_task=? AND id_unit=?";
+
     /** The Constant SQL_QUERY_DELETE_ALL. */
-    private static final String SQL_QUERY_DELETE_ALL                = "DELETE FROM signalement_workflow_webservice_config_unit WHERE id_task=?";
-    
+    private static final String SQL_QUERY_DELETE_ALL = "DELETE FROM signalement_workflow_webservice_config_unit WHERE id_task=?";
+
     /** The Constant SQL_QUERY_FIND_BY_ID_UNIT. */
-    private static final String SQL_QUERY_FIND_BY_ID_UNIT           = "SELECT id_task, id_unit, prestatairesansws, urlprestataire "
+    private static final String SQL_QUERY_FIND_BY_ID_UNIT = "SELECT id_task, id_unit, prestatairesansws, urlprestataire "
             + " FROM signalement_workflow_webservice_config_unit WHERE id_unit=?";
-    
+
     /** The Constant SQL_QUERY_FIND_BY_SECTOR_FOR_CHILD. */
-    private static final String SQL_QUERY_FIND_BY_SECTOR_FOR_CHILD  = "select  distinct(id_task), unit.id_unit, prestatairesansws, urlprestataire from signalement_signalement signalement "
+    private static final String SQL_QUERY_FIND_BY_SECTOR_FOR_CHILD = "select  distinct(id_task), unit.id_unit, prestatairesansws, urlprestataire from signalement_signalement signalement "
             + "join unittree_unit_sector sector on sector.id_sector = signalement.fk_id_sector " + "join unittree_unit unit on unit.id_unit=sector.id_unit "
             + "join signalement_workflow_webservice_config_unit conf on conf.id_unit=unit.id_unit " + "where id_task =?  and id_sector=? and unit.id_parent<>0";
-    
+
     /** The Constant SQL_QUERY_FIND_BY_SECTOR_FOR_PARENT. */
     private static final String SQL_QUERY_FIND_BY_SECTOR_FOR_PARENT = "select distinct(id_task), unit.id_unit, prestatairesansws, urlprestataire from signalement_signalement signalement "
             + "join unittree_unit_sector sector on sector.id_sector = signalement.fk_id_sector " + "join unittree_unit unit on unit.id_unit=sector.id_unit "
@@ -86,12 +85,14 @@ public class WebServiceSignalementTaskConfigUnitDAO
     /**
      * Insert.
      *
-     * @param config            the task configuration
-     * @param plugin            the plugin
+     * @param config
+     *            the task configuration
+     * @param plugin
+     *            the plugin
      */
     public void insert( WebServiceSignalementTaskConfigUnit config, Plugin plugin )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) ; )
         {
 
             int nPos = 0;
@@ -108,12 +109,14 @@ public class WebServiceSignalementTaskConfigUnitDAO
     /**
      * Update.
      *
-     * @param config            the task configuration
-     * @param plugin            the plugin
+     * @param config
+     *            the task configuration
+     * @param plugin
+     *            the plugin
      */
     public void update( WebServiceSignalementTaskConfigUnit config, Plugin plugin )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) ; )
         {
 
             int nPos = 0;
@@ -133,15 +136,18 @@ public class WebServiceSignalementTaskConfigUnitDAO
     /**
      * Find by primary key.
      *
-     * @param nIdTask            the task id
-     * @param nIdUnit            the unit id
-     * @param plugin            the plugin
+     * @param nIdTask
+     *            the task id
+     * @param nIdUnit
+     *            the unit id
+     * @param plugin
+     *            the plugin
      * @return webserviceSignalementTask configuration
      */
     public WebServiceSignalementTaskConfigUnit findByPrimaryKey( int nIdTask, int nIdUnit, Plugin plugin )
     {
         WebServiceSignalementTaskConfigUnit config = null;
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_PRIMARY_KEY, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_PRIMARY_KEY, plugin ) ; )
         {
 
             daoUtil.setInt( 1, nIdTask );
@@ -170,14 +176,16 @@ public class WebServiceSignalementTaskConfigUnitDAO
     /**
      * Find by id task.
      *
-     * @param nIdTask            the task id
-     * @param plugin            the plugin
+     * @param nIdTask
+     *            the task id
+     * @param plugin
+     *            the plugin
      * @return the list of webserviceSignalement task configuration
      */
     public List<WebServiceSignalementTaskConfigUnit> findByIdTask( int nIdTask, Plugin plugin )
     {
         List<WebServiceSignalementTaskConfigUnit> listConfigs = new ArrayList<>( );
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_ID_TASK, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_ID_TASK, plugin ) ; )
         {
             daoUtil.setInt( 1, nIdTask );
             daoUtil.executeQuery( );
@@ -207,14 +215,16 @@ public class WebServiceSignalementTaskConfigUnitDAO
     /**
      * Find by id unit.
      *
-     * @param nIdUnit            the unit id
-     * @param plugin            the plugin
+     * @param nIdUnit
+     *            the unit id
+     * @param plugin
+     *            the plugin
      * @return the list of webserviceSignalement task configuration
      */
     public List<WebServiceSignalementTaskConfigUnit> findByIdUnit( int nIdUnit, Plugin plugin )
     {
         List<WebServiceSignalementTaskConfigUnit> listConfigs = new ArrayList<>( );
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_ID_UNIT, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_ID_UNIT, plugin ) ; )
         {
             daoUtil.setInt( 1, nIdUnit );
             daoUtil.executeQuery( );
@@ -244,13 +254,16 @@ public class WebServiceSignalementTaskConfigUnitDAO
     /**
      * Delete.
      *
-     * @param nIdTask            the task id
-     * @param nIdUnit            the unit id
-     * @param plugin            the plugin
+     * @param nIdTask
+     *            the task id
+     * @param nIdUnit
+     *            the unit id
+     * @param plugin
+     *            the plugin
      */
     public void delete( int nIdTask, int nIdUnit, Plugin plugin )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ) ; )
         {
             daoUtil.setInt( 1, nIdTask );
             daoUtil.setInt( 2, nIdUnit );
@@ -262,12 +275,14 @@ public class WebServiceSignalementTaskConfigUnitDAO
     /**
      * Delete all.
      *
-     * @param nIdTask            the task id
-     * @param plugin            the plugin
+     * @param nIdTask
+     *            the task id
+     * @param plugin
+     *            the plugin
      */
     public void deleteAll( int nIdTask, Plugin plugin )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_ALL, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_ALL, plugin ) ; )
         {
             daoUtil.setInt( 1, nIdTask );
             daoUtil.executeUpdate( );
@@ -278,10 +293,14 @@ public class WebServiceSignalementTaskConfigUnitDAO
     /**
      * Find by sector.
      *
-     * @param nIdTask            the n id task
-     * @param idSector the id sector
-     * @param plugin            the plugin
-     * @param isParent the is parent
+     * @param nIdTask
+     *            the n id task
+     * @param idSector
+     *            the id sector
+     * @param plugin
+     *            the plugin
+     * @param isParent
+     *            the is parent
      * @return the web service signalement task config unit
      */
     public WebServiceSignalementTaskConfigUnit findBySector( int nIdTask, int idSector, Plugin plugin, boolean isParent )

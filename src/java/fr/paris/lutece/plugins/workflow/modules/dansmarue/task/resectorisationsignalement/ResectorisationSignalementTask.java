@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,22 +40,24 @@ import javax.servlet.http.HttpServletRequest;
 
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.AbstractSignalementTask;
 
-
 /**
  * ResectorisationSignalementTask class.
  */
 public class ResectorisationSignalementTask extends AbstractSignalementTask
 {
-    
+
     /** The Constant TASK_TITLE. */
     private static final String TASK_TITLE = "Resectorisation du signalement";
 
     /**
      * Process task.
      *
-     * @param nIdResourceHistory the n id resource history
-     * @param request the request
-     * @param locale the locale
+     * @param nIdResourceHistory
+     *            the n id resource history
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
      */
     @Override
     /**
@@ -69,7 +71,8 @@ public class ResectorisationSignalementTask extends AbstractSignalementTask
     /**
      * Gets the title.
      *
-     * @param locale the locale
+     * @param locale
+     *            the locale
      * @return the title
      */
     @Override
@@ -81,7 +84,8 @@ public class ResectorisationSignalementTask extends AbstractSignalementTask
     /**
      * Gets the task form entries.
      *
-     * @param locale the locale
+     * @param locale
+     *            the locale
      * @return the task form entries
      */
     @Override

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -50,50 +50,55 @@ import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.AbstractSignaleme
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceHistory;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 
-
 /**
  * RejetSignalementTask class.
  */
 public class RejetSignalementTask extends AbstractSignalementTask
 {
-    
+
     /** The Constant TASK_TITLE. */
-    private static final String                 TASK_TITLE                          = "Rejet du signalement";
+    private static final String TASK_TITLE = "Rejet du signalement";
 
     /** The Constant PARAMETER_MOTIF_REJET. */
     // MARKERS
-    private static final String                 PARAMETER_MOTIF_REJET               = "motif_rejet";
-    
+    private static final String PARAMETER_MOTIF_REJET = "motif_rejet";
+
+    private static final String PARAMETER_MOTIF_REJET_WS = "rejection_reason";
+
     /** The Constant PARAMETER_MOTIF_AUTRE_CHECKBOX. */
-    private static final String                 PARAMETER_MOTIF_AUTRE_CHECKBOX      = "motif_autre_checkbox";
-    
+    private static final String PARAMETER_MOTIF_AUTRE_CHECKBOX = "motif_autre_checkbox";
+
     /** The Constant PARAMETER_MOTIF_AUTRE. */
-    private static final String                 PARAMETER_MOTIF_AUTRE               = "motif_autre";
+    private static final String PARAMETER_MOTIF_AUTRE = "motif_autre";
 
     /** The observation rejet signalement service. */
     // SERVICES
     private IObservationRejetSignalementService _observationRejetSignalementService = SpringContextService.getBean( "observationRejetSignalementService" );
-    
+
     /** The signalement service. */
-    private ISignalementService                 _signalementService                 = SpringContextService.getBean( "signalementService" );
+    private ISignalementService _signalementService = SpringContextService.getBean( "signalementService" );
 
     /**
      * Process task.
      *
-     * @param nIdResourceHistory the n id resource history
-     * @param request the request
-     * @param locale the locale
+     * @param nIdResourceHistory
+     *            the n id resource history
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
      */
     @Override
     public void processTask( int nIdResourceHistory, HttpServletRequest request, Locale locale )
     {
         ResourceHistory resourceHistory = _resourceHistoryService.findByPrimaryKey( nIdResourceHistory );
         Integer idRessource = resourceHistory.getIdResource( );
-        String[] motifsRejetIds = request.getParameterValues( PARAMETER_MOTIF_REJET );
+        String [ ] motifsRejetIds = request.getParameterValues( PARAMETER_MOTIF_REJET );
         SimpleDateFormat sdfDate = new SimpleDateFormat( DateUtils.DATE_FR );
         String date = sdfDate.format( Calendar.getInstance( ).getTime( ) );
 
         boolean motifAutreCheckBox = StringUtils.isNotBlank( request.getParameter( PARAMETER_MOTIF_AUTRE_CHECKBOX ) );
+        boolean motifRejetWS = StringUtils.isNotBlank( request.getParameter( PARAMETER_MOTIF_REJET_WS ) );
 
         if ( !ArrayUtils.isEmpty( motifsRejetIds ) )
         {
@@ -109,6 +114,13 @@ public class RejetSignalementTask extends AbstractSignalementTask
             _observationRejetSignalementService.insert( idRessource, null, motifAutre );
         }
 
+        // Rejet par WS pour avec un motif autre
+        if ( motifRejetWS )
+        {
+            motifAutre = request.getParameter( PARAMETER_MOTIF_REJET_WS );
+            _observationRejetSignalementService.insert( idRessource, null, motifAutre );
+        }
+
         _signalementService.setDateRejet( idRessource, date );
 
     }
@@ -116,7 +128,8 @@ public class RejetSignalementTask extends AbstractSignalementTask
     /**
      * Gets the title.
      *
-     * @param locale the locale
+     * @param locale
+     *            the locale
      * @return the title
      */
     @Override
@@ -128,7 +141,8 @@ public class RejetSignalementTask extends AbstractSignalementTask
     /**
      * Gets the task form entries.
      *
-     * @param locale the locale
+     * @param locale
+     *            the locale
      * @return the task form entries
      */
     @Override

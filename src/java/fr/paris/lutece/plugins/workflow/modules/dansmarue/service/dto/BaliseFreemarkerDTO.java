@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,16 +33,15 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.dansmarue.service.dto;
 
-
 /**
  * The class BaliseFreemarkerDTO.
  */
 public class BaliseFreemarkerDTO
 {
-    
+
     /** The str nom. */
     String _strNom;
-    
+
     /** The str valeur. */
     String _strValeur;
 
@@ -59,7 +58,8 @@ public class BaliseFreemarkerDTO
     /**
      * Set nom.
      *
-     * @param nom            the name
+     * @param nom
+     *            the name
      */
     public void setNom( String nom )
     {
@@ -79,7 +79,8 @@ public class BaliseFreemarkerDTO
     /**
      * Set the valeur.
      *
-     * @param valeur            the valeur
+     * @param valeur
+     *            the valeur
      */
     public void setValeur( String valeur )
     {

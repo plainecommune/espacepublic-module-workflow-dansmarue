@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,13 +40,12 @@ import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notificationuserm
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notificationusermulticontents.business.NotificationUserMultiContentsValueDAO;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 
-
 /**
  * The Class NotificationUserMultiContentsValueService.
  */
 public class NotificationUserMultiContentsValueService
 {
-    
+
     /** The dao. */
     @Inject
     @Named( "signalement.notificationSignalementUserMultiContentsValueDAO" )
@@ -62,7 +61,8 @@ public class NotificationUserMultiContentsValueService
     /**
      * Creation of an instance of notification value.
      *
-     * @param notificationUser3ContentsValue            The instance of notification value which contains the informations to store
+     * @param notificationUser3ContentsValue
+     *            The instance of notification value which contains the informations to store
      */
     public void create( NotificationUserMultiContentsValue notificationUser3ContentsValue )
     {
@@ -72,9 +72,12 @@ public class NotificationUserMultiContentsValueService
     /**
      * remove notification value by history.
      *
-     * @param nIdHistory            the history key
-     * @param nIdTask            The task key
-     * @param plugin            the Plugin
+     * @param nIdHistory
+     *            the history key
+     * @param nIdTask
+     *            The task key
+     * @param plugin
+     *            the Plugin
      */
     public void removeByHistory( int nIdHistory, int nIdTask, Plugin plugin )
     {
@@ -84,8 +87,10 @@ public class NotificationUserMultiContentsValueService
     /**
      * remove notification value by task.
      *
-     * @param nIdTask            The task key
-     * @param plugin            the Plugin
+     * @param nIdTask
+     *            The task key
+     * @param plugin
+     *            the Plugin
      */
     public void removeByTask( int nIdTask, Plugin plugin )
     {
@@ -95,9 +100,12 @@ public class NotificationUserMultiContentsValueService
     /**
      * Load the notificationUser3ContentsValue Object.
      *
-     * @param nIdHistory            the history id
-     * @param nIdTask            the task id
-     * @param plugin            the plugin
+     * @param nIdHistory
+     *            the history id
+     * @param nIdTask
+     *            the task id
+     * @param plugin
+     *            the plugin
      * @return the Config Object
      */
     public NotificationUserMultiContentsValue findByPrimaryKey( int nIdHistory, int nIdTask, Plugin plugin )
@@ -108,7 +116,8 @@ public class NotificationUserMultiContentsValueService
     /**
      * Load.
      *
-     * @param nIdHistory            the history id
+     * @param nIdHistory
+     *            the history id
      * @return the Config Object
      */
     public NotificationUserMultiContentsValue loadByHistory( int nIdHistory )

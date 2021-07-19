@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,7 +45,6 @@ import org.apache.commons.lang.StringUtils;
 
 import fr.paris.lutece.plugins.dansmarue.business.entities.ObservationRejet;
 
-
 /**
  * The Class WorkflowSignalementUtil.
  */
@@ -53,19 +52,19 @@ public class WorkflowSignalementUtil
 {
 
     /** The Constant PARAMETER_MOTIF_REJET. */
-    private static final String PARAMETER_MOTIF_REJET          = "motif_rejet";
-    
+    private static final String PARAMETER_MOTIF_REJET = "motif_rejet";
+
     /** The Constant PARAMETER_MOTIF_AUTRE_CHECKBOX. */
     private static final String PARAMETER_MOTIF_AUTRE_CHECKBOX = "motif_autre_checkbox";
-    
+
     /** The Constant PARAMETER_MOTIF_AUTRE. */
-    private static final String PARAMETER_MOTIF_AUTRE          = "motif_autre";
-    
+    private static final String PARAMETER_MOTIF_AUTRE = "motif_autre";
+
     /** The Constant MOTIF_REJET_PREPEND. */
-    private static final String MOTIF_REJET_PREPEND            = "- ";
-    
+    private static final String MOTIF_REJET_PREPEND = "- ";
+
     /** The Constant MOTIF_REJET_SEPARATOR. */
-    private static final String MOTIF_REJET_SEPARATOR          = "<br/>";
+    private static final String MOTIF_REJET_SEPARATOR = "<br/>";
 
     /**
      * Instantiates a new workflow signalement util.
@@ -93,7 +92,7 @@ public class WorkflowSignalementUtil
             return Collections.emptyList( );
         }
         List<String> motifsRejet = new ArrayList<>( );
-        String[] motifsRejetIds = request.getParameterValues( PARAMETER_MOTIF_REJET );
+        String [ ] motifsRejetIds = request.getParameterValues( PARAMETER_MOTIF_REJET );
         if ( !ArrayUtils.isEmpty( motifsRejetIds ) )
         {
             for ( ObservationRejet observation : observationList )

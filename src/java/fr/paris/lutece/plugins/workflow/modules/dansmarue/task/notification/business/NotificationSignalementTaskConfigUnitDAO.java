@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,72 +41,75 @@ import fr.paris.lutece.plugins.unittree.business.unit.Unit;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.util.sql.DAOUtil;
 
-
 /**
  * NotificationSignalementTaskConfigUnitDAO.
  */
 public class NotificationSignalementTaskConfigUnitDAO
 {
-    
+
     /** The Constant SQL_SELECT_IDTASK_DEST_IDUNIT. */
     private static final String SQL_SELECT_IDTASK_DEST_IDUNIT = "SELECT id_task,destinataires,id_unit ";
-    
+
     /** The Constant SQL_QUERY_FIND_BY_PRIMARY_KEY. */
-    private static final String SQL_QUERY_FIND_BY_PRIMARY_KEY                      = SQL_SELECT_IDTASK_DEST_IDUNIT
+    private static final String SQL_QUERY_FIND_BY_PRIMARY_KEY = SQL_SELECT_IDTASK_DEST_IDUNIT
             + " FROM signalement_workflow_notification_config_unit WHERE id_task=? AND id_unit=?";
-    
+
     /** The Constant SQL_QUERY_FIND_BY_PRIMARY_KEY_AND_TYPE_SIGNALEMENT. */
     private static final String SQL_QUERY_FIND_BY_PRIMARY_KEY_AND_TYPE_SIGNALEMENT = SQL_SELECT_IDTASK_DEST_IDUNIT
             + " FROM signalement_workflow_notification_config_unit WHERE id_task=? AND id_type_signalement=?";
-    
+
     /** The Constant SQL_QUERY_FIND_BY_ID_TASK. */
-    private static final String SQL_QUERY_FIND_BY_ID_TASK                          = SQL_SELECT_IDTASK_DEST_IDUNIT
+    private static final String SQL_QUERY_FIND_BY_ID_TASK = SQL_SELECT_IDTASK_DEST_IDUNIT
             + " FROM signalement_workflow_notification_config_unit WHERE id_task=? and id_type_signalement is null";
-    
+
     /** The Constant SQL_QUERY_FIND_BY_ID_TASK_WITH_TYPE_SIGNALEMENT. */
-    private static final String SQL_QUERY_FIND_BY_ID_TASK_WITH_TYPE_SIGNALEMENT    = "SELECT id_task,destinataires,id_type_signalement"
+    private static final String SQL_QUERY_FIND_BY_ID_TASK_WITH_TYPE_SIGNALEMENT = "SELECT id_task,destinataires,id_type_signalement"
             + " FROM signalement_workflow_notification_config_unit WHERE id_task=? and id_unit is null";
-    
+
     /** The Constant SQL_QUERY_INSERT. */
-    private static final String SQL_QUERY_INSERT                                   = "INSERT INTO signalement_workflow_notification_config_unit " + "(id_task,destinataires,id_unit) VALUES(?,?,?)";
-    
+    private static final String SQL_QUERY_INSERT = "INSERT INTO signalement_workflow_notification_config_unit "
+            + "(id_task,destinataires,id_unit) VALUES(?,?,?)";
+
     /** The Constant SQL_QUERY_UPDATE. */
-    private static final String SQL_QUERY_UPDATE                                   = "UPDATE signalement_workflow_notification_config_unit "
+    private static final String SQL_QUERY_UPDATE = "UPDATE signalement_workflow_notification_config_unit "
             + "SET id_task=?,destinataires=?,id_unit=? WHERE id_task=? AND id_unit=?";
-    
+
     /** The Constant SQL_QUERY_DELETE. */
-    private static final String SQL_QUERY_DELETE                                   = "DELETE FROM signalement_workflow_notification_config_unit WHERE id_task=? AND id_unit=?";
-    
+    private static final String SQL_QUERY_DELETE = "DELETE FROM signalement_workflow_notification_config_unit WHERE id_task=? AND id_unit=?";
+
     /** The Constant SQL_QUERY_DELETE_ALL. */
-    private static final String SQL_QUERY_DELETE_ALL                               = "DELETE FROM signalement_workflow_notification_config_unit WHERE id_task=?";
-    
+    private static final String SQL_QUERY_DELETE_ALL = "DELETE FROM signalement_workflow_notification_config_unit WHERE id_task=?";
+
     /** The Constant SQL_QUERY_FIND_BY_ID_UNIT. */
-    private static final String SQL_QUERY_FIND_BY_ID_UNIT                          = SQL_SELECT_IDTASK_DEST_IDUNIT + " FROM signalement_workflow_notification_config_unit WHERE id_unit=?";
-    
+    private static final String SQL_QUERY_FIND_BY_ID_UNIT = SQL_SELECT_IDTASK_DEST_IDUNIT
+            + " FROM signalement_workflow_notification_config_unit WHERE id_unit=?";
+
     /** The Constant SQL_QUERY_FIND_BY_ID_UNIT_AND_ID_TASK. */
-    private static final String SQL_QUERY_FIND_BY_ID_UNIT_AND_ID_TASK              = SQL_SELECT_IDTASK_DEST_IDUNIT
+    private static final String SQL_QUERY_FIND_BY_ID_UNIT_AND_ID_TASK = SQL_SELECT_IDTASK_DEST_IDUNIT
             + " FROM signalement_workflow_notification_config_unit WHERE id_unit=? and id_task=?";
-    
+
     /** The Constant SQL_QUERY_FIND_BY_ID_TYPE_SIGNALEMENT. */
-    private static final String SQL_QUERY_FIND_BY_ID_TYPE_SIGNALEMENT              = "SELECT id_task,destinataires,id_type_signalement "
+    private static final String SQL_QUERY_FIND_BY_ID_TYPE_SIGNALEMENT = "SELECT id_task,destinataires,id_type_signalement "
             + " FROM signalement_workflow_notification_config_unit WHERE id_type_signalement=?";
-    
+
     /** The Constant SQL_QUERY_DELETE_BY_TYPE_SIGNALEMENT. */
-    private static final String SQL_QUERY_DELETE_BY_TYPE_SIGNALEMENT               = "DELETE FROM signalement_workflow_notification_config_unit WHERE id_task=? AND id_type_signalement=?";
-    
+    private static final String SQL_QUERY_DELETE_BY_TYPE_SIGNALEMENT = "DELETE FROM signalement_workflow_notification_config_unit WHERE id_task=? AND id_type_signalement=?";
+
     /** The Constant SQL_QUERY_INSERT_WITH_TYPE_SIGNALEMENT. */
-    private static final String SQL_QUERY_INSERT_WITH_TYPE_SIGNALEMENT             = "INSERT INTO signalement_workflow_notification_config_unit "
+    private static final String SQL_QUERY_INSERT_WITH_TYPE_SIGNALEMENT = "INSERT INTO signalement_workflow_notification_config_unit "
             + "(id_task,destinataires,id_type_signalement) VALUES(?,?,?)";
-    
+
     /** The Constant SQL_QUERY_UPDATE_WITH_TYPE_SIGNALEMENT. */
-    private static final String SQL_QUERY_UPDATE_WITH_TYPE_SIGNALEMENT             = "UPDATE signalement_workflow_notification_config_unit "
+    private static final String SQL_QUERY_UPDATE_WITH_TYPE_SIGNALEMENT = "UPDATE signalement_workflow_notification_config_unit "
             + "SET id_task=?,destinataires=?,id_type_signalement=? WHERE id_task=? AND id_type_signalement=?";
 
     /**
      * Insert.
      *
-     * @param config            the task configuration
-     * @param plugin            the plugin
+     * @param config
+     *            the task configuration
+     * @param plugin
+     *            the plugin
      */
     public void insert( NotificationSignalementTaskConfigUnit config, Plugin plugin )
     {
@@ -124,8 +127,10 @@ public class NotificationSignalementTaskConfigUnitDAO
     /**
      * Insert with type signalement.
      *
-     * @param config            the task configuration
-     * @param plugin            the plugin
+     * @param config
+     *            the task configuration
+     * @param plugin
+     *            the plugin
      */
     public void insertWithTypeSignalement( NotificationSignalementTaskConfigUnit config, Plugin plugin )
     {
@@ -143,8 +148,10 @@ public class NotificationSignalementTaskConfigUnitDAO
     /**
      * Update.
      *
-     * @param config            the task configuration
-     * @param plugin            the plugin
+     * @param config
+     *            the task configuration
+     * @param plugin
+     *            the plugin
      */
     public void update( NotificationSignalementTaskConfigUnit config, Plugin plugin )
     {
@@ -165,8 +172,10 @@ public class NotificationSignalementTaskConfigUnitDAO
     /**
      * Update with type signalement.
      *
-     * @param config            the task configuration
-     * @param plugin            the plugin
+     * @param config
+     *            the task configuration
+     * @param plugin
+     *            the plugin
      */
     public void updateWithTypeSignalement( NotificationSignalementTaskConfigUnit config, Plugin plugin )
     {
@@ -187,9 +196,12 @@ public class NotificationSignalementTaskConfigUnitDAO
     /**
      * Find by primary key.
      *
-     * @param nIdTask            the task id
-     * @param nIdUnit            the unit id
-     * @param plugin            the plugin
+     * @param nIdTask
+     *            the task id
+     * @param nIdUnit
+     *            the unit id
+     * @param plugin
+     *            the plugin
      * @return notificationSignalementTask configuration
      */
     public NotificationSignalementTaskConfigUnit findByPrimaryKey( int nIdTask, int nIdUnit, Plugin plugin )
@@ -224,9 +236,12 @@ public class NotificationSignalementTaskConfigUnitDAO
     /**
      * Find by primary key type signalement.
      *
-     * @param nIdTask            the task id
-     * @param nIdTypeSignalement the n id type signalement
-     * @param plugin            the plugin
+     * @param nIdTask
+     *            the task id
+     * @param nIdTypeSignalement
+     *            the n id type signalement
+     * @param plugin
+     *            the plugin
      * @return notificationSignalementTask configuration
      */
     public NotificationSignalementTaskConfigUnit findByPrimaryKeyTypeSignalement( int nIdTask, int nIdTypeSignalement, Plugin plugin )
@@ -261,8 +276,10 @@ public class NotificationSignalementTaskConfigUnitDAO
     /**
      * Find by id task.
      *
-     * @param nIdTask            the task id
-     * @param plugin            the plugin
+     * @param nIdTask
+     *            the task id
+     * @param plugin
+     *            the plugin
      * @return the list of notificationSignalement task configuration
      */
     public List<NotificationSignalementTaskConfigUnit> findByIdTask( int nIdTask, Plugin plugin )
@@ -295,8 +312,10 @@ public class NotificationSignalementTaskConfigUnitDAO
     /**
      * Find by id task with type signalement.
      *
-     * @param nIdTask            the task id
-     * @param plugin            the plugin
+     * @param nIdTask
+     *            the task id
+     * @param plugin
+     *            the plugin
      * @return the list of notificationSignalement task configuration
      */
     public List<NotificationSignalementTaskConfigUnit> findByIdTaskWithTypeSignalement( int nIdTask, Plugin plugin )
@@ -329,8 +348,10 @@ public class NotificationSignalementTaskConfigUnitDAO
     /**
      * Find by id unit.
      *
-     * @param nIdUnit            the unit id
-     * @param plugin            the plugin
+     * @param nIdUnit
+     *            the unit id
+     * @param plugin
+     *            the plugin
      * @return the list of notificationSignalement task configuration
      */
     public List<NotificationSignalementTaskConfigUnit> findByIdUnit( int nIdUnit, Plugin plugin )
@@ -363,9 +384,12 @@ public class NotificationSignalementTaskConfigUnitDAO
     /**
      * Find by id unit and id task.
      *
-     * @param nIdUnit the n id unit
-     * @param nIdTask the n id task
-     * @param plugin the plugin
+     * @param nIdUnit
+     *            the n id unit
+     * @param nIdTask
+     *            the n id task
+     * @param plugin
+     *            the plugin
      * @return the list
      */
     public List<NotificationSignalementTaskConfigUnit> findByIdUnitAndIdTask( int nIdUnit, int nIdTask, Plugin plugin )
@@ -399,8 +423,10 @@ public class NotificationSignalementTaskConfigUnitDAO
     /**
      * Find by id unit.
      *
-     * @param nIdTypeSignalement the n id type signalement
-     * @param plugin            the plugin
+     * @param nIdTypeSignalement
+     *            the n id type signalement
+     * @param plugin
+     *            the plugin
      * @return the list of notificationSignalement task configuration
      */
     public List<NotificationSignalementTaskConfigUnit> findByIdTypeSignalement( int nIdTypeSignalement, Plugin plugin )
@@ -433,9 +459,12 @@ public class NotificationSignalementTaskConfigUnitDAO
     /**
      * Delete.
      *
-     * @param nIdTask            the task id
-     * @param nIdUnit            the unit id
-     * @param plugin            the plugin
+     * @param nIdTask
+     *            the task id
+     * @param nIdUnit
+     *            the unit id
+     * @param plugin
+     *            the plugin
      */
     public void delete( int nIdTask, int nIdUnit, Plugin plugin )
     {
@@ -452,9 +481,12 @@ public class NotificationSignalementTaskConfigUnitDAO
     /**
      * Delete by type signalement.
      *
-     * @param nIdTask            the task id
-     * @param nIdTypeSignalement            the report type id
-     * @param plugin            the plugin
+     * @param nIdTask
+     *            the task id
+     * @param nIdTypeSignalement
+     *            the report type id
+     * @param plugin
+     *            the plugin
      */
     public void deleteByTypeSignalement( int nIdTask, int nIdTypeSignalement, Plugin plugin )
     {
@@ -471,8 +503,10 @@ public class NotificationSignalementTaskConfigUnitDAO
     /**
      * Delete all.
      *
-     * @param nIdTask            the task id
-     * @param plugin            the plugin
+     * @param nIdTask
+     *            the task id
+     * @param plugin
+     *            the plugin
      */
     public void deleteAll( int nIdTask, Plugin plugin )
     {

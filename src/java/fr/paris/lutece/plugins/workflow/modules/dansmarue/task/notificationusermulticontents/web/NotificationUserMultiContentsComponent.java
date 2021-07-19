@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -51,6 +51,7 @@ import fr.paris.lutece.plugins.dansmarue.business.entities.Signalement;
 import fr.paris.lutece.plugins.dansmarue.service.IMessageTypologieService;
 import fr.paris.lutece.plugins.dansmarue.service.ISignalementService;
 import fr.paris.lutece.plugins.dansmarue.utils.SignalementUtils;
+import fr.paris.lutece.plugins.workflow.modules.dansmarue.service.TaskUtils;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.service.dto.BaliseFreemarkerDTO;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notificationusermulticontents.business.NotificationSignalementUserMultiContentsTaskConfig;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notificationusermulticontents.business.NotificationSignalementUserMultiContentsTaskConfigDAO;
@@ -67,134 +68,150 @@ import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.portal.service.util.AppPathService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
-
 /**
  * The notification user 3 contents component.
  */
 public class NotificationUserMultiContentsComponent extends AbstractTaskComponent
 {
-    
+
     /** The Constant DTO_NAME_HEURE_DE_TRAITEMENT. */
     // CONSTANTS
-    private static final String                                   DTO_NAME_HEURE_DE_TRAITEMENT                = "Heure de passage";
-    
+    private static final String DTO_NAME_HEURE_DE_TRAITEMENT = "Heure de passage";
+
     /** The Constant DTO_NAME_DATE_DE_TRAITEMENT. */
-    private static final String                                   DTO_NAME_DATE_DE_TRAITEMENT                 = "Date de passage";
+    private static final String DTO_NAME_DATE_DE_TRAITEMENT = "Date de passage";
 
     /** The Constant LINE_SEPARATOR. */
-    private static final String                                   LINE_SEPARATOR                              = "line.separator";
-    
+    private static final String LINE_SEPARATOR = "line.separator";
+
     /** The Constant BALISE_BR. */
-    private static final String                                   BALISE_BR                                   = "<br/>|<br>|<br />|<p>";
-    
+    private static final String BALISE_BR = "<br/>|<br>|<br />|<p>";
+
     /** The Constant BALISE. */
-    private static final String                                   BALISE                                      = "<[^>]*>";
-    
+    private static final String BALISE = "<[^>]*>";
+
     /** The Constant MARK_CONFIG. */
     // MARKERS
-    private static final String                                   MARK_CONFIG                                 = "config";
-    
+    private static final String MARK_CONFIG = "config";
+
     /** The Constant MARK_MESSAGES_TYPOLOGIE. */
-    private static final String                                   MARK_MESSAGES_TYPOLOGIE                     = "message_typologie";
-    
+    private static final String MARK_MESSAGES_TYPOLOGIE = "message_typologie";
+
     /** The Constant MARK_WEBAPP_URL. */
-    private static final String                                   MARK_WEBAPP_URL                             = "webapp_url";
-    
+    private static final String MARK_WEBAPP_URL = "webapp_url";
+
     /** The Constant MARK_LOCALE. */
-    private static final String                                   MARK_LOCALE                                 = "locale";
-    
+    private static final String MARK_LOCALE = "locale";
+
     /** The Constant MARK_BALISES. */
-    private static final String                                   MARK_BALISES                                = "balises";
-    
+    private static final String MARK_BALISES = "balises";
+
     /** The Constant MARK_NUMERO. */
-    private static final String                                   MARK_NUMERO                                 = "numero";
-    
+    private static final String MARK_NUMERO = "numero";
+
+    /** The Constant MARK_ID_TYPE. */
+    private static final String MARK_ID_TYPE = "id_type";
+
     /** The Constant MARK_TYPE. */
-    private static final String                                   MARK_TYPE                                   = "type";
-    
+    private static final String MARK_TYPE = "type";
+
     /** The Constant MARK_ADRESSE. */
-    private static final String                                   MARK_ADRESSE                                = "adresse";
-    
+    private static final String MARK_ADRESSE = "adresse";
+
     /** The Constant MARK_PRIORITE. */
-    private static final String                                   MARK_PRIORITE                               = "priorite";
-    
+    private static final String MARK_PRIORITE = "priorite";
+
     /** The Constant MARK_COMMENTAIRE. */
-    private static final String                                   MARK_COMMENTAIRE                            = "commentaire";
-    
+    private static final String MARK_COMMENTAIRE = "commentaire";
+
     /** The Constant MARK_PRECISION. */
-    private static final String                                   MARK_PRECISION                              = "precision";
-    
+    private static final String MARK_PRECISION = "precision";
+
     /** The Constant MARK_LIEN_CONSULTATION. */
-    private static final String                                   MARK_LIEN_CONSULTATION                      = "lien_consultation";
-    
+    private static final String MARK_LIEN_CONSULTATION = "lien_consultation";
+
     /** The Constant MARK_DATE_PROGRAMMATION. */
-    private static final String                                   MARK_DATE_PROGRAMMATION                     = "date_programmation";
-    
+    private static final String MARK_DATE_PROGRAMMATION = "date_programmation";
+
     /** The Constant MARK_NOTIFICATION_USER_VALUE. */
-    private static final String                                   MARK_NOTIFICATION_USER_VALUE                = "notification_user_value";
-    
+    private static final String MARK_NOTIFICATION_USER_VALUE = "notification_user_value";
+
     /** The Constant MARK_DATE_DE_TRAITEMENT. */
-    private static final String                                   MARK_DATE_DE_TRAITEMENT                     = "datetraitement";
-    
+    private static final String MARK_DATE_DE_TRAITEMENT = "datetraitement";
+
     /** The Constant MARK_HEURE_DE_TRAITEMENT. */
-    private static final String                                   MARK_HEURE_DE_TRAITEMENT                    = "heuretraitement";
-    
+    private static final String MARK_HEURE_DE_TRAITEMENT = "heuretraitement";
+
     /** The Constant MARK_ISROADMAP. */
-    private static final String                                   MARK_ISROADMAP                              = "isRoadMap";
-    
+    private static final String MARK_ISROADMAP = "isRoadMap";
+
     /** The Constant MARK_HAS_EMAIL_SIGNALEUR. */
-    private static final String                                   MARK_HAS_EMAIL_SIGNALEUR                    = "has_email_signaleur";
-    
+    private static final String MARK_HAS_EMAIL_SIGNALEUR = "has_email_signaleur";
+
     /** The Constant MARK_FLAG_IS_SERVICE_FAIT. */
-    private static final String                                   MARK_FLAG_IS_SERVICE_FAIT                   = "fIsServiceFait";
+    private static final String MARK_FLAG_IS_SERVICE_FAIT = "fIsServiceFait";
+    private static final String MARK_CP = "code_postal";
+    private static final String MARK_ID_TYPO_LVL_1 = "id_typologie_lvl_1";
 
     /** The Constant MARK_ALIAS_ANOMALIE. */
-    private static final String                                   MARK_ALIAS_ANOMALIE                         = "alias_anomalie";
+    private static final String MARK_ALIAS_ANOMALIE = "alias_anomalie";
 
     /** The Constant MARK_ID_ANOMALIE. */
-    private static final String                                   MARK_ID_ANOMALIE                            = "id_anomalie";
+    private static final String MARK_ID_ANOMALIE = "id_anomalie";
+
+    private static final String MARK_URL_SONDAGE_DEMANDE = "urlSondageDemande";
+
+    private static final String MARK_URL_SONDAGE_SERVICE = "urlSondageService";
 
     /** The Constant PARAM_ISROADMAP. */
     // PARAMETERS
-    private static final String                                   PARAM_ISROADMAP                             = "isRoadMap";
-    
+    private static final String PARAM_ISROADMAP = "isRoadMap";
+
     /** The Constant PARAMETER_CHOSEN_MESSAGE. */
-    private static final String                                   PARAMETER_CHOSEN_MESSAGE                    = "chosenMessage";
+    private static final String PARAMETER_CHOSEN_MESSAGE = "chosenMessage";
 
     /** The Constant MESSAGE_MANDATORY_FIELD. */
     // MESSAGES
-    private static final String                                   MESSAGE_MANDATORY_FIELD                     = "module.workflow.dansmarue.task_notification_config.message.mandatory.field";
-    
+    private static final String MESSAGE_MANDATORY_FIELD = "module.workflow.dansmarue.task_notification_config.message.mandatory.field";
+
     /** The Constant ERROR_SENDER. */
-    private static final String                                   ERROR_SENDER                                = "module.workflow.dansmarue.task_notification_config.error.sender";
-    
+    private static final String ERROR_SENDER = "module.workflow.dansmarue.task_notification_config.error.sender";
+
     /** The Constant ERROR_SUBJECT. */
-    private static final String                                   ERROR_SUBJECT                               = "module.workflow.dansmarue.task_notification_config.error.subject";
-    
+    private static final String ERROR_SUBJECT = "module.workflow.dansmarue.task_notification_config.error.subject";
+
     /** The Constant ERROR_TITLE. */
-    private static final String                                   ERROR_TITLE                                 = "module.workflow.dansmarue.task_notification_config.error.title";
-    
+    private static final String ERROR_TITLE = "module.workflow.dansmarue.task_notification_config.error.title";
+
     /** The Constant ERROR_MESSAGE. */
-    private static final String                                   ERROR_MESSAGE                               = "module.workflow.dansmarue.task_notification_config.error.message";
-    
+    private static final String ERROR_MESSAGE = "module.workflow.dansmarue.task_notification_config.error.message";
+
     /** The Constant MESSAGE_CHOSE_MESSAGE. */
-    private static final String                                   MESSAGE_CHOSE_MESSAGE                       = "module.workflow.dansmarue.task_notification_config.3contents.servicefait.error.chosemessage";
+    private static final String MESSAGE_CHOSE_MESSAGE = "module.workflow.dansmarue.task_notification_config.3contents.servicefait.error.chosemessage";
 
     /** The Constant TEMPLATE_TASK_NOTIFICATION_CONFIG. */
     // TEMPLATES
-    private static final String                                   TEMPLATE_TASK_NOTIFICATION_CONFIG           = "admin/plugins/workflow/modules/signalement/task_notification_signalement_user_3contents_config.html";
-    
+    private static final String TEMPLATE_TASK_NOTIFICATION_CONFIG = "admin/plugins/workflow/modules/signalement/task_notification_signalement_user_3contents_config.html";
+
     /** The Constant TEMPLATE_TASK_NOTIFICATION_USER_FORM. */
-    private static final String                                   TEMPLATE_TASK_NOTIFICATION_USER_FORM        = "admin/plugins/workflow/modules/signalement/task_notification_signalement_user_3contents_form.html";
-    
+    private static final String TEMPLATE_TASK_NOTIFICATION_USER_FORM = "admin/plugins/workflow/modules/signalement/task_notification_signalement_user_3contents_form.html";
+
     /** The Constant TEMPLATE_TASK_NOTIFICATION_USER_INFORMATION. */
-    private static final String                                   TEMPLATE_TASK_NOTIFICATION_USER_INFORMATION = "admin/plugins/workflow/modules/signalement/task_notification_user_3contents_information.html";
+    private static final String TEMPLATE_TASK_NOTIFICATION_USER_INFORMATION = "admin/plugins/workflow/modules/signalement/task_notification_user_3contents_information.html";
+
+    private static final String ENTETE_HEADER = "sitelabels.site_property.message.typologie.entete.htmlblock";
+
+    private static final String ENTETE_FOOTER = "sitelabels.site_property.message.typologie.pieddepage.htmlblock";
+
+    private static final String URL_SONDAGE_DEMANDE = "sitelabels.site_property.message.url.sondage.demande";
+
+    private static final String URL_SONDAGE_SERVICE = "sitelabels.site_property.message.url.sondage.sevice";
 
     /** The notification user multi contents value service. */
     // SERVICES
     @Inject
     @Named( "signalement.notificationUserMultiContentsValueService" )
-    private NotificationUserMultiContentsValueService             _notificationUserMultiContentsValueService;
+    private NotificationUserMultiContentsValueService _notificationUserMultiContentsValueService;
 
     /** The notification signalement user multi contents task config DAO. */
     @Inject
@@ -204,23 +221,26 @@ public class NotificationUserMultiContentsComponent extends AbstractTaskComponen
     /** The signalement service. */
     @Inject
     @Named( "signalementService" )
-    private ISignalementService                                   _signalementService;
+    private ISignalementService _signalementService;
 
     /** The message typologie service. */
     @Inject
     @Named( "messageTypologieService" )
-    private IMessageTypologieService                              _messageTypologieService;
-
-
+    private IMessageTypologieService _messageTypologieService;
 
     /**
      * Gets the display task form.
      *
-     * @param nIdResource the n id resource
-     * @param strResourceType the str resource type
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param nIdResource
+     *            the n id resource
+     * @param strResourceType
+     *            the str resource type
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the display task form
      */
     @Override
@@ -238,8 +258,8 @@ public class NotificationUserMultiContentsComponent extends AbstractTaskComponen
         String strRoadMap = request.getParameter( PARAM_ISROADMAP );
 
         // on defini si l'action est une declaration de service fait
-        fIsServiceFait = StringUtils.isNotBlank( idAction )
-                && ( idAction.equals( "22" ) || idAction.equals( "18" ) || idAction.equals( "41" ) || idAction.equals( "49" ) || idAction.equals( "53" ) || idAction.equals( "62" ) );
+        fIsServiceFait = StringUtils.isNotBlank( idAction ) && ( idAction.equals( "22" ) || idAction.equals( "18" ) || idAction.equals( "41" )
+                || idAction.equals( "49" ) || idAction.equals( "53" ) || idAction.equals( "62" ) );
 
         Signalement signalement = _signalementService.getSignalement( nIdResource );
 
@@ -249,7 +269,8 @@ public class NotificationUserMultiContentsComponent extends AbstractTaskComponen
             messageSf.setMessage( message.replaceAll( BALISE_BR, System.getProperty( LINE_SEPARATOR ) ).replaceAll( BALISE, "" ) );
         }
 
-        boolean hasEmailSignaleur = ( null != signalement ) && CollectionUtils.isNotEmpty( signalement.getSignaleurs( ) ) && !StringUtils.isBlank( signalement.getSignaleurs( ).get( 0 ).getMail( ) );
+        boolean hasEmailSignaleur = ( null != signalement ) && CollectionUtils.isNotEmpty( signalement.getSignaleurs( ) )
+                && !StringUtils.isBlank( signalement.getSignaleurs( ).get( 0 ).getMail( ) );
 
         model.put( MARK_HAS_EMAIL_SIGNALEUR, hasEmailSignaleur );
 
@@ -258,9 +279,7 @@ public class NotificationUserMultiContentsComponent extends AbstractTaskComponen
             List<MessageTypologie> listMessageTypologie = _messageTypologieService.loadAllMessageActifByIdType( signalement.getTypeSignalement( ).getId( ) );
             for ( MessageTypologie messageTypologie : listMessageTypologie )
             {
-                messageTypologie.setContenuMessage( ( DatastoreService.getDataValue( "sitelabels.site_property.message.typologie.entete.htmlblock", "" ) + messageTypologie.getContenuMessage( )
-                + DatastoreService.getDataValue( "sitelabels.site_property.message.typologie.pieddepage.htmlblock", "" ) )
-                        .replaceAll( BALISE_BR, System.getProperty( LINE_SEPARATOR ) ).replaceAll( BALISE, "" ) );
+                messageTypologie.setContenuMessage( getFullMessage( messageTypologie ) );
                 String message = prepareMessage( request, locale, signalement, messageTypologie.getContenuMessage( ) );
                 messageTypologie.setContenuMessage( message.replaceAll( BALISE_BR, System.getProperty( LINE_SEPARATOR ) ).replaceAll( BALISE, "" ) );
             }
@@ -275,15 +294,30 @@ public class NotificationUserMultiContentsComponent extends AbstractTaskComponen
         return template.getHtml( );
     }
 
+    private String getFullMessage( MessageTypologie messageTypologie )
+    {
+        String headerMessage = DatastoreService.getDataValue( ENTETE_HEADER, "" );
+        String contentMessage = messageTypologie.getContenuMessage( );
+        String footerMessage = DatastoreService.getDataValue( ENTETE_FOOTER, "" );
+
+        String fullMessage = headerMessage + contentMessage + footerMessage;
+
+        fullMessage = fullMessage.replaceAll( BALISE_BR, System.getProperty( LINE_SEPARATOR ) );
+
+        return fullMessage;
+    }
+
     /**
      * Return the different messages linked to the selected task.
      *
-     * @param task            the task
+     * @param task
+     *            the task
      * @return list of messages
      */
     private List<NotificationSignalementUserMultiContentsTaskConfig> getNotificationUserMultiContentsMessages( ITask task )
     {
-        List<Long> listIdMessageTask = _notificationSignalementUserMultiContentsTaskConfigDAO.selectAllMessageTask( task.getId( ), SignalementUtils.getPlugin( ) );
+        List<Long> listIdMessageTask = _notificationSignalementUserMultiContentsTaskConfigDAO.selectAllMessageTask( task.getId( ),
+                SignalementUtils.getPlugin( ) );
         List<NotificationSignalementUserMultiContentsTaskConfig> config = new ArrayList<>( );
 
         for ( Long idMessage : listIdMessageTask )
@@ -296,9 +330,12 @@ public class NotificationUserMultiContentsComponent extends AbstractTaskComponen
     /**
      * Gets the display config form.
      *
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the display config form
      */
     @Override
@@ -321,6 +358,10 @@ public class NotificationUserMultiContentsComponent extends AbstractTaskComponen
         dto = new BaliseFreemarkerDTO( );
         dto.setNom( "Numéro de l'anomalie" );
         dto.setValeur( MARK_NUMERO );
+        balises.add( dto );
+        dto = new BaliseFreemarkerDTO( );
+        dto.setNom( "Id du Type de l'anomalie" );
+        dto.setValeur( MARK_ID_TYPE );
         balises.add( dto );
         dto = new BaliseFreemarkerDTO( );
         dto.setNom( "Type d'anomalie" );
@@ -360,6 +401,21 @@ public class NotificationUserMultiContentsComponent extends AbstractTaskComponen
         dto.setNom( DTO_NAME_DATE_DE_TRAITEMENT );
         dto.setValeur( MARK_DATE_DE_TRAITEMENT );
         balises.add( dto );
+        dto = new BaliseFreemarkerDTO( );
+        dto.setNom( "Url de sondage de demande" );
+        dto.setValeur( MARK_URL_SONDAGE_DEMANDE );
+        balises.add( dto );
+        dto = new BaliseFreemarkerDTO( );
+        dto.setNom( "Url de sondage de service" );
+        dto.setValeur( MARK_URL_SONDAGE_SERVICE );
+        balises.add( dto );
+        dto = new BaliseFreemarkerDTO( );
+        dto.setNom( "code postal" );
+        dto.setValeur( MARK_CP );
+        balises.add( dto );
+        dto = new BaliseFreemarkerDTO( );
+        dto.setNom( "ID de la catégorie de niveau 1" );
+        dto.setValeur( MARK_ID_TYPO_LVL_1 );
 
         dto = new BaliseFreemarkerDTO( );
         dto.setNom( DTO_NAME_HEURE_DE_TRAITEMENT );
@@ -374,9 +430,12 @@ public class NotificationUserMultiContentsComponent extends AbstractTaskComponen
     /**
      * Do save config.
      *
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the string
      */
     @Override
@@ -388,9 +447,9 @@ public class NotificationUserMultiContentsComponent extends AbstractTaskComponen
         Integer idTask = task.getId( );
         String sender = request.getParameter( "sender" );
         String subject = request.getParameter( "subject" );
-        String[] listIdMessage = request.getParameterValues( "idMessage" );
-        String[] listTitle = request.getParameterValues( "title" );
-        String[] listMessage = request.getParameterValues( "message" );
+        String [ ] listIdMessage = request.getParameterValues( "idMessage" );
+        String [ ] listTitle = request.getParameterValues( "title" );
+        String [ ] listMessage = request.getParameterValues( "message" );
 
         int nIndex = listIdMessage.length;
 
@@ -399,11 +458,11 @@ public class NotificationUserMultiContentsComponent extends AbstractTaskComponen
         {
             NotificationSignalementUserMultiContentsTaskConfig config = new NotificationSignalementUserMultiContentsTaskConfig( );
             config.setIdTask( idTask );
-            config.setIdMessage( Long.parseLong( listIdMessage[i] ) );
+            config.setIdMessage( Long.parseLong( listIdMessage [i] ) );
             config.setSender( sender );
             config.setSubject( subject );
-            config.setTitle( listTitle[i] );
-            config.setMessage( listMessage[i] );
+            config.setTitle( listTitle [i] );
+            config.setMessage( listMessage [i] );
 
             conf.add( config );
         }
@@ -415,21 +474,26 @@ public class NotificationUserMultiContentsComponent extends AbstractTaskComponen
             {
                 strError = ERROR_SENDER;
             }
-            else if ( StringUtils.EMPTY.equals( config.getSubject( ) ) )
-            {
-                strError = ERROR_SUBJECT;
-            }
-            else if ( StringUtils.EMPTY.equals( config.getTitle( ) ) )
-            {
-                strError = ERROR_TITLE;
-            }
-            else if ( StringUtils.EMPTY.equals( config.getMessage( ) ) )
-            {
-                strError = ERROR_MESSAGE;
-            }
+            else
+                if ( StringUtils.EMPTY.equals( config.getSubject( ) ) )
+                {
+                    strError = ERROR_SUBJECT;
+                }
+                else
+                    if ( StringUtils.EMPTY.equals( config.getTitle( ) ) )
+                    {
+                        strError = ERROR_TITLE;
+                    }
+                    else
+                        if ( StringUtils.EMPTY.equals( config.getMessage( ) ) )
+                        {
+                            strError = ERROR_MESSAGE;
+                        }
             if ( !strError.equals( WorkflowUtils.EMPTY_STRING ) )
             {
-                Object[] tabRequiredFields = { I18nService.getLocalizedString( strError, locale ) };
+                Object [ ] tabRequiredFields = {
+                        I18nService.getLocalizedString( strError, locale )
+                };
 
                 return AdminMessageService.getMessageUrl( request, MESSAGE_MANDATORY_FIELD, tabRequiredFields, AdminMessage.TYPE_STOP );
             }
@@ -450,16 +514,21 @@ public class NotificationUserMultiContentsComponent extends AbstractTaskComponen
     /**
      * Gets the display task information.
      *
-     * @param nIdHistory the n id history
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param nIdHistory
+     *            the n id history
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the display task information
      */
     @Override
     public String getDisplayTaskInformation( int nIdHistory, HttpServletRequest request, Locale locale, ITask task )
     {
-        NotificationUserMultiContentsValue notificationUserMultiContentsValue = _notificationUserMultiContentsValueService.findByPrimaryKey( nIdHistory, task.getId( ), null );
+        NotificationUserMultiContentsValue notificationUserMultiContentsValue = _notificationUserMultiContentsValueService.findByPrimaryKey( nIdHistory,
+                task.getId( ), null );
 
         Map<String, Object> model = new HashMap<>( );
         List<NotificationSignalementUserMultiContentsTaskConfig> config = getNotificationUserMultiContentsMessages( task );
@@ -474,10 +543,14 @@ public class NotificationUserMultiContentsComponent extends AbstractTaskComponen
     /**
      * Gets the task information xml.
      *
-     * @param nIdHistory the n id history
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param nIdHistory
+     *            the n id history
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the task information xml
      */
     @Override
@@ -489,11 +562,16 @@ public class NotificationUserMultiContentsComponent extends AbstractTaskComponen
     /**
      * Do validate task.
      *
-     * @param nIdResource the n id resource
-     * @param strResourceType the str resource type
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param nIdResource
+     *            the n id resource
+     * @param strResourceType
+     *            the str resource type
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the string
      */
     @Override
@@ -510,7 +588,8 @@ public class NotificationUserMultiContentsComponent extends AbstractTaskComponen
         boolean hasEmailSignaleur = false;
         if ( null != signalement )
         {
-            hasEmailSignaleur = CollectionUtils.isNotEmpty( signalement.getSignaleurs( ) ) && StringUtils.isNotBlank( signalement.getSignaleurs( ).get( 0 ).getMail( ) );
+            hasEmailSignaleur = CollectionUtils.isNotEmpty( signalement.getSignaleurs( ) )
+                    && StringUtils.isNotBlank( signalement.getSignaleurs( ).get( 0 ).getMail( ) );
             if ( !hasEmailSignaleur )
             {
                 return null;
@@ -529,10 +608,14 @@ public class NotificationUserMultiContentsComponent extends AbstractTaskComponen
     /**
      * Fills the message with variable values.
      *
-     * @param request            the http request
-     * @param locale            the local
-     * @param signalement            the report
-     * @param message            the message
+     * @param request
+     *            the http request
+     * @param locale
+     *            the local
+     * @param signalement
+     *            the report
+     * @param message
+     *            the message
      * @return email message
      */
     private String prepareMessage( HttpServletRequest request, Locale locale, Signalement signalement, String message )
@@ -540,6 +623,7 @@ public class NotificationUserMultiContentsComponent extends AbstractTaskComponen
         Map<String, Object> emailModel = new HashMap<>( );
         emailModel.put( MARK_ID_ANOMALIE, signalement.getId( ) );
         emailModel.put( MARK_NUMERO, signalement.getNumeroSignalement( ) );
+        emailModel.put( MARK_ID_TYPE, signalement.getTypeSignalement( ).getId( ) );
         emailModel.put( MARK_TYPE, signalement.getType( ) );
 
         // Alias de l'anomalie
@@ -590,6 +674,35 @@ public class NotificationUserMultiContentsComponent extends AbstractTaskComponen
             heureDeTraitement = StringUtils.EMPTY;
         }
         emailModel.put( MARK_HEURE_DE_TRAITEMENT, heureDeTraitement );
+
+        emailModel.put( MARK_URL_SONDAGE_DEMANDE, DatastoreService.getDataValue( URL_SONDAGE_DEMANDE, "" ) );
+        emailModel.put( MARK_URL_SONDAGE_SERVICE, DatastoreService.getDataValue( URL_SONDAGE_SERVICE, "" ) );
+
+        if ( ( signalement.getAdresses( ) != null ) && ( signalement.getAdresses( ).get( 0 ) != null )
+                && ( signalement.getAdresses( ).get( 0 ).getAdresse( ) != null ) )
+        {
+            emailModel.put( MARK_CP, TaskUtils.getCPFromAdresse( signalement.getAdresses( ).get( 0 ).getAdresse( ) ) );
+        }
+        else
+        {
+            emailModel.put( MARK_CP, StringUtils.EMPTY );
+        }
+
+        int idTypeAnoLvl1 = TaskUtils.getIdTypeAnoLvl1( signalement.getTypeSignalement( ) );
+        if ( idTypeAnoLvl1 > -1 )
+        {
+            emailModel.put( MARK_ID_TYPO_LVL_1, idTypeAnoLvl1 );
+        }
+        else
+        {
+            emailModel.put( MARK_ID_TYPO_LVL_1, StringUtils.EMPTY );
+        }
+
+        String urlSondageDemande = DatastoreService.getDataValue( URL_SONDAGE_DEMANDE, "" );
+        String urlSondageService = DatastoreService.getDataValue( URL_SONDAGE_SERVICE, "" );
+        emailModel.put( MARK_URL_SONDAGE_DEMANDE, urlSondageDemande );
+        emailModel.put( MARK_URL_SONDAGE_SERVICE, urlSondageService );
+
         String messageHtml = "";
         messageHtml = AppTemplateService.getTemplateFromStringFtl( message, locale, emailModel ).getHtml( );
         return messageHtml;

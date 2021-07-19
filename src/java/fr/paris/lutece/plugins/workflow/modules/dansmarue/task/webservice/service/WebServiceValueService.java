@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,7 +40,6 @@ import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.webservice.busine
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.webservice.business.WebServiceValueDAO;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 
-
 /**
  * WebServiceValueService.
  */
@@ -62,8 +61,10 @@ public class WebServiceValueService
     /**
      * Creation of an instance of webservice value.
      *
-     * @param webserviceValue            The instance of webservice valuewhich contains the informations to store
-     * @param plugin            the plugin
+     * @param webserviceValue
+     *            The instance of webservice valuewhich contains the informations to store
+     * @param plugin
+     *            the plugin
      */
     public void create( WebServiceValue webserviceValue, Plugin plugin )
     {
@@ -73,9 +74,12 @@ public class WebServiceValueService
     /**
      * remove webservice value by history.
      *
-     * @param nIdHistory            the history key
-     * @param nIdTask            The task key
-     * @param plugin            the Plugin
+     * @param nIdHistory
+     *            the history key
+     * @param nIdTask
+     *            The task key
+     * @param plugin
+     *            the Plugin
      */
     public void removeByHistory( int nIdHistory, int nIdTask, Plugin plugin )
     {
@@ -85,8 +89,10 @@ public class WebServiceValueService
     /**
      * remove webservice value by task.
      *
-     * @param nIdTask            The task key
-     * @param plugin            the Plugin
+     * @param nIdTask
+     *            The task key
+     * @param plugin
+     *            the Plugin
      */
     public void removeByTask( int nIdTask, Plugin plugin )
     {
@@ -96,9 +102,12 @@ public class WebServiceValueService
     /**
      * Load the webserviceValue Object.
      *
-     * @param nIdHistory            the history id
-     * @param nIdTask            the task id
-     * @param plugin            the plugin
+     * @param nIdHistory
+     *            the history id
+     * @param nIdTask
+     *            the task id
+     * @param plugin
+     *            the plugin
      * @return the Config Object
      */
     public WebServiceValue findByPrimaryKey( int nIdHistory, int nIdTask, Plugin plugin )
@@ -109,7 +118,8 @@ public class WebServiceValueService
     /**
      * Load by history.
      *
-     * @param nIdHistory the n id history
+     * @param nIdHistory
+     *            the n id history
      * @return the web service value
      */
     public WebServiceValue loadByHistory( int nIdHistory )

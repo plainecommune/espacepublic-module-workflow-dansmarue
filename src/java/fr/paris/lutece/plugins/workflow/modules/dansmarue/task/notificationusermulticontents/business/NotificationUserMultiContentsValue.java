@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,16 +40,16 @@ public class NotificationUserMultiContentsValue
 {
 
     /** The n id resource history. */
-    private int    _nIdResourceHistory;
+    private int _nIdResourceHistory;
 
     /** The n id task. */
-    private int    _nIdTask;
+    private int _nIdTask;
 
     /** The str value. */
     private String _strValue;
 
     /** The n id message. */
-    private int    _nIdMessage;
+    private int _nIdMessage;
 
     /**
      * Gets the id resource history.
@@ -127,11 +127,11 @@ public class NotificationUserMultiContentsValue
     /**
      * Sets the id message.
      *
-     * @param nIdMessage
-     *            the new id message
+     * @param idMessage
+     *            the nIdMessage to set
      */
-    public void setIdMessage( int nIdMessage )
+    public void setIdMessage( int idMessage )
     {
-        _nIdMessage = nIdMessage;
+        _nIdMessage = idMessage;
     }
 }

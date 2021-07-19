@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -58,10 +58,10 @@ public class CreationSignalementTask extends AbstractSignalementTask
 {
 
     /** The Constant TASK_TITLE. */
-    private static final String TASK_TITLE    = "Création d'un signalement";
+    private static final String TASK_TITLE = "Création d'un signalement";
 
     /** The state service. */
-    private IStateService       _stateService = SpringContextService.getBean( "workflow.stateService" );
+    private IStateService _stateService = SpringContextService.getBean( "workflow.stateService" );
 
     /**
      * Gets the title.

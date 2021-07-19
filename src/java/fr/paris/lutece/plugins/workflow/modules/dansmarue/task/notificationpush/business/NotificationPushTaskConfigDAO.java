@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,37 +37,38 @@ import fr.paris.lutece.plugins.workflowcore.business.config.ITaskConfigDAO;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.util.sql.DAOUtil;
 
-
 /**
  * The Class NotificationPushTaskConfigDAO.
  */
 public class NotificationPushTaskConfigDAO implements ITaskConfigDAO<NotificationPushTaskConfig>
 {
-    
+
     /** The Constant SQL_QUERY_FIND_BY_PRIMARY_KEY. */
     private static final String SQL_QUERY_FIND_BY_PRIMARY_KEY = "SELECT id_task, mobile_subject, mobile_message, is_diffusion_declarant, is_diffusion_suiveur "
             + " FROM signalement_workflow_notification_push_config WHERE id_task=?";
-    
+
     /** The Constant SQL_QUERY_INSERT. */
-    private static final String SQL_QUERY_INSERT              = "INSERT INTO signalement_workflow_notification_push_config"
+    private static final String SQL_QUERY_INSERT = "INSERT INTO signalement_workflow_notification_push_config"
             + "(id_task,mobile_subject,mobile_message, is_diffusion_declarant, is_diffusion_suiveur) VALUES (?, ?, ?, ?, ?)";
-    
+
     /** The Constant SQL_QUERY_UPDATE. */
-    private static final String SQL_QUERY_UPDATE              = "UPDATE signalement_workflow_notification_push_config "
+    private static final String SQL_QUERY_UPDATE = "UPDATE signalement_workflow_notification_push_config "
             + "SET id_task=?,mobile_subject=?, mobile_message=?, is_diffusion_declarant=?, is_diffusion_suiveur=?" + " WHERE id_task=?";
-    
+
     /** The Constant SQL_QUERY_DELETE. */
-    private static final String SQL_QUERY_DELETE              = "DELETE FROM signalement_workflow_notification_push_config WHERE id_task=? ";
+    private static final String SQL_QUERY_DELETE = "DELETE FROM signalement_workflow_notification_push_config WHERE id_task=? ";
 
     /**
      * Insert.
      *
-     * @param config the config
-     * @param plugin the plugin
+     * @param config
+     *            the config
+     * @param plugin
+     *            the plugin
      */
     public synchronized void insert( NotificationPushTaskConfig config, Plugin plugin )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) ; )
         {
 
             int nIndex = 1;
@@ -87,12 +88,14 @@ public class NotificationPushTaskConfigDAO implements ITaskConfigDAO<Notificatio
     /**
      * Store.
      *
-     * @param config the config
-     * @param plugin the plugin
+     * @param config
+     *            the config
+     * @param plugin
+     *            the plugin
      */
     public void store( NotificationPushTaskConfig config, Plugin plugin )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) ; )
         {
 
             int nIndex = 1;
@@ -113,14 +116,16 @@ public class NotificationPushTaskConfigDAO implements ITaskConfigDAO<Notificatio
     /**
      * Load.
      *
-     * @param nIdTask the n id task
-     * @param plugin the plugin
+     * @param nIdTask
+     *            the n id task
+     * @param plugin
+     *            the plugin
      * @return the notification push task config
      */
     public NotificationPushTaskConfig load( int nIdTask, Plugin plugin )
     {
         NotificationPushTaskConfig pushTaskConfig = new NotificationPushTaskConfig( );
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_PRIMARY_KEY, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_PRIMARY_KEY, plugin ) ; )
         {
 
             int nIndex = 1;
@@ -148,12 +153,14 @@ public class NotificationPushTaskConfigDAO implements ITaskConfigDAO<Notificatio
     /**
      * Delete.
      *
-     * @param nIdTask the n id task
-     * @param plugin the plugin
+     * @param nIdTask
+     *            the n id task
+     * @param plugin
+     *            the plugin
      */
     public void delete( int nIdTask, Plugin plugin )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ) ; )
         {
             int nIndex = 1;
 

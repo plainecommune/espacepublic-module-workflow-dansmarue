@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,37 +37,38 @@ import fr.paris.lutece.plugins.workflowcore.business.config.ITaskConfigDAO;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.util.sql.DAOUtil;
 
-
 /**
  * WebServiceSignalementTaskConfigDAO.
  */
 public class WebServiceSignalementTaskConfigDAO implements ITaskConfigDAO<WebServiceSignalementTaskConfig>
 {
-    
+
     /** The Constant SQL_QUERY_DELETE. */
-    private static final String SQL_QUERY_DELETE              = "DELETE FROM signalement_workflow_webservice_config  WHERE  id_task = ?";
-    
+    private static final String SQL_QUERY_DELETE = "DELETE FROM signalement_workflow_webservice_config  WHERE  id_task = ?";
+
     /** The Constant SQL_QUERY_FIND_BY_PRIMARY_KEY. */
     private static final String SQL_QUERY_FIND_BY_PRIMARY_KEY = "SELECT id_task, id_state_withws_success, id_state_withws_failure, id_state_withoutws FROM signalement_workflow_webservice_config WHERE id_task=?";
-    
+
     /** The Constant SQL_QUERY_INSERT. */
-    private static final String SQL_QUERY_INSERT              = "INSERT INTO signalement_workflow_webservice_config (id_task, id_state_withws_success, id_state_withws_failure, id_state_withoutws) VALUES (?, ?, ?, ?)";
-    
+    private static final String SQL_QUERY_INSERT = "INSERT INTO signalement_workflow_webservice_config (id_task, id_state_withws_success, id_state_withws_failure, id_state_withoutws) VALUES (?, ?, ?, ?)";
+
     /** The Constant SQL_QUERY_UPDATE. */
-    private static final String SQL_QUERY_UPDATE              = "UPDATE signalement_workflow_webservice_config SET  id_state_withws_success = ?, id_state_withws_failure = ?, id_state_withoutWS = ? WHERE id_task = ?";
+    private static final String SQL_QUERY_UPDATE = "UPDATE signalement_workflow_webservice_config SET  id_state_withws_success = ?, id_state_withws_failure = ?, id_state_withoutWS = ? WHERE id_task = ?";
 
     /**
      * Find By Primary Key.
      *
-     * @param nPrimaryKey            the primary key
-     * @param plugin            the plugin
+     * @param nPrimaryKey
+     *            the primary key
+     * @param plugin
+     *            the plugin
      * @return the task config
      */
     public WebServiceSignalementTaskConfig findByPrimaryKey( int nPrimaryKey, Plugin plugin )
     {
         WebServiceSignalementTaskConfig config = null;
 
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_PRIMARY_KEY, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_PRIMARY_KEY, plugin ) ; )
         {
             daoUtil.setInt( 1, nPrimaryKey );
 
@@ -99,7 +100,7 @@ public class WebServiceSignalementTaskConfigDAO implements ITaskConfigDAO<WebSer
      */
     public void insert( WebServiceSignalementTaskConfig config, Plugin plugin )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) ; )
         {
 
             int nIndex = 1;
@@ -117,12 +118,14 @@ public class WebServiceSignalementTaskConfigDAO implements ITaskConfigDAO<WebSer
     /**
      * Delete task config.
      *
-     * @param nPrimaryKey            the primary key
-     * @param plugin            the plugin
+     * @param nPrimaryKey
+     *            the primary key
+     * @param plugin
+     *            the plugin
      */
     public void delete( int nPrimaryKey, Plugin plugin )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ) ; )
         {
             daoUtil.setInt( 1, nPrimaryKey );
 
@@ -135,12 +138,14 @@ public class WebServiceSignalementTaskConfigDAO implements ITaskConfigDAO<WebSer
     /**
      * Update task config.
      *
-     * @param config            task config to update
-     * @param plugin            the plugin
+     * @param config
+     *            task config to update
+     * @param plugin
+     *            the plugin
      */
     public void update( WebServiceSignalementTaskConfig config, Plugin plugin )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) ; )
         {
 
             int nIndex = 1;
@@ -158,7 +163,8 @@ public class WebServiceSignalementTaskConfigDAO implements ITaskConfigDAO<WebSer
     /**
      * Insert.
      *
-     * @param config the config
+     * @param config
+     *            the config
      */
     @Override
     public void insert( WebServiceSignalementTaskConfig config )
@@ -169,7 +175,8 @@ public class WebServiceSignalementTaskConfigDAO implements ITaskConfigDAO<WebSer
     /**
      * Store.
      *
-     * @param config the config
+     * @param config
+     *            the config
      */
     @Override
     public void store( WebServiceSignalementTaskConfig config )
@@ -180,7 +187,8 @@ public class WebServiceSignalementTaskConfigDAO implements ITaskConfigDAO<WebSer
     /**
      * Load.
      *
-     * @param nIdTask the n id task
+     * @param nIdTask
+     *            the n id task
      * @return the web service signalement task config
      */
     @Override
@@ -192,7 +200,8 @@ public class WebServiceSignalementTaskConfigDAO implements ITaskConfigDAO<WebSer
     /**
      * Delete.
      *
-     * @param nIdTask the n id task
+     * @param nIdTask
+     *            the n id task
      */
     @Override
     public void delete( int nIdTask )

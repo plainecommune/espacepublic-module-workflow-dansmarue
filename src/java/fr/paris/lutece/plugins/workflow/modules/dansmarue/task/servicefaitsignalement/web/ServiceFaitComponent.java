@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -76,40 +76,40 @@ public class ServiceFaitComponent extends AbstractTaskComponent
 {
 
     /** The Constant PARAMETER_ADRESSE_EMAIL. */
-    private static final String PARAMETER_ADRESSE_EMAIL             = "adresseEmail";
+    private static final String PARAMETER_ADRESSE_EMAIL = "adresseEmail";
 
     /** The Constant KEY_INVALID_EMAIL_FORMAT. */
-    private static final String KEY_INVALID_EMAIL_FORMAT            = "module.workflow.dansmarue.serviceFaitSignalement.adresse.email.mauvais.format";
+    private static final String KEY_INVALID_EMAIL_FORMAT = "module.workflow.dansmarue.serviceFaitSignalement.adresse.email.mauvais.format";
 
     /** The Constant KEY_HEURE_DE_PASSAGE_MAUVAIS_FORMAT. */
     private static final String KEY_HEURE_DE_PASSAGE_MAUVAIS_FORMAT = "module.workflow.dansmarue.serviceFaitSignalement.heure.de.passage.mauvais.format";
 
     /** The Constant KEY_DATE_DE_PASSAGE_MAUVAIS_FORMAT. */
-    private static final String KEY_DATE_DE_PASSAGE_MAUVAIS_FORMAT  = "module.workflow.dansmarue.serviceFaitSignalement.date.de.passage.mauvais.format";
+    private static final String KEY_DATE_DE_PASSAGE_MAUVAIS_FORMAT = "module.workflow.dansmarue.serviceFaitSignalement.date.de.passage.mauvais.format";
 
     /** The Constant KEY_HEURE_DE_PASSAGE_NULL. */
-    private static final String KEY_HEURE_DE_PASSAGE_NULL           = "module.workflow.dansmarue.serviceFaitSignalement.heure.de.passage.null";
+    private static final String KEY_HEURE_DE_PASSAGE_NULL = "module.workflow.dansmarue.serviceFaitSignalement.heure.de.passage.null";
 
     /** The Constant KEY_DATE_DE_PASSAGE_NULL. */
-    private static final String KEY_DATE_DE_PASSAGE_NULL            = "module.workflow.dansmarue.serviceFaitSignalement.date.de.passage.null";
+    private static final String KEY_DATE_DE_PASSAGE_NULL = "module.workflow.dansmarue.serviceFaitSignalement.date.de.passage.null";
 
     /** The Constant MARK_IS_ROAD_MAP. */
     // MARK
-    private static final String MARK_IS_ROAD_MAP                    = "isRoadMap";
+    private static final String MARK_IS_ROAD_MAP = "isRoadMap";
 
     /** The Constant MARK_LIST_DEPOTS. */
-    private static final String MARK_LIST_DEPOTS                    = "listDepots";
+    private static final String MARK_LIST_DEPOTS = "listDepots";
 
     /** The Constant PARAMETER_IS_ROAD_MAP. */
     // PARAMETERS
-    private static final String PARAMETER_IS_ROAD_MAP               = "isRoadMap";
+    private static final String PARAMETER_IS_ROAD_MAP = "isRoadMap";
 
     /** The Constant PARAMETER_SERVICE_OPTION. */
-    private static final String PARAMETER_SERVICE_OPTION            = "serviceOption";
+    private static final String PARAMETER_SERVICE_OPTION = "serviceOption";
 
     /** The Constant TEMPLATE_TASK_FORM. */
     // TEMPLATES
-    private static final String TEMPLATE_TASK_FORM                  = "admin/plugins/workflow/modules/signalement/task_service_fait_form.html";
+    private static final String TEMPLATE_TASK_FORM = "admin/plugins/workflow/modules/signalement/task_service_fait_form.html";
 
     /** The signalement service. */
     // SERVICES
@@ -120,7 +120,7 @@ public class ServiceFaitComponent extends AbstractTaskComponent
     /** The adresse service. */
     @Inject
     @Named( "adresseSignalementService" )
-    private IAdresseService     _adresseService;
+    private IAdresseService _adresseService;
 
     /**
      * Gets the display task form.
@@ -253,7 +253,7 @@ public class ServiceFaitComponent extends AbstractTaskComponent
                 {
                     DepotManager.doValidate( request );
                 }
-                catch ( FunctionnalException fe )
+                catch( FunctionnalException fe )
                 {
                     AppLogService.error( fe );
                     return AdminMessageService.getMessageUrl( request, Messages.MANDATORY_FIELDS, AdminMessage.TYPE_STOP );
@@ -267,23 +267,25 @@ public class ServiceFaitComponent extends AbstractTaskComponent
             {
                 return AdminMessageService.getMessageUrl( request, KEY_DATE_DE_PASSAGE_NULL, AdminMessage.TYPE_STOP );
             }
-            else if ( StringUtils.isBlank( heureDePassage ) )
-            {
-                return AdminMessageService.getMessageUrl( request, KEY_HEURE_DE_PASSAGE_NULL, AdminMessage.TYPE_STOP );
-            }
             else
-            {
-
-                if ( !isValidFormat( DateUtils.DATE_FR, dateDePassage ) )
+                if ( StringUtils.isBlank( heureDePassage ) )
+                {
+                    return AdminMessageService.getMessageUrl( request, KEY_HEURE_DE_PASSAGE_NULL, AdminMessage.TYPE_STOP );
+                }
+                else
                 {
 
-                    return AdminMessageService.getMessageUrl( request, KEY_DATE_DE_PASSAGE_MAUVAIS_FORMAT, AdminMessage.TYPE_STOP );
+                    if ( !isValidFormat( DateUtils.DATE_FR, dateDePassage ) )
+                    {
+
+                        return AdminMessageService.getMessageUrl( request, KEY_DATE_DE_PASSAGE_MAUVAIS_FORMAT, AdminMessage.TYPE_STOP );
+                    }
+                    else
+                        if ( !isValidFormat( DateUtils.HOUR_FR, heureDePassage ) )
+                        {
+                            return AdminMessageService.getMessageUrl( request, KEY_HEURE_DE_PASSAGE_MAUVAIS_FORMAT, AdminMessage.TYPE_STOP );
+                        }
                 }
-                else if ( !isValidFormat( DateUtils.HOUR_FR, heureDePassage ) )
-                {
-                    return AdminMessageService.getMessageUrl( request, KEY_HEURE_DE_PASSAGE_MAUVAIS_FORMAT, AdminMessage.TYPE_STOP );
-                }
-            }
 
             String email = request.getParameter( PARAMETER_ADRESSE_EMAIL );
             if ( StringUtils.isNotBlank( email ) && !validateEmail( email ) )
@@ -318,7 +320,7 @@ public class ServiceFaitComponent extends AbstractTaskComponent
                 date = null;
             }
         }
-        catch ( ParseException ex )
+        catch( ParseException ex )
         {
             AppLogService.error( ex );
         }

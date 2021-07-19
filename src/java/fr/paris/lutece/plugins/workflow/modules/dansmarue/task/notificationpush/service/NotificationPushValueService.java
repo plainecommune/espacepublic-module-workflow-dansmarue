@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,13 +40,12 @@ import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notificationpush.
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notificationpush.business.NotificationPushValueDAO;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 
-
 /**
  * The Class NotificationPushValueService.
  */
 public class NotificationPushValueService
 {
-    
+
     /** The dao. */
     @Inject
     @Named( "signalement.notificationPushValueDAO" )
@@ -62,7 +61,8 @@ public class NotificationPushValueService
     /**
      * Creation of an instance of notification value.
      *
-     * @param notificationPushValue the notification push value
+     * @param notificationPushValue
+     *            the notification push value
      */
     public void create( NotificationPushValue notificationPushValue )
     {
@@ -72,9 +72,12 @@ public class NotificationPushValueService
     /**
      * remove notification value by history.
      *
-     * @param nIdHistory            the history key
-     * @param nIdTask            The task key
-     * @param plugin            the Plugin
+     * @param nIdHistory
+     *            the history key
+     * @param nIdTask
+     *            The task key
+     * @param plugin
+     *            the Plugin
      */
     public void removeByHistory( int nIdHistory, int nIdTask, Plugin plugin )
     {
@@ -84,8 +87,10 @@ public class NotificationPushValueService
     /**
      * remove notification value by task.
      *
-     * @param nIdTask            The task key
-     * @param plugin            the Plugin
+     * @param nIdTask
+     *            The task key
+     * @param plugin
+     *            the Plugin
      */
     public void removeByTask( int nIdTask, Plugin plugin )
     {
@@ -98,9 +103,12 @@ public class NotificationPushValueService
     /**
      * Load the notificationValue Object.
      *
-     * @param nIdHistory            the history id
-     * @param nIdTask            the task id
-     * @param plugin            the plugin
+     * @param nIdHistory
+     *            the history id
+     * @param nIdTask
+     *            the task id
+     * @param plugin
+     *            the plugin
      * @return the Config Object
      */
     public NotificationPushValue findByPrimaryKey( int nIdHistory, int nIdTask, Plugin plugin )
@@ -111,7 +119,8 @@ public class NotificationPushValueService
     /**
      * Load by history.
      *
-     * @param nIdHistory the n id history
+     * @param nIdHistory
+     *            the n id history
      * @return the notification push value
      */
     public NotificationPushValue loadByHistory( int nIdHistory )

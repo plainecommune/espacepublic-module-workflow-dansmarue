@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,13 +35,12 @@ package fr.paris.lutece.plugins.workflow.modules.dansmarue.service;
 
 import fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation;
 
-
 /**
  * WorkflowSignalementPlugin.
  */
 public class WorkflowSignalementPlugin extends PluginDefaultImplementation
 {
-    
+
     /** The Constant PLUGIN_NAME. */
     public static final String PLUGIN_NAME = "workflow-signalement";
 }

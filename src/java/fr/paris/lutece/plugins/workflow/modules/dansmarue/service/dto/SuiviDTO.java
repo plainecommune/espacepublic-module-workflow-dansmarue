@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,10 +40,10 @@ public class SuiviDTO
 {
 
     /** The method. */
-    private String  _method;
+    private String _method;
 
     /** The token. */
-    private String  _token;
+    private String _token;
 
     /** The valide. */
     private Boolean _valide;

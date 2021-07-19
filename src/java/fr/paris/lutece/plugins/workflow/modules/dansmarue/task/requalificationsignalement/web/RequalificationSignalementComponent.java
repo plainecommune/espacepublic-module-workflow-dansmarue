@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -84,146 +84,142 @@ import fr.paris.lutece.util.ReferenceList;
 import fr.paris.lutece.util.beanvalidation.BeanValidationUtil;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
-
 /**
  * RequalificationSignalementComponent.
  */
 public class RequalificationSignalementComponent extends AbstractTaskComponent
 {
-    
+
     /** The Constant TEMPLATE_TASK_FORM. */
-    private static final String       TEMPLATE_TASK_FORM                                    = "admin/plugins/workflow/modules/signalement/task_requalification_signalement_form.html";
+    private static final String TEMPLATE_TASK_FORM = "admin/plugins/workflow/modules/signalement/task_requalification_signalement_form.html";
 
     /** The Constant MESSAGE_ERROR_ADRESSE_NULL. */
     // MESSAGES
-    private static final String       MESSAGE_ERROR_ADRESSE_NULL                            = "module.workflow.dansmarue.requalification.adresseNull";
-    
+    private static final String MESSAGE_ERROR_ADRESSE_NULL = "module.workflow.dansmarue.requalification.adresseNull";
+
     /** The Constant MESSAGE_ERROR_ADRESSE_HORS_PARIS. */
-    private static final String       MESSAGE_ERROR_ADRESSE_HORS_PARIS                      = "module.workflow.dansmarue.requalification.horsParis";
-    
+    private static final String MESSAGE_ERROR_ADRESSE_HORS_PARIS = "module.workflow.dansmarue.requalification.horsParis";
+
     /** The Constant MESSAGE_ERROR_TYPE_SIGNALEMENT_NULL. */
-    private static final String       MESSAGE_ERROR_TYPE_SIGNALEMENT_NULL                   = "module.workflow.dansmarue.requalification.typeNull";
-    
+    private static final String MESSAGE_ERROR_TYPE_SIGNALEMENT_NULL = "module.workflow.dansmarue.requalification.typeNull";
+
     /** The Constant MESSAGE_ERROR_SECTEUR_NULL. */
-    private static final String       MESSAGE_ERROR_SECTEUR_NULL                            = "module.workflow.dansmarue.requalification.secteurNull";
+    private static final String MESSAGE_ERROR_SECTEUR_NULL = "module.workflow.dansmarue.requalification.secteurNull";
 
     /** The Constant MARK_PHOTOS. */
     // MARKERS
-    public static final String        MARK_PHOTOS                                           = "photos";
-    
+    public static final String MARK_PHOTOS = "photos";
+
     /** The Constant MARK_ADRESSE. */
-    public static final String        MARK_ADRESSE                                          = "adresse";
-    
+    public static final String MARK_ADRESSE = "adresse";
+
     /** The Constant MARK_SIGNALEUR. */
-    public static final String        MARK_SIGNALEUR                                        = "signaleur";
-    
+    public static final String MARK_SIGNALEUR = "signaleur";
+
     /** The Constant MARK_PROPOSED_ADDRESSES. */
-    public static final String        MARK_PROPOSED_ADDRESSES                               = "proposedAddresses";
-    
+    public static final String MARK_PROPOSED_ADDRESSES = "proposedAddresses";
+
     /** The Constant MARK_NO_VALID_ADDRESSES. */
-    public static final String        MARK_NO_VALID_ADDRESSES                               = "noValidAddresses";
-    
+    public static final String MARK_NO_VALID_ADDRESSES = "noValidAddresses";
+
     /** The Constant MARK_NEXT. */
-    public static final String        MARK_NEXT                                             = "next";
-    
+    public static final String MARK_NEXT = "next";
+
     /** The Constant MARK_SIGNALEMENT. */
-    private static final String       MARK_SIGNALEMENT                                      = "signalement";
-    
+    private static final String MARK_SIGNALEMENT = "signalement";
+
     /** The Constant MARK_STATE_SIGNALEMENT. */
-    private static final String       MARK_STATE_SIGNALEMENT                                = "stateSignalement";
-    
-    /** The Constant MARK_TYPE_LISTE. */
-    private static final String       MARK_TYPE_LISTE                                       = "type_list";
-    
-    /** The Constant MARK_KEY_MAPS. */
-    private static final String       MARK_KEY_MAPS                                         = "key_maps";
-    
+    private static final String MARK_STATE_SIGNALEMENT = "stateSignalement";
+
+    private static final String MARK_KEY_MAPS = "key_maps";
+
     /** The Constant MARK_SECTEUR_LIST. */
-    private static final String       MARK_SECTEUR_LIST                                     = "secteur_list";
-    
+    private static final String MARK_SECTEUR_LIST = "secteur_list";
+
     /** The Constant MARK_ISREQUALIFICATION_PRESTATAIRE. */
-    private static final String       MARK_ISREQUALIFICATION_PRESTATAIRE                    = "isRequalificationPrestataire";
-    
+    private static final String MARK_ISREQUALIFICATION_PRESTATAIRE = "isRequalificationPrestataire";
+
     /** The Constant MARK_ISROADMAP. */
-    private static final String       MARK_ISROADMAP                                        = "isRoadMap";
-    
+    private static final String MARK_ISROADMAP = "isRoadMap";
+
     /** The Constant MARK_SIGNALEMENT_REQUALIFICATION. */
-    private static final String       MARK_SIGNALEMENT_REQUALIFICATION                      = "signalement_requalification";
+    private static final String MARK_SIGNALEMENT_REQUALIFICATION = "signalement_requalification";
+    private static final String MARK_TYPE_LIST = "types_list";
 
     /** The Constant PARAM_ID_SECTOR. */
     // PARAM
-    private static final String       PARAM_ID_SECTOR                                       = "hiddenIdSector";
-    
+    private static final String PARAM_ID_SECTOR = "hiddenIdSector";
+
     /** The Constant PARAM_COMMENTAIRE_AGENT_TERRAIN. */
-    private static final String       PARAM_COMMENTAIRE_AGENT_TERRAIN                       = "commentaireAgentTerrain";
+    private static final String PARAM_COMMENTAIRE_AGENT_TERRAIN = "commentaireAgentTerrain";
 
     /** The Constant ADRESSE_NULL. */
     // CONSTANTS
-    private static final String       ADRESSE_NULL                                          = "";
-    
+    private static final String ADRESSE_NULL = "";
+
     /** The Constant VALID_ADDRESS. */
-    private static final String       VALID_ADDRESS                                         = "validAddress";
-    
+    private static final String VALID_ADDRESS = "validAddress";
+
     /** The Constant REQUALIF_STEP. */
-    private static final String       REQUALIF_STEP                                         = "requalifStep";
-    
+    private static final String REQUALIF_STEP = "requalifStep";
+
     /** The Constant REQUALIF_STEP2. */
-    private static final String       REQUALIF_STEP2                                        = "requalifStep2";
+    private static final String REQUALIF_STEP2 = "requalifStep2";
 
     /** The Constant PROPERTY_UNITS_RADIUS. */
     // PROPERTIES
-    private static final String       PROPERTY_UNITS_RADIUS                                 = "signalement.near.units.radius";
-    
+    private static final String PROPERTY_UNITS_RADIUS = "signalement.near.units.radius";
+
     /** The Constant ID_WORKFLOW_ACTION_78. */
-    private static final int          ID_WORKFLOW_ACTION_78                                 = 78;
-    
+    private static final int ID_WORKFLOW_ACTION_78 = 78;
+
     /** The Constant ID_WORKFLOW_ACTION_79. */
-    private static final int          ID_WORKFLOW_ACTION_79                                 = 79;
+    private static final int ID_WORKFLOW_ACTION_79 = 79;
 
     /** The Constant TEMPLATE_TASK_SIGNALEMENT_REQUALIFICATION_INFORMATION. */
-    private static final String       TEMPLATE_TASK_SIGNALEMENT_REQUALIFICATION_INFORMATION = "admin/plugins/workflow/modules/signalement/task_signalement_requalification_information.html";
+    private static final String TEMPLATE_TASK_SIGNALEMENT_REQUALIFICATION_INFORMATION = "admin/plugins/workflow/modules/signalement/task_signalement_requalification_information.html";
 
     /** The signalement service. */
     // SERVICES
     @Inject
     @Named( "signalementService" )
-    private ISignalementService       _signalementService;
-    
+    private ISignalementService _signalementService;
+
     /** The type signalement service. */
     @Inject
     @Named( "typeSignalementService" )
-    private ITypeSignalementService   _typeSignalementService;
-    
+    private ITypeSignalementService _typeSignalementService;
+
     /** The adresse service. */
     @Inject
     @Named( "adresseSignalementService" )
-    private IAdresseService           _adresseService;
-    
+    private IAdresseService _adresseService;
+
     /** The signalement workflow service. */
     @Inject
     @Named( "signalement.workflowService" )
-    private IWorkflowService          _signalementWorkflowService;
-    
+    private IWorkflowService _signalementWorkflowService;
+
     /** The photo service. */
     @Inject
     @Named( "photoService" )
-    private IPhotoService             _photoService;
-    
+    private IPhotoService _photoService;
+
     /** The signaleur service. */
     @Inject
     @Named( "signaleurService" )
-    private ISignaleurService         _signaleurService;
-    
+    private ISignaleurService _signaleurService;
+
     /** The sector service. */
     @Inject
     @Named( "unittree-dansmarue.sectorService" )
-    private ISectorService            _sectorService;
-    
+    private ISectorService _sectorService;
+
     /** The unit sira service. */
     @Inject
     @Named( "unittree-dansmarue.unitSiraService" )
-    private IUnitSiraService          _unitSiraService;
-    
+    private IUnitSiraService _unitSiraService;
+
     /** The address suggest POI service. */
     @Inject
     @Named( "addressSuggestPOIService" )
@@ -232,11 +228,16 @@ public class RequalificationSignalementComponent extends AbstractTaskComponent
     /**
      * Gets the display task form.
      *
-     * @param nIdResource the n id resource
-     * @param strResourceType the str resource type
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param nIdResource
+     *            the n id resource
+     * @param strResourceType
+     *            the str resource type
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the display task form
      */
     @Override
@@ -244,8 +245,8 @@ public class RequalificationSignalementComponent extends AbstractTaskComponent
     {
         Map<String, Object> model = new HashMap<>( );
 
-        RequalificationDTO requalifStep = ( RequalificationDTO ) request.getSession( ).getAttribute( REQUALIF_STEP );
-        RequalificationDTO requalifStep2 = ( RequalificationDTO ) request.getSession( ).getAttribute( REQUALIF_STEP2 );
+        RequalificationDTO requalifStep = (RequalificationDTO) request.getSession( ).getAttribute( REQUALIF_STEP );
+        RequalificationDTO requalifStep2 = (RequalificationDTO) request.getSession( ).getAttribute( REQUALIF_STEP2 );
         request.getSession( ).removeAttribute( REQUALIF_STEP );
         request.getSession( ).removeAttribute( REQUALIF_STEP2 );
 
@@ -298,7 +299,8 @@ public class RequalificationSignalementComponent extends AbstractTaskComponent
         if ( ( adresse.getLng( ) > 0 ) && ( adresse.getLat( ) > 0 ) && ( signalement.getTypeSignalement( ) != null ) )
         {
             // Entite calculée par défaut de l'anomalie
-            Unit defaultUnit = _unitSiraService.findUnitByGeomAndTypeSignalement( adresse.getLng( ), adresse.getLat( ), signalement.getTypeSignalement( ).getId( ) );
+            Unit defaultUnit = _unitSiraService.findUnitByGeomAndTypeSignalement( adresse.getLng( ), adresse.getLat( ),
+                    signalement.getTypeSignalement( ).getId( ) );
             // Si défault unit == null, ce qui veut dire pas de secteur correspondant au type et aux coordonnées, c'est du DEVE
             if ( defaultUnit == null )
             {
@@ -309,7 +311,8 @@ public class RequalificationSignalementComponent extends AbstractTaskComponent
             idUnits.add( defaultUnit.getIdUnit( ) );
             idUnits.add( Integer.parseInt( SignalementConstants.UNIT_DEVE ) );
 
-            List<Sector> sectors = _sectorService.findSectorsByDirectionsAndGeom( adresse.getLng( ), adresse.getLat( ), AppPropertiesService.getPropertyInt( PROPERTY_UNITS_RADIUS, 0 ), idUnits );
+            List<Sector> sectors = _sectorService.findSectorsByDirectionsAndGeom( adresse.getLng( ), adresse.getLat( ),
+                    AppPropertiesService.getPropertyInt( PROPERTY_UNITS_RADIUS, 0 ), idUnits );
             ReferenceList sectorList = ListUtils.toReferenceList( sectors, "idSector", "name", "", false );
             model.put( MARK_SECTEUR_LIST, sectorList );
         }
@@ -326,19 +329,22 @@ public class RequalificationSignalementComponent extends AbstractTaskComponent
 
         // get the signalement's state
         WorkflowService workflowService = WorkflowService.getInstance( );
-        State stateSignalement = workflowService.getState( signalement.getId( ).intValue( ), Signalement.WORKFLOW_RESOURCE_TYPE, _signalementWorkflowService.getSignalementWorkflowId( ), null );
+        State stateSignalement = workflowService.getState( signalement.getId( ).intValue( ), Signalement.WORKFLOW_RESOURCE_TYPE,
+                _signalementWorkflowService.getSignalementWorkflowId( ), null );
         model.put( MARK_STATE_SIGNALEMENT, stateSignalement );
 
         // get all the type signalement
         List<TypeSignalement> types = _typeSignalementService.getAllTypeSignalementActifLinkedToUnit( );
-        ReferenceList listeTypes = ListUtils.toReferenceList( types, "id", "formatTypeSignalement", "", false );
-        model.put( MARK_TYPE_LISTE, listeTypes );
 
         model.put( "locale", Locale.FRANCE );
 
-        // DMR 127 pour la requalification des anomalies à l'état Transféré à un prestataire et à l'état Service programmé prestataire on ne doit pas pouvoir modifier l'adresse et le secteur
-        boolean isRequalificationPrestataire = ( task.getAction( ) != null ) && ( ( task.getAction( ).getId( ) == ID_WORKFLOW_ACTION_78 ) || ( task.getAction( ).getId( ) == ID_WORKFLOW_ACTION_79 ) );
+        // DMR 127 pour la requalification des anomalies à l'état Transféré à un prestataire et à l'état Service programmé prestataire on ne doit pas pouvoir
+        // modifier l'adresse et le secteur
+        boolean isRequalificationPrestataire = ( task.getAction( ) != null )
+                && ( ( task.getAction( ).getId( ) == ID_WORKFLOW_ACTION_78 ) || ( task.getAction( ).getId( ) == ID_WORKFLOW_ACTION_79 ) );
         model.put( MARK_ISREQUALIFICATION_PRESTATAIRE, isRequalificationPrestataire );
+
+        model.put( MARK_TYPE_LIST, types );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_TASK_FORM, locale, model );
 
@@ -348,9 +354,12 @@ public class RequalificationSignalementComponent extends AbstractTaskComponent
     /**
      * Gets the display config form.
      *
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the display config form
      */
     @Override
@@ -362,10 +371,14 @@ public class RequalificationSignalementComponent extends AbstractTaskComponent
     /**
      * Gets the display task information.
      *
-     * @param nIdHistory the n id history
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param nIdHistory
+     *            the n id history
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the display task information
      */
     @Override
@@ -388,10 +401,14 @@ public class RequalificationSignalementComponent extends AbstractTaskComponent
     /**
      * Gets the task information xml.
      *
-     * @param nIdHistory the n id history
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param nIdHistory
+     *            the n id history
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the task information xml
      */
     @Override
@@ -403,11 +420,16 @@ public class RequalificationSignalementComponent extends AbstractTaskComponent
     /**
      * Do validate task.
      *
-     * @param nIdResource the n id resource
-     * @param strResourceType the str resource type
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param nIdResource
+     *            the n id resource
+     * @param strResourceType
+     *            the str resource type
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the string
      */
     @Override
@@ -446,7 +468,8 @@ public class RequalificationSignalementComponent extends AbstractTaskComponent
         {
             String addressLoad = request.getParameter( "adresseLoad" );
             String address = request.getParameter( "adresseRequalif" );
-            if ( StringUtils.isNotBlank( request.getParameter( "searchAddress" ) ) || ( StringUtils.isNotBlank( addressLoad ) && StringUtils.isNotBlank( address ) && !address.equals( addressLoad ) ) )
+            if ( StringUtils.isNotBlank( request.getParameter( "searchAddress" ) )
+                    || ( StringUtils.isNotBlank( addressLoad ) && StringUtils.isNotBlank( address ) && !address.equals( addressLoad ) ) )
             {
                 requalification.setLat( 0.0 );
                 requalification.setLng( 0.0 );
@@ -456,8 +479,8 @@ public class RequalificationSignalementComponent extends AbstractTaskComponent
                 String next = request.getParameter( "next" );
                 String isRoadMap = request.getParameter( MARK_ISROADMAP );
 
-                return AppPathService.getBaseUrl( request ) + "jsp/admin/plugins/signalement/WorkflowAction.jsp?action_id=" + task.getAction( ).getId( ) + "&signalement_id="
-                + requalification.getIdSignalement( ) + "&next=" + next + "&isRoadMap=" + isRoadMap;
+                return AppPathService.getBaseUrl( request ) + "jsp/admin/plugins/signalement/WorkflowAction.jsp?action_id=" + task.getAction( ).getId( )
+                        + "&signalement_id=" + requalification.getIdSignalement( ) + "&next=" + next + "&isRoadMap=" + isRoadMap;
             }
 
             // ACCESSIBILITY
@@ -468,35 +491,36 @@ public class RequalificationSignalementComponent extends AbstractTaskComponent
 
                 String delimiter = "/";
 
-                String[] temp = allParameter.split( delimiter );
+                String [ ] temp = allParameter.split( delimiter );
 
                 // get the address libel
-                String libelAddress = temp[0].toLowerCase( );
+                String libelAddress = temp [0].toLowerCase( );
 
                 // get the lat/lng in lambert 27561
-                String strLat = temp[1];
-                String strLng = temp[2];
+                String strLat = temp [1];
+                String strLng = temp [2];
 
                 Double dLat = Double.parseDouble( strLat );
                 Double dLng = Double.parseDouble( strLng );
 
                 // transform the lambert coordinates to WGS84 for the database
-                Double[] geom = _signalementService.getGeomFromLambertToWgs84( dLat, dLng );
+                Double [ ] geom = _signalementService.getGeomFromLambertToWgs84( dLat, dLng );
 
-                requalification.setLat( geom[1] );
-                requalification.setLng( geom[0] );
+                requalification.setLat( geom [1] );
+                requalification.setLng( geom [0] );
                 requalification.setAdresseRequalif( libelAddress );
 
                 request.getSession( ).setAttribute( REQUALIF_STEP2, requalification );
                 String next = request.getParameter( "next" );
                 String isRoadMap = request.getParameter( MARK_ISROADMAP );
 
-                return AppPathService.getBaseUrl( request ) + "jsp/admin/plugins/signalement/WorkflowAction.jsp?action_id=" + task.getAction( ).getId( ) + "&signalement_id="
-                + requalification.getIdSignalement( ) + "&next=" + next + "&isRoadMap=" + isRoadMap;
+                return AppPathService.getBaseUrl( request ) + "jsp/admin/plugins/signalement/WorkflowAction.jsp?action_id=" + task.getAction( ).getId( )
+                        + "&signalement_id=" + requalification.getIdSignalement( ) + "&next=" + next + "&isRoadMap=" + isRoadMap;
             }
         }
 
-        boolean isRequalificationPrestataire = ( task.getAction( ) != null ) && ( ( task.getAction( ).getId( ) == ID_WORKFLOW_ACTION_78 ) || ( task.getAction( ).getId( ) == ID_WORKFLOW_ACTION_79 ) );
+        boolean isRequalificationPrestataire = ( task.getAction( ) != null )
+                && ( ( task.getAction( ).getId( ) == ID_WORKFLOW_ACTION_78 ) || ( task.getAction( ).getId( ) == ID_WORKFLOW_ACTION_79 ) );
         if ( isRequalificationPrestataire )
         {
             Integer idSector = Integer.valueOf( request.getParameter( PARAM_ID_SECTOR ) );

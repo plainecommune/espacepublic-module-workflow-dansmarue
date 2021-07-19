@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,48 +40,49 @@ import fr.paris.lutece.plugins.workflowcore.business.config.ITaskConfigDAO;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.util.sql.DAOUtil;
 
-
 /**
  * DAO of RequalifierSignalementTaskConfig.
  */
 public class RequalificationAutoSignalementTaskConfigDAO implements ITaskConfigDAO<RequalificationAutoConfigUnit>
 {
-    
+
     /** The Constant SQL_QUERY_NEW_PRIMARY_KEY. */
-    private static final String SQL_QUERY_NEW_PRIMARY_KEY                                 = " SELECT COUNT( id_config_unit ) FROM signalement_workflow_rac_unit ";
-    
+    private static final String SQL_QUERY_NEW_PRIMARY_KEY = " SELECT COUNT( id_config_unit ) FROM signalement_workflow_rac_unit ";
+
     /** The Constant SQL_QUERY_FIND_TASK_CONFIG_UNIT_BY_PRIMARY_ID. */
-    private static final String SQL_QUERY_FIND_TASK_CONFIG_UNIT_BY_PRIMARY_ID             = " SELECT id_config_unit, id_task, id_unit_source, id_unit_target, id_type_signalement, id_state_after FROM signalement_workflow_rac_unit WHERE id_config_unit = ? ";
-    
+    private static final String SQL_QUERY_FIND_TASK_CONFIG_UNIT_BY_PRIMARY_ID = " SELECT id_config_unit, id_task, id_unit_source, id_unit_target, id_type_signalement, id_state_after FROM signalement_workflow_rac_unit WHERE id_config_unit = ? ";
+
     /** The Constant SQL_QUERY_FIND_TASK_CONFIG_UNIT_BY_TASK_ID. */
-    private static final String SQL_QUERY_FIND_TASK_CONFIG_UNIT_BY_TASK_ID                = " SELECT id_config_unit, id_task, id_unit_source, id_unit_target, id_type_signalement, id_state_after FROM signalement_workflow_rac_unit WHERE id_task = ? ";
-    
+    private static final String SQL_QUERY_FIND_TASK_CONFIG_UNIT_BY_TASK_ID = " SELECT id_config_unit, id_task, id_unit_source, id_unit_target, id_type_signalement, id_state_after FROM signalement_workflow_rac_unit WHERE id_task = ? ";
+
     /** The Constant SQL_QUERY_FIND_TASK_CONFIG_UNIT_BY_TASK_ID_SOURCE_UNIT_ID. */
     private static final String SQL_QUERY_FIND_TASK_CONFIG_UNIT_BY_TASK_ID_SOURCE_UNIT_ID = " SELECT id_config_unit, id_task, id_unit_source, id_unit_target, id_type_signalement, id_state_after FROM signalement_workflow_rac_unit WHERE id_task = ? AND id_unit_source = ? ";
-    
+
     /** The Constant SQL_QUERY_CREATE_TASK_CONFIG_UNIT. */
-    private static final String SQL_QUERY_CREATE_TASK_CONFIG_UNIT                         = " INSERT INTO signalement_workflow_rac_unit( id_config_unit, id_task, id_unit_source, id_unit_target, id_type_signalement, id_state_after ) VALUES ( ?, ?, ?, ?, ?, ?) ";
-    
+    private static final String SQL_QUERY_CREATE_TASK_CONFIG_UNIT = " INSERT INTO signalement_workflow_rac_unit( id_config_unit, id_task, id_unit_source, id_unit_target, id_type_signalement, id_state_after ) VALUES ( ?, ?, ?, ?, ?, ?) ";
+
     /** The Constant SQL_QUERY_UPDATE_TASK_CONFIG_UNIT. */
-    private static final String SQL_QUERY_UPDATE_TASK_CONFIG_UNIT                         = " UPDATE signalement_workflow_rac_unit SET id_task = ?, id_unit_source = ?, id_unit_target = ?, id_type_signalement = ?, id_state_after = ? WHERE id_config_unit = ? ";
-    
+    private static final String SQL_QUERY_UPDATE_TASK_CONFIG_UNIT = " UPDATE signalement_workflow_rac_unit SET id_task = ?, id_unit_source = ?, id_unit_target = ?, id_type_signalement = ?, id_state_after = ? WHERE id_config_unit = ? ";
+
     /** The Constant SQL_QUERY_DELETE_TASK_CONFIG_UNIT_BY_TASK_ID. */
-    private static final String SQL_QUERY_DELETE_TASK_CONFIG_UNIT_BY_TASK_ID              = " DELETE FROM signalement_workflow_rac_unit WHERE id_task = ? ";
-    
+    private static final String SQL_QUERY_DELETE_TASK_CONFIG_UNIT_BY_TASK_ID = " DELETE FROM signalement_workflow_rac_unit WHERE id_task = ? ";
+
     /** The Constant SQL_QUERY_DELETE_TASK_CONFIG_UNIT_BY_ID. */
-    private static final String SQL_QUERY_DELETE_TASK_CONFIG_UNIT_BY_ID                   = " DELETE FROM signalement_workflow_rac_unit WHERE id_config_unit = ? ";
+    private static final String SQL_QUERY_DELETE_TASK_CONFIG_UNIT_BY_ID = " DELETE FROM signalement_workflow_rac_unit WHERE id_config_unit = ? ";
 
     /**
      * Find By primary Key.
      *
-     * @param nIdConfigUnit            the id config unit
-     * @param plugin            the plugin
+     * @param nIdConfigUnit
+     *            the id config unit
+     * @param plugin
+     *            the plugin
      * @return requalification
      */
     public RequalificationAutoConfigUnit findByPrimaryKey( int nIdConfigUnit, Plugin plugin )
     {
         RequalificationAutoConfigUnit unit = null;
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_TASK_CONFIG_UNIT_BY_PRIMARY_ID, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_TASK_CONFIG_UNIT_BY_PRIMARY_ID, plugin ) ; )
         {
             daoUtil.setInt( 1, nIdConfigUnit );
             daoUtil.executeQuery( );
@@ -112,7 +113,7 @@ public class RequalificationAutoSignalementTaskConfigDAO implements ITaskConfigD
      */
     public synchronized void createUnit( RequalificationAutoConfigUnit requalificationAutoUnit, Plugin plugin )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_CREATE_TASK_CONFIG_UNIT, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_CREATE_TASK_CONFIG_UNIT, plugin ) ; )
         {
             requalificationAutoUnit.setIdConfigUnit( newPrimaryKey( plugin ) );
             daoUtil.setInt( 1, requalificationAutoUnit.getIdConfigUnit( ) );
@@ -138,7 +139,7 @@ public class RequalificationAutoSignalementTaskConfigDAO implements ITaskConfigD
     public List<RequalificationAutoConfigUnit> findByTaskId( int nTaskId, Plugin plugin )
     {
         List<RequalificationAutoConfigUnit> listUnits = new ArrayList<>( );
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_TASK_CONFIG_UNIT_BY_TASK_ID, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_TASK_CONFIG_UNIT_BY_TASK_ID, plugin ) ; )
         {
             daoUtil.setInt( 1, nTaskId );
 
@@ -162,15 +163,18 @@ public class RequalificationAutoSignalementTaskConfigDAO implements ITaskConfigD
     /**
      * Find by task id and source unit id.
      *
-     * @param nTaskId            the task id
-     * @param nSourceUnitId            the source unit id
-     * @param plugin            the plugin
+     * @param nTaskId
+     *            the task id
+     * @param nSourceUnitId
+     *            the source unit id
+     * @param plugin
+     *            the plugin
      * @return list task
      */
     public List<RequalificationAutoConfigUnit> findByTaskIdAndSourceUnitId( int nTaskId, int nSourceUnitId, Plugin plugin )
     {
         List<RequalificationAutoConfigUnit> listUnits = new ArrayList<>( );
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_TASK_CONFIG_UNIT_BY_TASK_ID_SOURCE_UNIT_ID, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_TASK_CONFIG_UNIT_BY_TASK_ID_SOURCE_UNIT_ID, plugin ) ; )
         {
             daoUtil.setInt( 1, nTaskId );
             daoUtil.setInt( 2, nSourceUnitId );
@@ -196,12 +200,14 @@ public class RequalificationAutoSignalementTaskConfigDAO implements ITaskConfigD
     /**
      * Update.
      *
-     * @param requalificationAutoUnit            the unit.
-     * @param plugin            the plugin
+     * @param requalificationAutoUnit
+     *            the unit.
+     * @param plugin
+     *            the plugin
      */
     public void updateUnit( RequalificationAutoConfigUnit requalificationAutoUnit, Plugin plugin )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE_TASK_CONFIG_UNIT, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE_TASK_CONFIG_UNIT, plugin ) ; )
         {
             daoUtil.setInt( 1, requalificationAutoUnit.getIdTask( ) );
             daoUtil.setInt( 2, requalificationAutoUnit.getIdSourceUnit( ) );
@@ -217,12 +223,14 @@ public class RequalificationAutoSignalementTaskConfigDAO implements ITaskConfigD
     /**
      * Delete task.
      *
-     * @param nTaskId            the is task
-     * @param plugin            the plugin
+     * @param nTaskId
+     *            the is task
+     * @param plugin
+     *            the plugin
      */
     public void deleteByTaskId( int nTaskId, Plugin plugin )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_TASK_CONFIG_UNIT_BY_TASK_ID, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_TASK_CONFIG_UNIT_BY_TASK_ID, plugin ) ; )
         {
             daoUtil.setInt( 1, nTaskId );
             daoUtil.executeUpdate( );
@@ -233,12 +241,14 @@ public class RequalificationAutoSignalementTaskConfigDAO implements ITaskConfigD
     /**
      * Delete task.
      *
-     * @param nId            the id task
-     * @param plugin            the plugin
+     * @param nId
+     *            the id task
+     * @param plugin
+     *            the plugin
      */
     public void deleteById( int nId, Plugin plugin )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_TASK_CONFIG_UNIT_BY_ID, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_TASK_CONFIG_UNIT_BY_ID, plugin ) ; )
         {
             daoUtil.setInt( 1, nId );
             daoUtil.executeUpdate( );
@@ -249,13 +259,14 @@ public class RequalificationAutoSignalementTaskConfigDAO implements ITaskConfigD
     /**
      * Get a new primary key.
      *
-     * @param plugin            The plugin
+     * @param plugin
+     *            The plugin
      * @return The new primary key
      */
     private int newPrimaryKey( Plugin plugin )
     {
         int nResult = 1;
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PRIMARY_KEY, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PRIMARY_KEY, plugin ) ; )
         {
             daoUtil.executeQuery( );
 
@@ -272,7 +283,8 @@ public class RequalificationAutoSignalementTaskConfigDAO implements ITaskConfigD
     /**
      * Insert.
      *
-     * @param config the config
+     * @param config
+     *            the config
      */
     @Override
     public void insert( RequalificationAutoConfigUnit config )
@@ -283,7 +295,8 @@ public class RequalificationAutoSignalementTaskConfigDAO implements ITaskConfigD
     /**
      * Store.
      *
-     * @param config the config
+     * @param config
+     *            the config
      */
     @Override
     public void store( RequalificationAutoConfigUnit config )
@@ -294,7 +307,8 @@ public class RequalificationAutoSignalementTaskConfigDAO implements ITaskConfigD
     /**
      * Load.
      *
-     * @param nIdTask the n id task
+     * @param nIdTask
+     *            the n id task
      * @return the requalification auto config unit
      */
     @Override
@@ -306,7 +320,8 @@ public class RequalificationAutoSignalementTaskConfigDAO implements ITaskConfigD
     /**
      * Delete.
      *
-     * @param nIdTask the n id task
+     * @param nIdTask
+     *            the n id task
      */
     @Override
     public void delete( int nIdTask )

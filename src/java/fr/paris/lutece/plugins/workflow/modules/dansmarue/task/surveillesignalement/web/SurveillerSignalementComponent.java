@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -65,7 +65,7 @@ public class SurveillerSignalementComponent extends AbstractTaskComponent
 
     /** The Constant MARK_SIGNALEMENT. */
     // MARKERS
-    private static final String MARK_SIGNALEMENT   = "signalement";
+    private static final String MARK_SIGNALEMENT = "signalement";
 
     /**
      * Do validate task.

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -81,159 +81,159 @@ public class NotificationComponent extends AbstractTaskComponent
 
     /** The Constant MARK_CONFIG_DTO_UNIT. */
     // MARKERS
-    private static final String                          MARK_CONFIG_DTO_UNIT                          = "configDTOUnit";
+    private static final String MARK_CONFIG_DTO_UNIT = "configDTOUnit";
 
     /** The Constant MARK_CONFIG_DTO_TYPE. */
-    private static final String                          MARK_CONFIG_DTO_TYPE                          = "configDTOType";
+    private static final String MARK_CONFIG_DTO_TYPE = "configDTOType";
 
     /** The Constant MARK_WEBAPP_URL. */
-    private static final String                          MARK_WEBAPP_URL                               = "webapp_url";
+    private static final String MARK_WEBAPP_URL = "webapp_url";
 
     /** The Constant MARK_LOCALE. */
-    private static final String                          MARK_LOCALE                                   = "locale";
+    private static final String MARK_LOCALE = "locale";
 
     /** The Constant MARK_LISTE_UNITS. */
-    private static final String                          MARK_LISTE_UNITS                              = "liste_units";
+    private static final String MARK_LISTE_UNITS = "liste_units";
 
     /** The Constant MARK_BALISES. */
-    private static final String                          MARK_BALISES                                  = "balises";
+    private static final String MARK_BALISES = "balises";
 
     /** The Constant MARK_NUMERO. */
-    private static final String                          MARK_NUMERO                                   = "numero";
+    private static final String MARK_NUMERO = "numero";
 
     /** The Constant MARK_TYPE. */
-    private static final String                          MARK_TYPE                                     = "type";
+    private static final String MARK_TYPE = "type";
 
     /** The Constant MARK_ADRESSE. */
-    private static final String                          MARK_ADRESSE                                  = "adresse";
+    private static final String MARK_ADRESSE = "adresse";
 
     /** The Constant MARK_PRIORITE. */
-    private static final String                          MARK_PRIORITE                                 = "priorite";
+    private static final String MARK_PRIORITE = "priorite";
 
     /** The Constant MARK_COMMENTAIRE. */
-    private static final String                          MARK_COMMENTAIRE                              = "commentaire";
+    private static final String MARK_COMMENTAIRE = "commentaire";
 
     /** The Constant MARK_PRECISION. */
-    private static final String                          MARK_PRECISION                                = "precision";
+    private static final String MARK_PRECISION = "precision";
 
     /** The Constant MARK_LIEN_CONSULT. */
-    private static final String                          MARK_LIEN_CONSULT                             = "lien";
+    private static final String MARK_LIEN_CONSULT = "lien";
 
     /** The Constant MARK_LIEN_SIGNALEMENT_WS. */
-    private static final String                          MARK_LIEN_SIGNALEMENT_WS                      = "wsSignalement";
+    private static final String MARK_LIEN_SIGNALEMENT_WS = "wsSignalement";
 
     /** The Constant MARK_DATE_ENVOI. */
-    private static final String                          MARK_DATE_ENVOI                               = "dateEnvoi";
+    private static final String MARK_DATE_ENVOI = "dateEnvoi";
 
     /** The Constant MARK_HEURE_ENVOI. */
-    private static final String                          MARK_HEURE_ENVOI                              = "heureEnvoi";
+    private static final String MARK_HEURE_ENVOI = "heureEnvoi";
 
     /** The Constant MARK_EMAIL_USAGER. */
-    private static final String                          MARK_EMAIL_USAGER                             = "emailUsager";
+    private static final String MARK_EMAIL_USAGER = "emailUsager";
 
     /** The Constant MARK_ALIAS_ANOMALIE. */
-    private static final String                          MARK_ALIAS_ANOMALIE                           = "alias_anomalie";
+    private static final String MARK_ALIAS_ANOMALIE = "alias_anomalie";
 
     /** The Constant MARK_ID_ANOMALIE. */
-    private static final String                          MARK_ID_ANOMALIE                              = "id_anomalie";
+    private static final String MARK_ID_ANOMALIE = "id_anomalie";
 
     /** The Constant MARK_TYPE_LIST. */
-    private static final String                          MARK_TYPE_LIST                                = "type_list";
+    private static final String MARK_TYPE_LIST = "type_list";
 
     /** The Constant PARAMETER_ID_TASK. */
     // PARAMETERS
-    private static final String                          PARAMETER_ID_TASK                             = "id_task";
+    private static final String PARAMETER_ID_TASK = "id_task";
 
     /** The Constant PARAMETER_ADD_UNIT. */
-    private static final String                          PARAMETER_ADD_UNIT                            = "add_unit";
+    private static final String PARAMETER_ADD_UNIT = "add_unit";
 
     /** The Constant PARAMETER_ADD_TYPE. */
-    private static final String                          PARAMETER_ADD_TYPE                            = "add_type";
+    private static final String PARAMETER_ADD_TYPE = "add_type";
 
     /** The Constant MESSAGE_EXCEPTION_OCCURED. */
     // MESSAGES
-    private static final String                          MESSAGE_EXCEPTION_OCCURED                     = "module.workflow.dansmarue.task_notification_config.message.exception";
+    private static final String MESSAGE_EXCEPTION_OCCURED = "module.workflow.dansmarue.task_notification_config.message.exception";
 
     /** The Constant MESSAGE_MANDATORY_FIELD. */
-    private static final String                          MESSAGE_MANDATORY_FIELD                       = "module.workflow.dansmarue.task_notification_config.message.mandatory.field";
+    private static final String MESSAGE_MANDATORY_FIELD = "module.workflow.dansmarue.task_notification_config.message.mandatory.field";
 
     /** The Constant ERROR_SENDER. */
-    private static final String                          ERROR_SENDER                                  = "module.workflow.dansmarue.task_notification_config.error.sender";
+    private static final String ERROR_SENDER = "module.workflow.dansmarue.task_notification_config.error.sender";
 
     /** The Constant ERROR_SUBJECT. */
-    private static final String                          ERROR_SUBJECT                                 = "module.workflow.dansmarue.task_notification_config.error.subject";
+    private static final String ERROR_SUBJECT = "module.workflow.dansmarue.task_notification_config.error.subject";
 
     /** The Constant ERROR_MESSAGE. */
-    private static final String                          ERROR_MESSAGE                                 = "module.workflow.dansmarue.task_notification_config.error.message";
+    private static final String ERROR_MESSAGE = "module.workflow.dansmarue.task_notification_config.error.message";
 
     /** The Constant ERROR_UNIT. */
-    private static final String                          ERROR_UNIT                                    = "module.workflow.dansmarue.task_notification_config.error.entite";
+    private static final String ERROR_UNIT = "module.workflow.dansmarue.task_notification_config.error.entite";
 
     /** The Constant ERROR_TYPE. */
-    private static final String                          ERROR_TYPE                                    = "module.workflow.dansmarue.task_notification_config.error.typeSignalement";
+    private static final String ERROR_TYPE = "module.workflow.dansmarue.task_notification_config.error.typeSignalement";
 
     /** The Constant ERROR_DESTINATAIRES. */
-    private static final String                          ERROR_DESTINATAIRES                           = "module.workflow.dansmarue.task_notification_config.error.destinataires";
+    private static final String ERROR_DESTINATAIRES = "module.workflow.dansmarue.task_notification_config.error.destinataires";
 
     /** The Constant MESSAGE_ERROR_UNIT_ALLREADY_EXISTS. */
-    private static final String                          MESSAGE_ERROR_UNIT_ALLREADY_EXISTS            = "module.workflow.dansmarue.task_notification_config.error.entite.exists";
+    private static final String MESSAGE_ERROR_UNIT_ALLREADY_EXISTS = "module.workflow.dansmarue.task_notification_config.error.entite.exists";
 
     /** The Constant MESSAGE_ERROR_TYPE_ALLREADY_EXISTS. */
-    private static final String                          MESSAGE_ERROR_TYPE_ALLREADY_EXISTS            = "module.workflow.dansmarue.task_notification_config.error.typeSignalement.exists";
+    private static final String MESSAGE_ERROR_TYPE_ALLREADY_EXISTS = "module.workflow.dansmarue.task_notification_config.error.typeSignalement.exists";
 
     /** The Constant MESSAGE_ERROR_RECIPIENT_FORMAT. */
-    private static final String                          MESSAGE_ERROR_RECIPIENT_FORMAT                = "module.workflow.dansmarue.task_notification_config.error.recipient.format";
+    private static final String MESSAGE_ERROR_RECIPIENT_FORMAT = "module.workflow.dansmarue.task_notification_config.error.recipient.format";
 
     /** The Constant TEMPLATE_TASK_NOTIFICATION_SIGNALEMENT_CONFIG. */
     // TEMPLATES
-    private static final String                          TEMPLATE_TASK_NOTIFICATION_SIGNALEMENT_CONFIG = "admin/plugins/workflow/modules/signalement/task_notification_signalement_config.html";
+    private static final String TEMPLATE_TASK_NOTIFICATION_SIGNALEMENT_CONFIG = "admin/plugins/workflow/modules/signalement/task_notification_signalement_config.html";
 
     /** The Constant RECIPIENT_SEPARATOR. */
     // CONSTANTS
-    private static final String                          RECIPIENT_SEPARATOR                           = ";";
+    private static final String RECIPIENT_SEPARATOR = ";";
 
     /** The Constant NOTHING_SELECT. */
-    private static final String                          NOTHING_SELECT                                = "-1";
+    private static final String NOTHING_SELECT = "-1";
 
     /** The Constant JSP_MODIFY_TASK. */
     // JSP
-    private static final String                          JSP_MODIFY_TASK                               = "jsp/admin/plugins/workflow/ModifyTask.jsp";
+    private static final String JSP_MODIFY_TASK = "jsp/admin/plugins/workflow/ModifyTask.jsp";
 
     /** The Constant LABEL_DATE_ENVOI. */
     // LABELS
-    private static final String                          LABEL_DATE_ENVOI                              = "#i18n{module.workflow.dansmarue.task_notification_config.freemarker.dateenvoi.label}";
+    private static final String LABEL_DATE_ENVOI = "#i18n{module.workflow.dansmarue.task_notification_config.freemarker.dateenvoi.label}";
 
     /** The Constant LABEL_HEURE_ENVOI. */
-    private static final String                          LABEL_HEURE_ENVOI                             = "#i18n{module.workflow.dansmarue.task_notification_config.freemarker.heureenvoi.label}";
+    private static final String LABEL_HEURE_ENVOI = "#i18n{module.workflow.dansmarue.task_notification_config.freemarker.heureenvoi.label}";
 
     /** The Constant LABEL_EMAIL_USAGER. */
-    private static final String                          LABEL_EMAIL_USAGER                            = "#i18n{module.workflow.dansmarue.task_notification_config.freemarker.emailusager.label}";
+    private static final String LABEL_EMAIL_USAGER = "#i18n{module.workflow.dansmarue.task_notification_config.freemarker.emailusager.label}";
 
     /** The unit service. */
     // SERVICES
     @Inject
     @Named( IUnitService.BEAN_UNIT_SERVICE )
-    private IUnitService                                 _unitService;
+    private IUnitService _unitService;
 
     /** The notification signalement task config service. */
     @Inject
     @Named( "signalement.notificationSignalementTaskConfigService" )
-    private NotificationSignalementTaskConfigService     _notificationSignalementTaskConfigService;
+    private NotificationSignalementTaskConfigService _notificationSignalementTaskConfigService;
 
     /** The signalement service. */
     @Inject
     @Named( "signalementService" )
-    private ISignalementService                          _signalementService;
+    private ISignalementService _signalementService;
 
     /** The resource history service. */
     @Inject
     @Named( "workflow.resourceHistoryService" )
-    private IResourceHistoryService                      _resourceHistoryService;
+    private IResourceHistoryService _resourceHistoryService;
 
     /** The type signalement service. */
     @Inject
     @Named( "typeSignalementService" )
-    private ITypeSignalementService                      _typeSignalementService;
+    private ITypeSignalementService _typeSignalementService;
 
     /** The notification signalement task config unit service. */
     @Inject
@@ -393,10 +393,12 @@ public class NotificationComponent extends AbstractTaskComponent
                 }
 
             }
-            catch ( Exception e )
+            catch( Exception e )
             {
                 AppLogService.error( e.getMessage( ), e );
-                Object[] tabError = { e.getMessage( ) };
+                Object [ ] tabError = {
+                        e.getMessage( )
+                };
                 return AdminMessageService.getMessageUrl( request, MESSAGE_EXCEPTION_OCCURED, tabError, AdminMessage.TYPE_STOP );
             }
 
@@ -407,36 +409,40 @@ public class NotificationComponent extends AbstractTaskComponent
                 {
                     strError = ERROR_UNIT;
                 }
-                else if ( StringUtils.isBlank( configUnit.getDestinataires( ) ) )
-                {
-                    strError = ERROR_DESTINATAIRES;
-                }
+                else
+                    if ( StringUtils.isBlank( configUnit.getDestinataires( ) ) )
+                    {
+                        strError = ERROR_DESTINATAIRES;
+                    }
                 if ( !strError.equals( WorkflowUtils.EMPTY_STRING ) )
                 {
-                    Object[] tabRequiredFields = { I18nService.getLocalizedString( strError, locale ) };
+                    Object [ ] tabRequiredFields = {
+                            I18nService.getLocalizedString( strError, locale )
+                    };
 
                     return AdminMessageService.getMessageUrl( request, MESSAGE_MANDATORY_FIELD, tabRequiredFields, AdminMessage.TYPE_STOP );
                 }
-                else if ( _notificationSignalementTaskConfigService.findUnitByPrimaryKey( task.getId( ), configUnit.getUnit( ).getIdUnit( ) ) != null )
-                {
-                    return AdminMessageService.getMessageUrl( request, MESSAGE_ERROR_UNIT_ALLREADY_EXISTS, AdminMessage.TYPE_STOP );
-                }
                 else
-                {
-                    // Check format fields
-                    EmailValidator emailValidator = new EmailValidator( );
-                    String[] listRecipient = configUnit.getDestinataires( ).split( RECIPIENT_SEPARATOR );
-                    for ( String recipient : listRecipient )
+                    if ( _notificationSignalementTaskConfigService.findUnitByPrimaryKey( task.getId( ), configUnit.getUnit( ).getIdUnit( ) ) != null )
                     {
-                        if ( !emailValidator.isValid( recipient.trim( ), null ) )
+                        return AdminMessageService.getMessageUrl( request, MESSAGE_ERROR_UNIT_ALLREADY_EXISTS, AdminMessage.TYPE_STOP );
+                    }
+                    else
+                    {
+                        // Check format fields
+                        EmailValidator emailValidator = new EmailValidator( );
+                        String [ ] listRecipient = configUnit.getDestinataires( ).split( RECIPIENT_SEPARATOR );
+                        for ( String recipient : listRecipient )
                         {
-                            return AdminMessageService.getMessageUrl( request, MESSAGE_ERROR_RECIPIENT_FORMAT, AdminMessage.TYPE_STOP );
+                            if ( !emailValidator.isValid( recipient.trim( ), null ) )
+                            {
+                                return AdminMessageService.getMessageUrl( request, MESSAGE_ERROR_RECIPIENT_FORMAT, AdminMessage.TYPE_STOP );
+                            }
                         }
                     }
-                }
 
-                List<NotificationSignalementTaskConfigUnit> listConfigUnit = _notificationSignalementTaskConfigUnitService.findByIdUnitAndIdTask( configUnit.getUnit( ).getIdUnit( ), task.getId( ),
-                        null );
+                List<NotificationSignalementTaskConfigUnit> listConfigUnit = _notificationSignalementTaskConfigUnitService
+                        .findByIdUnitAndIdTask( configUnit.getUnit( ).getIdUnit( ), task.getId( ), null );
 
                 if ( listConfigUnit.isEmpty( ) )
                 {
@@ -452,8 +458,8 @@ public class NotificationComponent extends AbstractTaskComponent
                     // add the email in line that already exists (format of destinataires : email1@mail.com;email2@mail.com;email3@mail.com)
                     for ( NotificationSignalementTaskConfigUnit config : listConfigUnit )
                     {
-                        String[] listRecipient = config.getDestinataires( ).split( ";" );
-                        String[] listArrayNewRecipient = configUnit.getDestinataires( ).split( ";" );
+                        String [ ] listRecipient = config.getDestinataires( ).split( ";" );
+                        String [ ] listArrayNewRecipient = configUnit.getDestinataires( ).split( ";" );
                         List<String> listNewRecipient = new ArrayList<>( );
                         Collections.addAll( listNewRecipient, listRecipient );
 
@@ -480,35 +486,40 @@ public class NotificationComponent extends AbstractTaskComponent
                 {
                     strError = ERROR_TYPE;
                 }
-                else if ( StringUtils.isBlank( configUnit.getDestinataires( ) ) )
-                {
-                    strError = ERROR_DESTINATAIRES;
-                }
+                else
+                    if ( StringUtils.isBlank( configUnit.getDestinataires( ) ) )
+                    {
+                        strError = ERROR_DESTINATAIRES;
+                    }
                 if ( !strError.equals( WorkflowUtils.EMPTY_STRING ) )
                 {
-                    Object[] tabRequiredFields = { I18nService.getLocalizedString( strError, locale ) };
+                    Object [ ] tabRequiredFields = {
+                            I18nService.getLocalizedString( strError, locale )
+                    };
 
                     return AdminMessageService.getMessageUrl( request, MESSAGE_MANDATORY_FIELD, tabRequiredFields, AdminMessage.TYPE_STOP );
                 }
-                else if ( _notificationSignalementTaskConfigService.findByIdTypeSignalement( task.getId( ), configUnit.getUnit( ).getIdUnit( ) ) != null )
-                {
-                    return AdminMessageService.getMessageUrl( request, MESSAGE_ERROR_TYPE_ALLREADY_EXISTS, AdminMessage.TYPE_STOP );
-                }
                 else
-                {
-                    // Check format fields
-                    EmailValidator emailValidator = new EmailValidator( );
-                    String[] listRecipient = configUnit.getDestinataires( ).split( RECIPIENT_SEPARATOR );
-                    for ( String recipient : listRecipient )
+                    if ( _notificationSignalementTaskConfigService.findByIdTypeSignalement( task.getId( ), configUnit.getUnit( ).getIdUnit( ) ) != null )
                     {
-                        if ( !emailValidator.isValid( recipient.trim( ), null ) )
+                        return AdminMessageService.getMessageUrl( request, MESSAGE_ERROR_TYPE_ALLREADY_EXISTS, AdminMessage.TYPE_STOP );
+                    }
+                    else
+                    {
+                        // Check format fields
+                        EmailValidator emailValidator = new EmailValidator( );
+                        String [ ] listRecipient = configUnit.getDestinataires( ).split( RECIPIENT_SEPARATOR );
+                        for ( String recipient : listRecipient )
                         {
-                            return AdminMessageService.getMessageUrl( request, MESSAGE_ERROR_RECIPIENT_FORMAT, AdminMessage.TYPE_STOP );
+                            if ( !emailValidator.isValid( recipient.trim( ), null ) )
+                            {
+                                return AdminMessageService.getMessageUrl( request, MESSAGE_ERROR_RECIPIENT_FORMAT, AdminMessage.TYPE_STOP );
+                            }
                         }
                     }
-                }
 
-                List<NotificationSignalementTaskConfigUnit> listConfigType = _notificationSignalementTaskConfigUnitService.findByIdTypeSignalement( configUnit.getTypeSignalement( ).getId( ), null );
+                List<NotificationSignalementTaskConfigUnit> listConfigType = _notificationSignalementTaskConfigUnitService
+                        .findByIdTypeSignalement( configUnit.getTypeSignalement( ).getId( ), null );
 
                 if ( listConfigType.isEmpty( ) )
                 {
@@ -516,7 +527,8 @@ public class NotificationComponent extends AbstractTaskComponent
                     NotificationSignalementTaskConfigUnit configType = new NotificationSignalementTaskConfigUnit( );
                     configType.setIdTask( nIdTask );
                     configType.setDestinataires( configUnit.getDestinataires( ) );
-                    configType.setTypeSignalement( _typeSignalementService.getTypeSignalementByIdWithParentsWithoutUnit( configUnit.getTypeSignalement( ).getId( ) ) );
+                    configType.setTypeSignalement(
+                            _typeSignalementService.getTypeSignalementByIdWithParentsWithoutUnit( configUnit.getTypeSignalement( ).getId( ) ) );
                     _notificationSignalementTaskConfigUnitService.insertWithTypeSignalement( configType, null );
                 }
                 else
@@ -524,8 +536,8 @@ public class NotificationComponent extends AbstractTaskComponent
                     // add the email in line that already exists (format of destinataires : email1@mail.com;email2@mail.com;email3@mail.com)
                     for ( NotificationSignalementTaskConfigUnit configType : listConfigType )
                     {
-                        String[] listRecipient = configType.getDestinataires( ).split( ";" );
-                        String[] listArrayNewRecipient = configUnit.getDestinataires( ).split( ";" );
+                        String [ ] listRecipient = configType.getDestinataires( ).split( ";" );
+                        String [ ] listArrayNewRecipient = configUnit.getDestinataires( ).split( ";" );
                         List<String> listNewRecipient = new ArrayList<>( );
                         Collections.addAll( listNewRecipient, listRecipient );
 
@@ -561,10 +573,12 @@ public class NotificationComponent extends AbstractTaskComponent
                 BeanUtils.populate( configDTO, request.getParameterMap( ) );
                 configDTO.setIdTask( task.getId( ) );
             }
-            catch ( Exception e )
+            catch( Exception e )
             {
                 AppLogService.error( e.getMessage( ), e );
-                Object[] tabError = { e.getMessage( ) };
+                Object [ ] tabError = {
+                        e.getMessage( )
+                };
                 return AdminMessageService.getMessageUrl( request, e.getMessage( ), tabError, AdminMessage.TYPE_STOP );
             }
 
@@ -572,17 +586,21 @@ public class NotificationComponent extends AbstractTaskComponent
             {
                 strError = ERROR_SENDER;
             }
-            else if ( configDTO.getSubject( ).equals( StringUtils.EMPTY ) )
-            {
-                strError = ERROR_SUBJECT;
-            }
-            else if ( configDTO.getMessage( ).equals( StringUtils.EMPTY ) )
-            {
-                strError = ERROR_MESSAGE;
-            }
+            else
+                if ( configDTO.getSubject( ).equals( StringUtils.EMPTY ) )
+                {
+                    strError = ERROR_SUBJECT;
+                }
+                else
+                    if ( configDTO.getMessage( ).equals( StringUtils.EMPTY ) )
+                    {
+                        strError = ERROR_MESSAGE;
+                    }
             if ( !strError.equals( WorkflowUtils.EMPTY_STRING ) )
             {
-                Object[] tabRequiredFields = { I18nService.getLocalizedString( strError, locale ) };
+                Object [ ] tabRequiredFields = {
+                        I18nService.getLocalizedString( strError, locale )
+                };
 
                 return AdminMessageService.getMessageUrl( request, MESSAGE_MANDATORY_FIELD, tabRequiredFields, AdminMessage.TYPE_STOP );
             }

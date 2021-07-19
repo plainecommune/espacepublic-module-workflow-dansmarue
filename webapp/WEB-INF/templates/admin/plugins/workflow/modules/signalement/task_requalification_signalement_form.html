@@ -1,6 +1,58 @@
 <@adresse_autocomplete_includes/>
 <@leaflet_map_includes/> 
+
+<style>
+.ui-autocomplete {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+</style>
 <script type="text/javascript">
+
+function initType(){
+	// on recupere la valeur choisi dans la datalist
+	var valeurChoisie = $('#typeSignalements').val();
+	
+	// on recupere les option de la datalist
+    var listeOption = $('#idTypeSignalements');
+    
+	// on recupere l element des option correspondant a la valeur choisie
+    var elementOfListe = $(listeOption).find('option[value="' + valeurChoisie + '"]');
+    
+	// on recupere l id de cette option
+    var valeurAsoumettre = elementOfListe.attr('id');
+    
+	// on affecte la valeur de cette id au typeSignalement 
+    $('#idTypeSignalement').val(valeurAsoumettre);      
+	
+   //Update des secteurs
+    $("#sector").html("");
+	if(valeurAsoumettre != undefined && valeurAsoumettre > 0){
+		updateSectors();
+	}
+}
+
+function initTypeValue (){
+	
+	// on recupere la valeur choisi dans la datalist
+	var valeurChoisie = $('#typeSignalements').attr('defaultValue');
+	
+	if(valeurChoisie =="0"){
+		valeurChoisie = "-1";
+	}
+	
+	// on recupere l element des option correspondant a la valeur choisie
+    var elementOfListe = $('#idTypeSignalements').find('option[id="'+ valeurChoisie +'"]');
+    
+	// on recupere l id de cette option
+    var valeurAffiche = elementOfListe.attr('value');
+    
+	// on affecte la valeur de cette id au typeSignalement 
+    $('#typeSignalements').attr("value",valeurAffiche);    
+    $('#typeSignalements').attr("title",valeurAffiche);    
+	
+}
 
 function updateSectors(){
 	var lng = $("#lng").val();
@@ -9,7 +61,7 @@ function updateSectors(){
 	var parameters = new Object();
 	parameters.lng = lng;
 	parameters.lat = lat;
-	parameters.typesignalement_id = $("#typeSignalement").val();
+	parameters.typesignalement_id = $("#idTypeSignalement").val();
 	
 	$.ajax({
 		url: "jsp/admin/plugins/signalement/DoGetSectorsByGeomAndUnits.jsp",
@@ -86,13 +138,37 @@ $(document).ready(function() {
 		$("#sector").html("");
 	});
 	
-	$("#typeSignalement").on("change",function(){
-		$("#sector").html("");
-		var typeSignalementId = $(this).val();
-		if(typeSignalementId != undefined && typeSignalementId > 0){
-			updateSectors();
-		}
+	var types = new Array();
+	var item;
+	<#list types_list as type>
+		item = new Object();
+		item.libelle = "${type.formatTypeSignalement?js_string}";
+		item.value="${type.formatTypeSignalement?js_string}";
+		types.push(item);
+	</#list>
+	
+	$("#typeSignalements").click(function(){
+		$(this).autocomplete("option", "minLength", 0).autocomplete("search", "");
 	});
+	
+	$("#typeSignalements").autocomplete({
+		source: function(request,response){
+			var resultList = new Array();
+			types.forEach(function(element){
+				if(element.value.toLowerCase().indexOf(request.term.toLowerCase()) != -1){
+					resultList.push(element.value);
+				}
+			});
+			response(resultList);
+		},
+		focus: function( event, ui ) {
+	          $(".ui-autocomplete > li").attr("title", ui.item.value);
+	      },
+		select: function(event,ui){ $('#typeSignalements').val(ui.item.value);$('#typeSignalements').attr("title",ui.item.value);initType();}
+	});
+	
+	initTypeValue();
+	initType();
 	
 });
 
@@ -127,8 +203,15 @@ $(document).ready(function() {
 		#i18n{module.workflow.dansmarue.requalification.type} * : 
 	</label>
 	<div class="<@inputStyle />">
-		<#if type_list?has_content && type_list?size != 0> 
-				<@comboWithParams name="typeSignalement" default_value="${signalement.typeSignalement.id!}" items=type_list additionalParameters="class=\"form-control input-sm\"" />
+		<#if types_list?has_content && types_list?size != 0> 
+			<input  class="form-control input-sm" id="typeSignalements" value="${idTypeSignalement!}" defaultValue="${signalement.typeSignalement.id!}" title="${idTypeSignalement!}"  type="text" placeholder="" maxlength="255" onchange='initType();'/>
+			<input id="idTypeSignalement" name="typeSignalement" defaultValue="-1"  value="" type="hidden" />
+			
+			<datalist id="idTypeSignalements">											
+				<#list types_list as type>
+					<option id="${type.id}" value="${type.formatTypeSignalement}">${type.formatTypeSignalement}</option>
+				</#list>
+			</datalist>	
 		</#if>
 	</div>
 </div>

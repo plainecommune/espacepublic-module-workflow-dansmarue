@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -50,7 +50,6 @@ import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.AbstractSignaleme
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.utils.ServiceOption;
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceHistory;
 
-
 /**
  * The Class ServiceFaitSignalementTask.
  */
@@ -58,17 +57,17 @@ public class ServiceFaitSignalementTask extends AbstractSignalementTask
 {
 
     /** The Constant TASK_TITLE. */
-    private static final String TASK_TITLE                 = "Service fait sur le signalement";
+    private static final String TASK_TITLE = "Service fait sur le signalement";
 
     /** The Constant PARAMETER_SERVICE_OPTION. */
     // PARAMETERS
-    private static final String PARAMETER_SERVICE_OPTION   = "serviceOption";
+    private static final String PARAMETER_SERVICE_OPTION = "serviceOption";
 
     /** le parameter pour le champ heureDePassage. */
-    public static final String  PARAMETER_HEURE_DE_PASSAGE = "heureDePassage";
+    public static final String PARAMETER_HEURE_DE_PASSAGE = "heureDePassage";
 
     /** Le parametre pour le champ dateDePassage. */
-    public static final String  PARAMETER_DATE_DE_PASSAGE  = "dateDePassage";
+    public static final String PARAMETER_DATE_DE_PASSAGE = "dateDePassage";
 
     /** The signalement service. */
     // SERVICES
@@ -79,9 +78,12 @@ public class ServiceFaitSignalementTask extends AbstractSignalementTask
     /**
      * Process task.
      *
-     * @param nIdResourceHistory the n id resource history
-     * @param request the request
-     * @param locale the locale
+     * @param nIdResourceHistory
+     *            the n id resource history
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
      */
     @Override
     public void processTask( int nIdResourceHistory, HttpServletRequest request, Locale locale )
@@ -94,18 +96,19 @@ public class ServiceFaitSignalementTask extends AbstractSignalementTask
             {
                 DepotManager.doCreate( request, getIdResourceFromIdHistory( nIdResourceHistory ) );
             }
-            else if ( nServiceOption == ServiceOption.DOUBLON.getId( ) )
-            {
+            else
+                if ( nServiceOption == ServiceOption.DOUBLON.getId( ) )
+                {
 
-                _signalementService.setDoublon( getIdResourceFromIdHistory( nIdResourceHistory ) );
-            }
-            if ( nServiceOption == ServiceOption.RENDEZ_VOUS.getId( ) || nServiceOption == ServiceOption.SIGNALE.getId( ) )
+                    _signalementService.setDoublon( getIdResourceFromIdHistory( nIdResourceHistory ) );
+                }
+            if ( ( nServiceOption == ServiceOption.RENDEZ_VOUS.getId( ) ) || ( nServiceOption == ServiceOption.SIGNALE.getId( ) ) )
             {
                 String dateDePassage = request.getParameter( PARAMETER_DATE_DE_PASSAGE );
                 String heureDePassage = request.getParameter( PARAMETER_HEURE_DE_PASSAGE );
                 if ( StringUtils.isNotBlank( dateDePassage ) && StringUtils.isNotBlank( heureDePassage ) )
                 {
-                    _signalementService.setDateDePassage( dateDePassage, heureDePassage, ( long ) getIdResourceFromIdHistory( nIdResourceHistory ) );
+                    _signalementService.setDateDePassage( dateDePassage, heureDePassage, (long) getIdResourceFromIdHistory( nIdResourceHistory ) );
                 }
 
             }
@@ -115,14 +118,15 @@ public class ServiceFaitSignalementTask extends AbstractSignalementTask
             Date dateDePassage = new Date( );
             String strDatePassage = DateUtils.getDateFr( dateDePassage );
             String strHourPassage = DateUtils.getHourWithSecondsFr( dateDePassage );
-            _signalementService.setDateDePassage( strDatePassage, strHourPassage, ( long ) getIdResourceFromIdHistory( nIdResourceHistory ) );
+            _signalementService.setDateDePassage( strDatePassage, strHourPassage, (long) getIdResourceFromIdHistory( nIdResourceHistory ) );
         }
     }
 
     /**
      * Gets the title.
      *
-     * @param locale the locale
+     * @param locale
+     *            the locale
      * @return the title
      */
     @Override
@@ -133,7 +137,7 @@ public class ServiceFaitSignalementTask extends AbstractSignalementTask
 
     /**
      * Get the id resource from a given id history.
-     * 
+     *
      * @param nIdHistory
      *            the id history
      * @return the id resource
@@ -151,7 +155,8 @@ public class ServiceFaitSignalementTask extends AbstractSignalementTask
     /**
      * Gets the task form entries.
      *
-     * @param locale the locale
+     * @param locale
+     *            the locale
      * @return the task form entries
      */
     @Override

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,9 +37,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
+
+import org.apache.commons.lang.StringUtils;
 
 import fr.paris.lutece.plugins.dansmarue.business.entities.Signalement;
 import fr.paris.lutece.plugins.dansmarue.business.entities.TypeSignalement;
@@ -47,13 +51,12 @@ import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.message.AdminMessage;
 import fr.paris.lutece.portal.service.message.AdminMessageService;
 
-
 /**
  * TaksUtils.
  */
 public final class TaskUtils
 {
-    
+
     /** The Constant MESSAGE_ERROR. */
     private static final String MESSAGE_ERROR = "dansmarue.message.error.args";
 
@@ -68,16 +71,21 @@ public final class TaskUtils
     /**
      * Récupère le message d'erreurs de validation.
      *
-     * @param <T>            type du bean et des ConstraintViolation
-     * @param bean            le bean en erreur
-     * @param locale            la lcale courante
-     * @param errors            le jeu d'erreurs por le bean
-     * @param request            la requête courante
+     * @param <T>
+     *            type du bean et des ConstraintViolation
+     * @param bean
+     *            le bean en erreur
+     * @param locale
+     *            la lcale courante
+     * @param errors
+     *            le jeu d'erreurs por le bean
+     * @param request
+     *            la requête courante
      * @return le message d'erreurs de validation
      */
     public static <T> String getValidationErrorsMessage( T bean, Locale locale, Set<ConstraintViolation<T>> errors, HttpServletRequest request )
     {
-        String[] messageArgs = new String[1];
+        String [ ] messageArgs = new String [ 1];
         StringBuilder sbMessage = new StringBuilder( );
         for ( ConstraintViolation<T> error : errors )
         {
@@ -87,7 +95,7 @@ public final class TaskUtils
             sbMessage.append( fieldName ).append( " : " );
             sbMessage.append( error.getMessage( ) );
         }
-        messageArgs[0] = sbMessage.toString( );
+        messageArgs [0] = sbMessage.toString( );
 
         return AdminMessageService.getMessageUrl( request, MESSAGE_ERROR, messageArgs, AdminMessage.TYPE_STOP );
     }
@@ -111,5 +119,54 @@ public final class TaskUtils
             hasType = signalement.getTypeSignalement( ).getId( ).equals( next.getId( ) );
         }
         return hasType;
+    }
+
+    /**
+     * Gets the id type ano lvl 1.
+     *
+     * @param typeSignalement
+     *            the id type ano
+     * @return the id type ano lvl 1
+     */
+    public static int getIdTypeAnoLvl1( TypeSignalement typeSignalement )
+    {
+        boolean isLastLevel = false;
+        int idTypeLvl1 = -1;
+
+        while ( !isLastLevel )
+        {
+            if ( typeSignalement.getTypeSignalementParent( ).getTypeSignalementParent( ) != null )
+            {
+                typeSignalement = typeSignalement.getTypeSignalementParent( );
+            }
+            else
+            {
+                idTypeLvl1 = typeSignalement.getTypeSignalementParent( ).getId( );
+                isLastLevel = true;
+            }
+
+        }
+        return idTypeLvl1;
+    }
+
+    /**
+     * Gets the CP from adresse.
+     *
+     * @param adresse
+     *            the adresse
+     * @return the CP from adresse
+     */
+    public static String getCPFromAdresse( String adresse )
+    {
+        Pattern pattern = Pattern.compile( "75[0-9]{3}" );
+        Matcher matcher = pattern.matcher( adresse );
+        if ( matcher.find( ) )
+        {
+            return matcher.group( );
+        }
+        else
+        {
+            return StringUtils.EMPTY;
+        }
     }
 }

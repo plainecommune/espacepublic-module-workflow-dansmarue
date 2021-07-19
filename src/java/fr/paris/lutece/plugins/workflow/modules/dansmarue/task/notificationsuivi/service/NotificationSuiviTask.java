@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -69,80 +69,78 @@ import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.util.mail.FileAttachment;
 
-
 /**
  * NotificationSuiviTask.
  */
 public class NotificationSuiviTask extends AbstractSignalementTask
 {
 
-
     /** The Constant TASK_TITLE. */
     // TITLE
-    private static final String            TASK_TITLE                 = "#i18n{module.workflow.dansmarue.workflow.notification.suivi}";
+    private static final String TASK_TITLE = "#i18n{module.workflow.dansmarue.workflow.notification.suivi}";
 
     /** The Constant MARK_NUMERO. */
     // MARKERS
-    private static final String            MARK_NUMERO                = "numero";
-    
+    private static final String MARK_NUMERO = "numero";
+
     /** The Constant MARK_TYPE. */
-    private static final String            MARK_TYPE                  = "type";
-    
+    private static final String MARK_TYPE = "type";
+
     /** The Constant MARK_ADRESSE. */
-    private static final String            MARK_ADRESSE               = "adresse";
-    
+    private static final String MARK_ADRESSE = "adresse";
+
     /** The Constant MARK_PRIORITE. */
-    private static final String            MARK_PRIORITE              = "priorite";
-    
+    private static final String MARK_PRIORITE = "priorite";
+
     /** The Constant MARK_COMMENTAIRE. */
-    private static final String            MARK_COMMENTAIRE           = "commentaire";
-    
+    private static final String MARK_COMMENTAIRE = "commentaire";
+
     /** The Constant MARK_PRECISION. */
-    private static final String            MARK_PRECISION             = "precision";
-    
+    private static final String MARK_PRECISION = "precision";
+
     /** The Constant MARK_LIEN_CONSULTATION. */
-    private static final String            MARK_LIEN_CONSULTATION     = "lien_consultation";
+    private static final String MARK_LIEN_CONSULTATION = "lien_consultation";
 
     /** The Constant MARK_DATE_PROGRAMMATION. */
-    private static final String            MARK_DATE_PROGRAMMATION    = "date_programmation";
-    
+    private static final String MARK_DATE_PROGRAMMATION = "date_programmation";
+
     /** The Constant MARK_DATE_DE_TRAITEMENT. */
-    private static final String            MARK_DATE_DE_TRAITEMENT    = "datetraitement";
-    
+    private static final String MARK_DATE_DE_TRAITEMENT = "datetraitement";
+
     /** The Constant MARK_HEURE_DE_TRAITEMENT. */
-    private static final String            MARK_HEURE_DE_TRAITEMENT   = "heuretraitement";
+    private static final String MARK_HEURE_DE_TRAITEMENT = "heuretraitement";
 
     /** The Constant MARK_DATE_ENVOI. */
-    private static final String            MARK_DATE_ENVOI            = "dateEnvoi";
-    
+    private static final String MARK_DATE_ENVOI = "dateEnvoi";
+
     /** The Constant MARK_HEURE_ENVOI. */
-    private static final String            MARK_HEURE_ENVOI           = "heureEnvoi";
-    
+    private static final String MARK_HEURE_ENVOI = "heureEnvoi";
+
     /** The Constant MARK_EMAIL_USAGER. */
-    private static final String            MARK_EMAIL_USAGER          = "emailUsager";
+    private static final String MARK_EMAIL_USAGER = "emailUsager";
 
     /** The Constant MARK_ALIAS_ANOMALIE. */
-    private static final String            MARK_ALIAS_ANOMALIE        = "alias_anomalie";
-    
+    private static final String MARK_ALIAS_ANOMALIE = "alias_anomalie";
+
     /** The Constant MARK_ALIAS_MOBILE_ANOMALIE. */
-    private static final String            MARK_ALIAS_MOBILE_ANOMALIE = "alias_mobile_anomalie";
+    private static final String MARK_ALIAS_MOBILE_ANOMALIE = "alias_mobile_anomalie";
 
     /** The Constant MARK_ID_ANOMALIE. */
-    private static final String            MARK_ID_ANOMALIE           = "id_anomalie";
-    
+    private static final String MARK_ID_ANOMALIE = "id_anomalie";
+
     /** The Constant MARK_RAISONS_REJET. */
-    private static final String            MARK_RAISONS_REJET         = "raisons_rejet";
+    private static final String MARK_RAISONS_REJET = "raisons_rejet";
 
     /** The signalement service. */
     @Inject
     @Named( "signalementService" )
-    private ISignalementService            _signalementService;
+    private ISignalementService _signalementService;
 
     /** The notification suivi value service. */
     @Inject
     @Named( "signalement.notificationSuiviValueService" )
-    private NotificationSuiviValueService  _notificationSuiviValueService;
-    
+    private NotificationSuiviValueService _notificationSuiviValueService;
+
     /** The notification suivi task config DAO. */
     @Inject
     @Named( "signalement.notificationSignalementSuiviTaskConfigDAO" )
@@ -151,19 +149,22 @@ public class NotificationSuiviTask extends AbstractSignalementTask
     /** The signalement suivi service. */
     @Inject
     @Named( "signalementSuiviService" )
-    private ISignalementSuiviService       _signalementSuiviService;
+    private ISignalementSuiviService _signalementSuiviService;
 
     /** The observation rejet service. */
     @Inject
     @Named( "observationRejetService" )
-    private IObservationRejetService       _observationRejetService;
+    private IObservationRejetService _observationRejetService;
 
     /**
      * Process task.
      *
-     * @param nIdResourceHistory the n id resource history
-     * @param request the request
-     * @param locale the locale
+     * @param nIdResourceHistory
+     *            the n id resource history
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
      */
     @Override
     public void processTask( int nIdResourceHistory, HttpServletRequest request, Locale locale )
@@ -291,7 +292,8 @@ public class NotificationSuiviTask extends AbstractSignalementTask
             followersMails.remove( emailUsager );
         }
 
-        String rejectReason = WorkflowSignalementUtil.buildValueMotifRejetForEmailNotification( request, _observationRejetService.getAllObservationRejetActif( ) );
+        String rejectReason = WorkflowSignalementUtil.buildValueMotifRejetForEmailNotification( request,
+                _observationRejetService.getAllObservationRejetActif( ) );
         if ( StringUtils.isNotBlank( rejectReason ) )
         {
             notifModel.put( MARK_RAISONS_REJET, rejectReason );
@@ -327,25 +329,27 @@ public class NotificationSuiviTask extends AbstractSignalementTask
                 if ( ( photo.getImage( ) != null ) && ( photo.getImage( ).getImage( ) != null ) )
                 {
 
-                    String[] mime = photo.getImage( ).getMimeType( ).split( "/" );
+                    String [ ] mime = photo.getImage( ).getMimeType( ).split( "/" );
 
                     if ( photo.getVue( ) == 1 )
                     {
 
-                        files.add( new FileAttachment( SignalementConstants.NOM_PHOTO_ENSEMBLE_PJ + mime[1], photo.getImage( ).getImage( ), photo.getImage( ).getMimeType( ) ) );
+                        files.add( new FileAttachment( SignalementConstants.NOM_PHOTO_ENSEMBLE_PJ + mime [1], photo.getImage( ).getImage( ),
+                                photo.getImage( ).getMimeType( ) ) );
 
                     }
                     else
                     {
-                        files.add( new FileAttachment( SignalementConstants.NOM_PHOTO_PRES_PJ + mime[1], photo.getImage( ).getImage( ), photo.getImage( ).getMimeType( ) ) );
+                        files.add( new FileAttachment( SignalementConstants.NOM_PHOTO_PRES_PJ + mime [1], photo.getImage( ).getImage( ),
+                                photo.getImage( ).getMimeType( ) ) );
                     }
                 }
             }
 
             for ( String followerMail : followersMails )
             {
-                MailService.sendMailMultipartHtml( followerMail, null, null, config.getSender( ), AppPropertiesService.getProperty( "mail.noreply.email", "noreply-dansmarue@paris.fr" ), subject,
-                        message, null, files );
+                MailService.sendMailMultipartHtml( followerMail, null, null, config.getSender( ),
+                        AppPropertiesService.getProperty( "mail.noreply.email", "noreply-dansmarue@paris.fr" ), subject, message, null, files );
             }
 
             notificationSuiviValue.setMailNotificationValue( message );
@@ -356,7 +360,8 @@ public class NotificationSuiviTask extends AbstractSignalementTask
     /**
      * Gets the title.
      *
-     * @param locale the locale
+     * @param locale
+     *            the locale
      * @return the title
      */
     @Override
@@ -368,7 +373,8 @@ public class NotificationSuiviTask extends AbstractSignalementTask
     /**
      * Gets the task form entries.
      *
-     * @param locale the locale
+     * @param locale
+     *            the locale
      * @return the task form entries
      */
     @Override
@@ -390,7 +396,8 @@ public class NotificationSuiviTask extends AbstractSignalementTask
     /**
      * Do remove task information.
      *
-     * @param nIdHistory the n id history
+     * @param nIdHistory
+     *            the n id history
      */
     @Override
     public void doRemoveTaskInformation( int nIdHistory )

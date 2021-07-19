@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -64,92 +64,91 @@ import fr.paris.lutece.util.beanvalidation.ValidationError;
 import fr.paris.lutece.util.html.HtmlTemplate;
 import fr.paris.lutece.util.url.UrlItem;
 
-
 /**
  * The class NotificationSignalementTaskConfigJspBean.
  */
 public class NotificationSignalementTaskConfigJspBean extends AbstractJspBean
 {
-    
+
     /** The Constant serialVersionUID. */
-    private static final long                                     serialVersionUID                                       = -2082143299570797960L;
-    
+    private static final long serialVersionUID = -2082143299570797960L;
+
     /** The Constant MARK_CONFIG_UNIT. */
     // MARKERS
-    private static final String                                   MARK_CONFIG_UNIT                                       = "configUnit";
-    
+    private static final String MARK_CONFIG_UNIT = "configUnit";
+
     /** The Constant MARK_UNIT. */
-    private static final String                                   MARK_UNIT                                              = "unit";
-    
+    private static final String MARK_UNIT = "unit";
+
     /** The Constant MARK_CONFIG_TYPE. */
-    private static final String                                   MARK_CONFIG_TYPE                                       = "configType";
-    
+    private static final String MARK_CONFIG_TYPE = "configType";
+
     /** The Constant MARK_TYPE_SIGNALEMENT. */
-    private static final String                                   MARK_TYPE_SIGNALEMENT                                  = "typeSignalement";
-    
+    private static final String MARK_TYPE_SIGNALEMENT = "typeSignalement";
+
     /** The Constant MARK_IS_UNIT. */
-    private static final String                                   MARK_IS_UNIT                                           = "isUnit";
+    private static final String MARK_IS_UNIT = "isUnit";
 
     /** The Constant PARAMETER_ID_TASK. */
     // PARAMETERS
-    private static final String                                   PARAMETER_ID_TASK                                      = "id_task";
-    
+    private static final String PARAMETER_ID_TASK = "id_task";
+
     /** The Constant PARAMETER_ID_UNIT. */
-    private static final String                                   PARAMETER_ID_UNIT                                      = "id_unit";
-    
+    private static final String PARAMETER_ID_UNIT = "id_unit";
+
     /** The Constant PARAMETER_ID_TYPE_SIGNALEMENT. */
-    private static final String                                   PARAMETER_ID_TYPE_SIGNALEMENT                          = "id_type_signalement";
-    
+    private static final String PARAMETER_ID_TYPE_SIGNALEMENT = "id_type_signalement";
+
     /** The Constant PARAMETER_SAVE_BUTTON. */
-    private static final String                                   PARAMETER_SAVE_BUTTON                                  = "save";
+    private static final String PARAMETER_SAVE_BUTTON = "save";
 
     /** The Constant ERROR_TITLE. */
-    private static final String                                   ERROR_TITLE                                            = "module.workflow.dansmarue.task_notification_config.error.title";
-    
+    private static final String ERROR_TITLE = "module.workflow.dansmarue.task_notification_config.error.title";
+
     /** The Constant ERROR_MESSAGE. */
-    private static final String                                   ERROR_MESSAGE                                          = "module.workflow.dansmarue.task_notification_config.error.message";
-    
+    private static final String ERROR_MESSAGE = "module.workflow.dansmarue.task_notification_config.error.message";
+
     /** The Constant MESSAGE_MANDATORY_FIELD. */
-    private static final String                                   MESSAGE_MANDATORY_FIELD                                = "module.workflow.dansmarue.task_notification_config.message.mandatory.field";
+    private static final String MESSAGE_MANDATORY_FIELD = "module.workflow.dansmarue.task_notification_config.message.mandatory.field";
 
     /** The Constant MESSAGE_CONFIRM_DELETE_SIGNALEMENT_TASK_UNIT. */
     // MESSAGES
-    private static final String                                   MESSAGE_CONFIRM_DELETE_SIGNALEMENT_TASK_UNIT           = "module.workflow.dansmarue.message.confirm_delete_signalement_task_unit";
-    
+    private static final String MESSAGE_CONFIRM_DELETE_SIGNALEMENT_TASK_UNIT = "module.workflow.dansmarue.message.confirm_delete_signalement_task_unit";
+
     /** The Constant MESSAGE_CONFIRM_DELETE_SIGNALEMENT_TASK_TYPE. */
-    private static final String                                   MESSAGE_CONFIRM_DELETE_SIGNALEMENT_TASK_TYPE           = "module.workflow.dansmarue.message.confirm_delete_signalement_task_type";
+    private static final String MESSAGE_CONFIRM_DELETE_SIGNALEMENT_TASK_TYPE = "module.workflow.dansmarue.message.confirm_delete_signalement_task_type";
 
     /** The Constant JSP_DO_DELETE_NOTIFICATION_SIGNALEMENT_UNIT. */
     // JSP
-    private static final String                                   JSP_DO_DELETE_NOTIFICATION_SIGNALEMENT_UNIT            = "jsp/admin/plugins/workflow/modules/signalement/DoDeleteNotificationSignalementTaskUnit.jsp";
-    
+    private static final String JSP_DO_DELETE_NOTIFICATION_SIGNALEMENT_UNIT = "jsp/admin/plugins/workflow/modules/signalement/DoDeleteNotificationSignalementTaskUnit.jsp";
+
     /** The Constant JSP_MODIFY_TASK. */
-    private static final String                                   JSP_MODIFY_TASK                                        = "jsp/admin/plugins/workflow/ModifyTask.jsp";
+    private static final String JSP_MODIFY_TASK = "jsp/admin/plugins/workflow/ModifyTask.jsp";
 
     /** The Constant TEMPLATE_MODIFY_NOTIFICATION_SIGNALEMENT_TASK_UNIT. */
     // TEMPLATES
-    private static final String                                   TEMPLATE_MODIFY_NOTIFICATION_SIGNALEMENT_TASK_UNIT     = "admin/plugins/workflow/modules/signalement/modify_notification_signalement_task_unit.html";
+    private static final String TEMPLATE_MODIFY_NOTIFICATION_SIGNALEMENT_TASK_UNIT = "admin/plugins/workflow/modules/signalement/modify_notification_signalement_task_unit.html";
 
     /** The notification signalement task config service. */
     // SERVICES
-    private transient NotificationSignalementTaskConfigService              _notificationSignalementTaskConfigService              = SpringContextService
+    private transient NotificationSignalementTaskConfigService _notificationSignalementTaskConfigService = SpringContextService
             .getBean( "signalement.notificationSignalementTaskConfigService" );
-    
+
     /** The unit service. */
-    private transient IUnitService                                          _unitService                                           = SpringContextService.getBean( IUnitService.BEAN_UNIT_SERVICE );
-    
+    private transient IUnitService _unitService = SpringContextService.getBean( IUnitService.BEAN_UNIT_SERVICE );
+
     /** The notification signalement user multi contents task config DAO. */
     private transient NotificationSignalementUserMultiContentsTaskConfigDAO _notificationSignalementUserMultiContentsTaskConfigDAO = SpringContextService
             .getBean( "signalement.notificationSignalementUserMultiContentsTaskConfigDAO" );
-    
+
     /** The type signalement service. */
-    private transient ITypeSignalementService                               _typeSignalementService                                = SpringContextService
-            .getBean( "typeSignalementService" );
+    private transient ITypeSignalementService _typeSignalementService = SpringContextService.getBean( "typeSignalementService" );
 
     /**
      * Return AdminMessage page content to confirm the notificationSignalementTaskUnit delete.
      *
-     * @param request            the HttpServletRequest
+     * @param request
+     *            the HttpServletRequest
      * @return the AdminMessage
      */
     public String confirmDeleteNotificationSignalementTaskUnit( HttpServletRequest request )
@@ -182,7 +181,8 @@ public class NotificationSignalementTaskConfigJspBean extends AbstractJspBean
     /**
      * The doDeleteNotificationSignalementTaskUnit implementation.
      *
-     * @param request            the HttpServletRequest
+     * @param request
+     *            the HttpServletRequest
      * @return the url return
      */
     public String doDeleteNotificationSignalementTaskUnit( HttpServletRequest request )
@@ -218,7 +218,8 @@ public class NotificationSignalementTaskConfigJspBean extends AbstractJspBean
     /**
      * The ModifyNotificationSignalementTaskUnit page.
      *
-     * @param request            the HttpServletRequest
+     * @param request
+     *            the HttpServletRequest
      * @return page content
      */
     public String getModifyNotificationSignalementTaskUnit( HttpServletRequest request )
@@ -258,7 +259,7 @@ public class NotificationSignalementTaskConfigJspBean extends AbstractJspBean
             FunctionnalException ve = getErrorOnce( request );
             if ( ve != null )
             {
-                configUnit = ( NotificationSignalementTaskConfigUnit ) ve.getBean( );
+                configUnit = (NotificationSignalementTaskConfigUnit) ve.getBean( );
                 model.put( "error", getHtmlError( ve ) );
             }
             model.put( MARK_CONFIG_UNIT, configUnit );
@@ -274,7 +275,7 @@ public class NotificationSignalementTaskConfigJspBean extends AbstractJspBean
             FunctionnalException ve = getErrorOnce( request );
             if ( ve != null )
             {
-                configType = ( NotificationSignalementTaskConfigUnit ) ve.getBean( );
+                configType = (NotificationSignalementTaskConfigUnit) ve.getBean( );
                 model.put( "error", getHtmlError( ve ) );
             }
             model.put( MARK_CONFIG_TYPE, configType );
@@ -291,7 +292,8 @@ public class NotificationSignalementTaskConfigJspBean extends AbstractJspBean
     /**
      * The doModifyNotificationSignalementTaskUnit implementation.
      *
-     * @param request            the HttpServletRequest
+     * @param request
+     *            the HttpServletRequest
      * @return url return
      */
     public String doModifyNotificationSignalementTaskUnit( HttpServletRequest request )
@@ -339,7 +341,8 @@ public class NotificationSignalementTaskConfigJspBean extends AbstractJspBean
     /**
      * Delete.
      *
-     * @param request            the HttpServletRequest
+     * @param request
+     *            the HttpServletRequest
      * @return url return
      */
     public String doDeleteNotificationUserMultiContents( HttpServletRequest request )
@@ -348,7 +351,8 @@ public class NotificationSignalementTaskConfigJspBean extends AbstractJspBean
         String strIdTask = request.getParameter( PARAMETER_ID_TASK );
         String strIdMessage = request.getParameter( "idMessageDelete" );
 
-        _notificationSignalementUserMultiContentsTaskConfigDAO.deleteMessage( Long.parseLong( strIdMessage ), Integer.parseInt( strIdTask ), SignalementUtils.getPlugin( ) );
+        _notificationSignalementUserMultiContentsTaskConfigDAO.deleteMessage( Long.parseLong( strIdMessage ), Integer.parseInt( strIdTask ),
+                SignalementUtils.getPlugin( ) );
 
         UrlItem url = new UrlItem( AppPathService.getBaseUrl( request ) + JSP_MODIFY_TASK );
         url.addParameter( PARAMETER_ID_TASK, strIdTask );
@@ -383,13 +387,16 @@ public class NotificationSignalementTaskConfigJspBean extends AbstractJspBean
         {
             strError = ERROR_TITLE;
         }
-        else if ( StringUtils.EMPTY.equals( config.getMessage( ) ) )
-        {
-            strError = ERROR_MESSAGE;
-        }
+        else
+            if ( StringUtils.EMPTY.equals( config.getMessage( ) ) )
+            {
+                strError = ERROR_MESSAGE;
+            }
         if ( !strError.equals( WorkflowUtils.EMPTY_STRING ) )
         {
-            Object[] tabRequiredFields = { I18nService.getLocalizedString( strError, request.getLocale( ) ) };
+            Object [ ] tabRequiredFields = {
+                    I18nService.getLocalizedString( strError, request.getLocale( ) )
+            };
 
             return AdminMessageService.getMessageUrl( request, MESSAGE_MANDATORY_FIELD, tabRequiredFields, AdminMessage.TYPE_STOP );
         }

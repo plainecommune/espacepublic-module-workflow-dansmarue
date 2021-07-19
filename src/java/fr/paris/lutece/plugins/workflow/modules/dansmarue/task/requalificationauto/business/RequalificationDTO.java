@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,35 +37,34 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
 
-
 /**
  * RequalificationDTO class.
  */
 public class RequalificationDTO implements Serializable
 {
-    
+
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -7620968985057409074L;
 
     /** The d lat. */
-    private Double  _dLat;
-    
+    private Double _dLat;
+
     /** The d lng. */
-    private Double  _dLng;
-    
+    private Double _dLng;
+
     /** The n id signalement. */
     private Integer _nIdSignalement;
-    
+
     /** The n type signalement. */
     @NotNull
     private Integer _nTypeSignalement;
-    
+
     /** The str adresse requalif. */
-    private String  _strAdresseRequalif;
-    
+    private String _strAdresseRequalif;
+
     /** The str commentaire requalification. */
-    private String  _strCommentaireRequalification;
-    
+    private String _strCommentaireRequalification;
+
     /** The n sector. */
     private Integer _nSector;
 
@@ -122,7 +121,8 @@ public class RequalificationDTO implements Serializable
     /**
      * Set the requalification adresse.
      *
-     * @param adresse            the requalification adresse
+     * @param adresse
+     *            the requalification adresse
      */
     public void setAdresseRequalif( String adresse )
     {
@@ -132,7 +132,8 @@ public class RequalificationDTO implements Serializable
     /**
      * Set the signalement id.
      *
-     * @param idSignalement            the signalement id
+     * @param idSignalement
+     *            the signalement id
      */
     public void setIdSignalement( Integer idSignalement )
     {
@@ -142,7 +143,8 @@ public class RequalificationDTO implements Serializable
     /**
      * Set the latitude.
      *
-     * @param dLat            the latitude
+     * @param dLat
+     *            the latitude
      */
     public void setLat( Double dLat )
     {
@@ -152,7 +154,8 @@ public class RequalificationDTO implements Serializable
     /**
      * Set the longitude.
      *
-     * @param dLng            the longitude
+     * @param dLng
+     *            the longitude
      */
     public void setLng( Double dLng )
     {
@@ -162,7 +165,8 @@ public class RequalificationDTO implements Serializable
     /**
      * Set the type signalement id.
      *
-     * @param typeSignalement            the type signalement id
+     * @param typeSignalement
+     *            the type signalement id
      */
     public void setTypeSignalement( Integer typeSignalement )
     {
@@ -182,7 +186,8 @@ public class RequalificationDTO implements Serializable
     /**
      * Set the requalification commentaire.
      *
-     * @param commentaireRequalification            the requalification commentaire
+     * @param commentaireRequalification
+     *            the requalification commentaire
      */
     public void setCommentaireRequalification( String commentaireRequalification )
     {
@@ -192,7 +197,8 @@ public class RequalificationDTO implements Serializable
     /**
      * Set the sector id.
      *
-     * @param sectorId            the type sector id
+     * @param sectorId
+     *            the type sector id
      */
     public void setSector( Integer sectorId )
     {

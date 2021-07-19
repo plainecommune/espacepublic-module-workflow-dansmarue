@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,43 +45,43 @@ import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.portal.service.util.AppPathService;
 import fr.paris.lutece.util.url.UrlItem;
 
-
 /**
  * The class NotificationSignalementTaskConfigJspBean.
  */
 public class RequalificationAutoSignalementTaskConfigJspBean extends AbstractJspBean
 {
-    
+
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -2360051975067924761L;
 
     /** The Constant PARAMETER_ID_TASK. */
     // PARAMETERS
-    private static final String                             PARAMETER_ID_TASK                                   = "id_task";
-    
+    private static final String PARAMETER_ID_TASK = "id_task";
+
     /** The Constant PARAMETER_ID_CONFIG_UNIT. */
-    private static final String                             PARAMETER_ID_CONFIG_UNIT                            = "idConfigUnit";
+    private static final String PARAMETER_ID_CONFIG_UNIT = "idConfigUnit";
 
     /** The Constant MESSAGE_CONFIRM_DELETE_SIGNALEMENT_TASK_UNIT. */
     // MESSAGES
-    private static final String                             MESSAGE_CONFIRM_DELETE_SIGNALEMENT_TASK_UNIT        = "module.workflow.dansmarue.task_requalification_auto_config.confirm_delete_signalement_task_unit";
+    private static final String MESSAGE_CONFIRM_DELETE_SIGNALEMENT_TASK_UNIT = "module.workflow.dansmarue.task_requalification_auto_config.confirm_delete_signalement_task_unit";
 
     /** The Constant JSP_DO_DELETE_REQUALIFICATION_AUTO_SIGNALEMENT_UNIT. */
     // JSP
-    private static final String                             JSP_DO_DELETE_REQUALIFICATION_AUTO_SIGNALEMENT_UNIT = "jsp/admin/plugins/workflow/modules/signalement/requalificationauto/DoDeleteRequalificationAutoSignalementTaskUnit.jsp";
-    
+    private static final String JSP_DO_DELETE_REQUALIFICATION_AUTO_SIGNALEMENT_UNIT = "jsp/admin/plugins/workflow/modules/signalement/requalificationauto/DoDeleteRequalificationAutoSignalementTaskUnit.jsp";
+
     /** The Constant JSP_MODIFY_TASK. */
-    private static final String                             JSP_MODIFY_TASK                                     = "jsp/admin/plugins/workflow/ModifyTask.jsp";
+    private static final String JSP_MODIFY_TASK = "jsp/admin/plugins/workflow/ModifyTask.jsp";
 
     /** The requalification auto signalement task config service. */
     // SERVICES
-    private transient RequalificationAutoSignalementTaskConfigService _requalificationAutoSignalementTaskConfigService    = SpringContextService
+    private transient RequalificationAutoSignalementTaskConfigService _requalificationAutoSignalementTaskConfigService = SpringContextService
             .getBean( "workflow-signalement.requalificationAutoConfigService" );
 
     /**
      * Return AdminMessage page content to confirm the removal of the config unit.
      *
-     * @param request            the HttpServletRequest
+     * @param request
+     *            the HttpServletRequest
      * @return the AdminMessage
      */
     public String confirmDeleteRequalificationAutoSignalementTaskUnit( HttpServletRequest request )
@@ -97,7 +97,8 @@ public class RequalificationAutoSignalementTaskConfigJspBean extends AbstractJsp
     /**
      * The doDeleteNotificationSignalementTaskUnit implementation.
      *
-     * @param request            the HttpServletRequest
+     * @param request
+     *            the HttpServletRequest
      * @return the url return
      */
     public String doDeleteRequalificationAutoSignalementTaskUnit( HttpServletRequest request )

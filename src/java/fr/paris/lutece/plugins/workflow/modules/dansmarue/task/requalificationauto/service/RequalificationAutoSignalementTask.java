@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -68,55 +68,56 @@ public class RequalificationAutoSignalementTask extends AbstractSignalementTask
 {
 
     /** The Constant MESSAGE_TASK_TITLE. */
-    private static final String                             MESSAGE_TASK_TITLE                               = "module.workflow.dansmarue.task_requalification_auto_config.title";
+    private static final String MESSAGE_TASK_TITLE = "module.workflow.dansmarue.task_requalification_auto_config.title";
 
     /** The Constant MESSAGE_UNIT_ALREADY_EXISTS. */
-    private static final String                             MESSAGE_UNIT_ALREADY_EXISTS                      = "module.workflow.dansmarue.task_requalification_auto_config.unitAlreadyExists";
+    private static final String MESSAGE_UNIT_ALREADY_EXISTS = "module.workflow.dansmarue.task_requalification_auto_config.unitAlreadyExists";
 
     /** The Constant PARAMETER_ID_TASK. */
-    private static final String                             PARAMETER_ID_TASK                                = "id_task";
+    private static final String PARAMETER_ID_TASK = "id_task";
 
     /** The Constant PARAMETER_ADD_UNIT. */
-    private static final String                             PARAMETER_ADD_UNIT                               = "add_unit";
+    private static final String PARAMETER_ADD_UNIT = "add_unit";
 
     /** The Constant PARAMETER_SOURCE_UNIT. */
-    private static final String                             PARAMETER_SOURCE_UNIT                            = "sourceUnit";
+    private static final String PARAMETER_SOURCE_UNIT = "sourceUnit";
 
     /** The Constant PARAMETER_TARGET_UNIT. */
-    private static final String                             PARAMETER_TARGET_UNIT                            = "targetUnit";
+    private static final String PARAMETER_TARGET_UNIT = "targetUnit";
 
     /** The Constant PARAMETER_TYPE_SIGNALEMENT. */
-    private static final String                             PARAMETER_TYPE_SIGNALEMENT                       = "type_signalement";
+    private static final String PARAMETER_TYPE_SIGNALEMENT = "type_signalement";
 
     /** The Constant PARAMETER_WORKFLOW_STATE_AFTER. */
-    private static final String                             PARAMETER_WORKFLOW_STATE_AFTER                   = "workflow_state_after";
+    private static final String PARAMETER_WORKFLOW_STATE_AFTER = "workflow_state_after";
 
     /** The Constant JSP_MODIFY_TASK. */
-    private static final String                             JSP_MODIFY_TASK                                  = "jsp/admin/plugins/workflow/ModifyTask.jsp";
+    private static final String JSP_MODIFY_TASK = "jsp/admin/plugins/workflow/ModifyTask.jsp";
 
     /** The Constant CONSTANT_ALL_TYPE_SIGNALEMENT. */
-    private static final int                                CONSTANT_ALL_TYPE_SIGNALEMENT                    = -1;
+    private static final int CONSTANT_ALL_TYPE_SIGNALEMENT = -1;
 
     /** The Constant CONSTANT_NO_STATE_AFTER. */
-    private static final int                                CONSTANT_NO_STATE_AFTER                          = -1;
+    private static final int CONSTANT_NO_STATE_AFTER = -1;
 
     /** The requalification auto signalement task config service. */
-    private RequalificationAutoSignalementTaskConfigService _requalificationAutoSignalementTaskConfigService = SpringContextService.getBean( "workflow-signalement.requalificationAutoConfigService" );
+    private RequalificationAutoSignalementTaskConfigService _requalificationAutoSignalementTaskConfigService = SpringContextService
+            .getBean( "workflow-signalement.requalificationAutoConfigService" );
 
     /** The unit service. */
-    private IUnitService                                    _unitService                                     = SpringContextService.getBean( IUnitService.BEAN_UNIT_SERVICE );
+    private IUnitService _unitService = SpringContextService.getBean( IUnitService.BEAN_UNIT_SERVICE );
 
     /** The signalement service. */
-    private ISignalementService                             _signalementService                              = SpringContextService.getBean( "signalementService" );
+    private ISignalementService _signalementService = SpringContextService.getBean( "signalementService" );
 
     /** The adresse service. */
-    private IAdresseService                                 _adresseService                                  = SpringContextService.getBean( "adresseSignalementService" );
+    private IAdresseService _adresseService = SpringContextService.getBean( "adresseSignalementService" );
 
     /** The sector service. */
-    private ISectorService                                  _sectorService                                   = SpringContextService.getBean( "unittree-dansmarue.sectorService" );
+    private ISectorService _sectorService = SpringContextService.getBean( "unittree-dansmarue.sectorService" );
 
     /** The state service. */
-    private IStateService                                   _stateService                                    = SpringContextService.getBean( "workflow.stateService" );
+    private IStateService _stateService = SpringContextService.getBean( "workflow.stateService" );
 
     /**
      * {@inheritDoc}
@@ -158,7 +159,8 @@ public class RequalificationAutoSignalementTask extends AbstractSignalementTask
         {
             Unit unitSourceRequalif = _unitService.getUnit( requalifUnit.getIdSourceUnit( ), false );
             if ( ( ( unitSourceRequalif.getIdUnit( ) == unitSignalement.getIdUnit( ) ) || _unitService.isParent( unitSourceRequalif, unitSignalement ) )
-                    && ( ( requalifUnit.getIdTypeSignalement( ) == CONSTANT_ALL_TYPE_SIGNALEMENT ) || ( requalifUnit.getIdTypeSignalement( ) == signalement.getTypeSignalement( ).getId( ) ) ) )
+                    && ( ( requalifUnit.getIdTypeSignalement( ) == CONSTANT_ALL_TYPE_SIGNALEMENT )
+                            || ( requalifUnit.getIdTypeSignalement( ) == signalement.getTypeSignalement( ).getId( ) ) ) )
             {
                 selectedRequalifConfUnit = requalifUnit;
                 break;
@@ -169,7 +171,8 @@ public class RequalificationAutoSignalementTask extends AbstractSignalementTask
             Adresse adresse = _adresseService.loadByIdSignalement( signalement.getId( ) );
 
             // Changement du secteur
-            Sector secteur = _adresseService.getSectorByGeomAndIdUnitParent( adresse.getLng( ), adresse.getLat( ), selectedRequalifConfUnit.getIdTargetUnit( ) );
+            Sector secteur = _adresseService.getSectorByGeomAndIdUnitParent( adresse.getLng( ), adresse.getLat( ),
+                    selectedRequalifConfUnit.getIdTargetUnit( ) );
 
             signalement.setSecteur( secteur );
             _signalementService.update( signalement );
@@ -231,7 +234,8 @@ public class RequalificationAutoSignalementTask extends AbstractSignalementTask
                     requalifUnit.setIdStateAfter( CONSTANT_NO_STATE_AFTER );
                 }
 
-                List<RequalificationAutoConfigUnit> listRequalif = _requalificationAutoSignalementTaskConfigService.findByTaskIdAndSourceUnitId( getId( ), nIdSourceUnit );
+                List<RequalificationAutoConfigUnit> listRequalif = _requalificationAutoSignalementTaskConfigService.findByTaskIdAndSourceUnitId( getId( ),
+                        nIdSourceUnit );
                 if ( !listRequalif.isEmpty( ) )
                 {
                     if ( requalifUnit.getIdTypeSignalement( ) == CONSTANT_ALL_TYPE_SIGNALEMENT )
@@ -240,7 +244,8 @@ public class RequalificationAutoSignalementTask extends AbstractSignalementTask
                     }
                     for ( RequalificationAutoConfigUnit requalif : listRequalif )
                     {
-                        if ( ( requalif.getIdTypeSignalement( ) == CONSTANT_ALL_TYPE_SIGNALEMENT ) || ( requalif.getIdTypeSignalement( ) == requalifUnit.getIdTypeSignalement( ) ) )
+                        if ( ( requalif.getIdTypeSignalement( ) == CONSTANT_ALL_TYPE_SIGNALEMENT )
+                                || ( requalif.getIdTypeSignalement( ) == requalifUnit.getIdTypeSignalement( ) ) )
                         {
                             return AdminMessageService.getMessageUrl( request, MESSAGE_UNIT_ALREADY_EXISTS );
                         }

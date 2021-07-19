@@ -16,6 +16,8 @@
 	<!-- DAO -->
 	<bean id="signalement.notificationSignalementTaskConfigDAO"
 		class="fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notification.business.NotificationSignalementTaskConfigDAO" />
+	<bean id="signalement.notificationServiceProgrammeSignalementTaskConfigDAO"
+		class="fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notification.service.programme.business.NotificationServiceProgrammeSignalementTaskConfigDAO" />		
 	<bean id="signalement.notificationSignalementTaskConfigUnitDAO"
 		class="fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notification.business.NotificationSignalementTaskConfigUnitDAO" />
 	<bean id="signalement.notificationSignalementUserTaskConfigDAO"
@@ -54,6 +56,8 @@
 		class="fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notificationpush.service.NotificationPushValueService" />
 	<bean id="signalement.notificationSignalementTaskConfigService"
 		class="fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notification.service.NotificationSignalementTaskConfigService" />
+	<bean id="signalement.notificationServiceProgrammeSignalementTaskConfigService"
+		class="fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notification.service.programme.service.NotificationServiceProgrammeSignalementTaskConfigService" />
 	<bean id="signalement.notificationUserMultiContentsValueService"
 		class="fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notificationusermulticontents.service.NotificationUserMultiContentsValueService" />
 	<bean id="signalement.notificationSignalementTaskConfigUnitService"
@@ -190,6 +194,27 @@
 	<bean id="workflow-signalement.notificationConfigService"
 		class="fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notification.service.NotificationSignalementConfigService"
 		p:taskConfigDAO-ref="signalement.notificationSignalementTaskConfigDAO" />
+		
+	<!-- notification abonnées service programmé-->
+	<bean id="workflow-signalement.notificationServiceProgramme"
+		class="fr.paris.lutece.plugins.workflowcore.business.task.TaskType"
+		p:key="taskSignalementNotificationServiceProgramme" p:titleI18nKey="module.workflow.dansmarue.workflow.notification.service.programme"
+		p:beanName="workflow-signalement.notificationServiceProgrammeBean" 
+		p:configBeanName="workflow-signalement.notificationServiceProgrammeConfig"
+		p:configRequired="true" />
+	<bean id="workflow-signalement.notificationServiceProgrammeBean"
+		class="fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notification.service.programme.service.NotificationServiceProgrammeSignalementServiceProgrammeTask"
+		scope="prototype" />
+	<bean id="workflow-signalement.notificationServiceProgrammeConfig"
+		class="fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notification.service.programme.business.NotificationServiceProgrammeSignalementTaskConfigDTO"
+		scope="prototype" />
+	<bean id="workflow-signalement.notificationServiceProgrammeComponent"
+		class="fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notification.service.programme.web.NotificationServiceProgrammeComponent"
+		p:taskType-ref="workflow-signalement.notificationServiceProgramme" 
+		p:taskConfigService-ref="workflow-signalement.notificationServiceProgrammeConfigService" />
+	<bean id="workflow-signalement.notificationServiceProgrammeConfigService"
+		class="fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notification.service.programme.service.NotificationServiceProgrammeSignalementConfigService"
+		p:taskConfigDAO-ref="signalement.notificationServiceProgrammeSignalementTaskConfigDAO" />
 		
 	<!-- Notification user -->
 	<bean id="workflow-signalement.notificationUser"

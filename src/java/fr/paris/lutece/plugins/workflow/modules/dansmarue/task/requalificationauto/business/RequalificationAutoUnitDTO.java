@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,29 +33,29 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.dansmarue.task.requalificationauto.business;
 
-
 /**
  * DTO for RequalificationAutoUnit.
  */
 public class RequalificationAutoUnitDTO extends RequalificationAutoConfigUnit
 {
-    
+
     /** The str source unit name. */
     private String _strSourceUnitName;
-    
+
     /** The str type signalement name. */
     private String _strTypeSignalementName;
-    
+
     /** The str target unit name. */
     private String _strTargetUnitName;
-    
+
     /** The str workflow state after name. */
     private String _strWorkflowStateAfterName;
 
     /**
      * Creates a RequalificationAutoUnitDTO with values of a RequalificationAutoUnit.
      *
-     * @param requalifUnit            The object this DTO represents
+     * @param requalifUnit
+     *            The object this DTO represents
      */
     public RequalificationAutoUnitDTO( RequalificationAutoConfigUnit requalifUnit )
     {
@@ -80,7 +80,8 @@ public class RequalificationAutoUnitDTO extends RequalificationAutoConfigUnit
     /**
      * Set the name of the source unit.
      *
-     * @param strSourceUnitName            The name of the source unit
+     * @param strSourceUnitName
+     *            The name of the source unit
      */
     public void setSourceUnitName( String strSourceUnitName )
     {
@@ -100,7 +101,8 @@ public class RequalificationAutoUnitDTO extends RequalificationAutoConfigUnit
     /**
      * Set the name of the type signalement.
      *
-     * @param strTypeSignalementName            The name of the type signalement
+     * @param strTypeSignalementName
+     *            The name of the type signalement
      */
     public void setTypeSignalementName( String strTypeSignalementName )
     {
@@ -120,7 +122,8 @@ public class RequalificationAutoUnitDTO extends RequalificationAutoConfigUnit
     /**
      * Set the name of the target unit.
      *
-     * @param strTargetUnitName            The name of the target unit
+     * @param strTargetUnitName
+     *            The name of the target unit
      */
     public void setTargetUnitName( String strTargetUnitName )
     {
@@ -140,7 +143,8 @@ public class RequalificationAutoUnitDTO extends RequalificationAutoConfigUnit
     /**
      * Set the name of the next workflow state.
      *
-     * @param strWorkflowStateAfterName            The name of the next workflow state
+     * @param strWorkflowStateAfterName
+     *            The name of the next workflow state
      */
     public void setWorkflowStateAfterName( String strWorkflowStateAfterName )
     {

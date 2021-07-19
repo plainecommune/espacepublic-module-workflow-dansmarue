@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,7 +40,6 @@ import fr.paris.lutece.plugins.workflowcore.business.config.ITaskConfigDAO;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.util.sql.DAOUtil;
 
-
 /**
  * NotificationSignalementUser3ContentsTaskConfigDAO class.
  */
@@ -48,26 +47,29 @@ public class NotificationSignalementUserMultiContentsTaskConfigDAO implements IT
 {
 
     /** The Constant SQL_QUERY_NEW_PK. */
-    private static final String SQL_QUERY_NEW_PK                  = "SELECT nextval('seq_signalement_workflow_notifuser_multi_contents_config')";
+    private static final String SQL_QUERY_NEW_PK = "SELECT nextval('seq_signalement_workflow_notifuser_multi_contents_config')";
 
     /** The Constant SQL_QUERY_FIND_BY_PRIMARY_KEY. */
-    private static final String SQL_QUERY_FIND_BY_PRIMARY_KEY     = "SELECT id_message,subject,sender,title,message" + " FROM signalement_workflow_notifuser_multi_contents_config WHERE id_message=?";
-    
+    private static final String SQL_QUERY_FIND_BY_PRIMARY_KEY = "SELECT id_message,subject,sender,title,message"
+            + " FROM signalement_workflow_notifuser_multi_contents_config WHERE id_message=?";
+
     /** The Constant SQL_QUERY_INSERT. */
-    private static final String SQL_QUERY_INSERT                  = "INSERT INTO signalement_workflow_notifuser_multi_contents_config  " + "(id_message,subject,sender,title,message)VALUES(?,?,?,?,?)";
-    
+    private static final String SQL_QUERY_INSERT = "INSERT INTO signalement_workflow_notifuser_multi_contents_config  "
+            + "(id_message,subject,sender,title,message)VALUES(?,?,?,?,?)";
+
     /** The Constant SQL_QUERY_INSERT_TASK. */
-    private static final String SQL_QUERY_INSERT_TASK             = "INSERT INTO signalement_workflow_notifuser_multi_contents_task  " + "(id_task,id_message)VALUES(?,?)";
-    
+    private static final String SQL_QUERY_INSERT_TASK = "INSERT INTO signalement_workflow_notifuser_multi_contents_task  " + "(id_task,id_message)VALUES(?,?)";
+
     /** The Constant SQL_QUERY_UPDATE. */
-    private static final String SQL_QUERY_UPDATE                  = "UPDATE signalement_workflow_notifuser_multi_contents_config " + "SET subject=?,sender=?,title=?,message=?" + " WHERE id_message=?";
-    
+    private static final String SQL_QUERY_UPDATE = "UPDATE signalement_workflow_notifuser_multi_contents_config " + "SET subject=?,sender=?,title=?,message=?"
+            + " WHERE id_message=?";
+
     /** The Constant SQL_QUERY_DELETE_MESSAGE. */
-    private static final String SQL_QUERY_DELETE_MESSAGE          = "DELETE FROM signalement_workflow_notifuser_multi_contents_config WHERE id_message=? ";
-    
+    private static final String SQL_QUERY_DELETE_MESSAGE = "DELETE FROM signalement_workflow_notifuser_multi_contents_config WHERE id_message=? ";
+
     /** The Constant SQL_QUERY_DELETE_MESSAGE_LINK. */
-    private static final String SQL_QUERY_DELETE_MESSAGE_LINK     = "DELETE FROM signalement_workflow_notifuser_multi_contents_task WHERE id_message=? and id_task=?";
-    
+    private static final String SQL_QUERY_DELETE_MESSAGE_LINK = "DELETE FROM signalement_workflow_notifuser_multi_contents_task WHERE id_message=? and id_task=?";
+
     /** The Constant SQL_QUERY_SELECT_ALL_MESSAGE_TASK. */
     private static final String SQL_QUERY_SELECT_ALL_MESSAGE_TASK = "SELECT id_message from signalement_workflow_notifuser_multi_contents_task WHERE id_task=? ORDER BY id_message";
 
@@ -79,7 +81,7 @@ public class NotificationSignalementUserMultiContentsTaskConfigDAO implements IT
     private Long newPrimaryKey( )
     {
         Long nKey = null;
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK ) ; )
         {
             daoUtil.executeQuery( );
 
@@ -110,7 +112,7 @@ public class NotificationSignalementUserMultiContentsTaskConfigDAO implements IT
             config.setIdMessage( newPrimaryKey( ) );
         }
 
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) ; )
         {
             int nPos = 0;
 
@@ -142,7 +144,7 @@ public class NotificationSignalementUserMultiContentsTaskConfigDAO implements IT
      */
     private void insertTask( Integer idTask, Long idMessage, Plugin plugin )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT_TASK, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT_TASK, plugin ) ; )
         {
 
             daoUtil.setInt( 1, idTask );
@@ -164,7 +166,7 @@ public class NotificationSignalementUserMultiContentsTaskConfigDAO implements IT
      */
     public void update( NotificationSignalementUserMultiContentsTaskConfig config, Plugin plugin )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) ; )
         {
 
             int nPos = 0;
@@ -191,7 +193,7 @@ public class NotificationSignalementUserMultiContentsTaskConfigDAO implements IT
     public NotificationSignalementUserMultiContentsTaskConfig findByPrimaryKey( Long nIdMessage, Plugin plugin )
     {
         NotificationSignalementUserMultiContentsTaskConfig userTaskConfig = new NotificationSignalementUserMultiContentsTaskConfig( );
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_PRIMARY_KEY, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_PRIMARY_KEY, plugin ) ; )
         {
 
             daoUtil.setLong( 1, nIdMessage );
@@ -229,7 +231,7 @@ public class NotificationSignalementUserMultiContentsTaskConfigDAO implements IT
     {
         deleteLinkMessageTask( nIdMessage, nIdTask, plugin );
 
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_MESSAGE, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_MESSAGE, plugin ) ; )
         {
 
             daoUtil.setLong( 1, nIdMessage );
@@ -251,7 +253,7 @@ public class NotificationSignalementUserMultiContentsTaskConfigDAO implements IT
      */
     private void deleteLinkMessageTask( Long nIdMessage, Integer nIdTask, Plugin plugin )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_MESSAGE_LINK, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_MESSAGE_LINK, plugin ) ; )
         {
 
             daoUtil.setLong( 1, nIdMessage );
@@ -264,7 +266,8 @@ public class NotificationSignalementUserMultiContentsTaskConfigDAO implements IT
     /**
      * Store.
      *
-     * @param config the config
+     * @param config
+     *            the config
      */
     @Override
     public void store( NotificationSignalementUserMultiContentsTaskConfig config )
@@ -275,7 +278,8 @@ public class NotificationSignalementUserMultiContentsTaskConfigDAO implements IT
     /**
      * Load.
      *
-     * @param nIdMessage the n id message
+     * @param nIdMessage
+     *            the n id message
      * @return the notification signalement user multi contents task config
      */
     public NotificationSignalementUserMultiContentsTaskConfig load( Long nIdMessage )
@@ -286,7 +290,8 @@ public class NotificationSignalementUserMultiContentsTaskConfigDAO implements IT
     /**
      * Load.
      *
-     * @param nIdTask the n id task
+     * @param nIdTask
+     *            the n id task
      * @return the notification signalement user multi contents task config
      */
     @Override
@@ -298,8 +303,10 @@ public class NotificationSignalementUserMultiContentsTaskConfigDAO implements IT
     /**
      * Delete.
      *
-     * @param nIdTask the n id task
-     * @param plugin the plugin
+     * @param nIdTask
+     *            the n id task
+     * @param plugin
+     *            the plugin
      */
     public void delete( int nIdTask, Plugin plugin )
     {
@@ -309,15 +316,17 @@ public class NotificationSignalementUserMultiContentsTaskConfigDAO implements IT
     /**
      * Select all message task.
      *
-     * @param nIdTask the n id task
-     * @param plugin the plugin
+     * @param nIdTask
+     *            the n id task
+     * @param plugin
+     *            the plugin
      * @return the list
      */
     public List<Long> selectAllMessageTask( int nIdTask, Plugin plugin )
     {
         List<Long> listIdMessage = new ArrayList<>( );
 
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_ALL_MESSAGE_TASK, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_ALL_MESSAGE_TASK, plugin ) ; )
         {
 
             daoUtil.setLong( 1, nIdTask );
@@ -337,8 +346,10 @@ public class NotificationSignalementUserMultiContentsTaskConfigDAO implements IT
     /**
      * Delete task.
      *
-     * @param nIdTask the n id task
-     * @param plugin the plugin
+     * @param nIdTask
+     *            the n id task
+     * @param plugin
+     *            the plugin
      */
     public void deleteTask( int nIdTask, Plugin plugin )
     {
@@ -353,7 +364,8 @@ public class NotificationSignalementUserMultiContentsTaskConfigDAO implements IT
     /**
      * Delete.
      *
-     * @param nIdTask the n id task
+     * @param nIdTask
+     *            the n id task
      */
     @Override
     public void delete( int nIdTask )
@@ -365,7 +377,8 @@ public class NotificationSignalementUserMultiContentsTaskConfigDAO implements IT
     /**
      * Insert.
      *
-     * @param config the config
+     * @param config
+     *            the config
      */
     @Override
     public void insert( NotificationSignalementUserMultiContentsTaskConfig config )
