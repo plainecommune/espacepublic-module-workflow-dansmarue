@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,30 +35,29 @@ package fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notificationuser
 
 import fr.paris.lutece.plugins.workflowcore.business.config.TaskConfig;
 
-
 /**
  * NotificationSignalementUserTaskConfig class.
  */
 public class NotificationSignalementUserMultiContentsTaskConfig extends TaskConfig
 {
-    
+
     /** The n id task. */
     private Integer _nIdTask;
-    
+
     /** The n id message. */
-    private Long    _nIdMessage;
-    
+    private Long _nIdMessage;
+
     /** The str subject. */
-    private String  _strSubject;
-    
+    private String _strSubject;
+
     /** The str message. */
-    private String  _strMessage;
-    
+    private String _strMessage;
+
     /** The str sender. */
-    private String  _strSender;
-    
+    private String _strSender;
+
     /** The str title. */
-    private String  _strTitle;
+    private String _strTitle;
 
     /**
      * Gets the subject.
@@ -73,7 +72,8 @@ public class NotificationSignalementUserMultiContentsTaskConfig extends TaskConf
     /**
      * set the subject of the message.
      *
-     * @param subject            the subject of the message
+     * @param subject
+     *            the subject of the message
      */
     public void setSubject( String subject )
     {
@@ -93,7 +93,8 @@ public class NotificationSignalementUserMultiContentsTaskConfig extends TaskConf
     /**
      * set the sender of the notification.
      *
-     * @param sender            the sender
+     * @param sender
+     *            the sender
      */
     public void setSender( String sender )
     {
@@ -113,7 +114,8 @@ public class NotificationSignalementUserMultiContentsTaskConfig extends TaskConf
     /**
      * Sets the id message.
      *
-     * @param idMessage            the idMessage to set
+     * @param idMessage
+     *            the idMessage to set
      */
     public void setIdMessage( Long idMessage )
     {
@@ -133,7 +135,8 @@ public class NotificationSignalementUserMultiContentsTaskConfig extends TaskConf
     /**
      * Sets the message.
      *
-     * @param strMessage            the strMessage to set
+     * @param strMessage
+     *            the strMessage to set
      */
     public void setMessage( String strMessage )
     {
@@ -153,7 +156,8 @@ public class NotificationSignalementUserMultiContentsTaskConfig extends TaskConf
     /**
      * Sets the title.
      *
-     * @param strTitle            the strTitle to set
+     * @param strTitle
+     *            the strTitle to set
      */
     public void setTitle( String strTitle )
     {
@@ -174,7 +178,8 @@ public class NotificationSignalementUserMultiContentsTaskConfig extends TaskConf
     /**
      * Sets the id task.
      *
-     * @param idTask            the idTask to set
+     * @param idTask
+     *            the idTask to set
      */
     public void setIdTask( Integer idTask )
     {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -52,7 +52,6 @@ import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notification.busi
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notification.business.NotificationSignalementTaskConfigUnitDAO;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 
-
 /**
  * NotificationSignalementTaskConfigService class.
  */
@@ -63,7 +62,7 @@ public class NotificationSignalementTaskConfigService
     // DAO
     @Inject
     @Named( "signalement.notificationSignalementTaskConfigDAO" )
-    private NotificationSignalementTaskConfigDAO     _notificationSignalementTaskConfigDAO;
+    private NotificationSignalementTaskConfigDAO _notificationSignalementTaskConfigDAO;
 
     /** The notification signalement task config unit DAO. */
     @Inject
@@ -73,12 +72,12 @@ public class NotificationSignalementTaskConfigService
     /** The unit service. */
     @Inject
     @Named( "unittree.unitService" )
-    private IUnitService                             _unitService;
+    private IUnitService _unitService;
 
     /** The type signalement service. */
     @Inject
     @Named( "typeSignalementService" )
-    private ITypeSignalementService                  _typeSignalementService;
+    private ITypeSignalementService _typeSignalementService;
 
     /**
      * Add a new NotificationSignalementTask configuration.
@@ -223,7 +222,8 @@ public class NotificationSignalementTaskConfigService
             configDTO.setSender( config.getSender( ) );
         }
 
-        List<NotificationSignalementTaskConfigUnit> listeConfigTypeSignalement = _notificationSignalementTaskConfigUnitDAO.findByIdTaskWithTypeSignalement( nIdTask, plugin );
+        List<NotificationSignalementTaskConfigUnit> listeConfigTypeSignalement = _notificationSignalementTaskConfigUnitDAO
+                .findByIdTaskWithTypeSignalement( nIdTask, plugin );
 
         TypeSignalement type;
         for ( NotificationSignalementTaskConfigUnit configType : listeConfigTypeSignalement )

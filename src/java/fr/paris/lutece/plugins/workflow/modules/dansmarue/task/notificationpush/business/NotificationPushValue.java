@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,19 +33,18 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notificationpush.business;
 
-
 /**
  * The Class NotificationPushValue.
  */
 public class NotificationPushValue
 {
-    
+
     /** The id resource history. */
-    private int    _idResourceHistory;
-    
+    private int _idResourceHistory;
+
     /** The id task. */
-    private int    _idTask;
-    
+    private int _idTask;
+
     /** The mobile notification value. */
     private String _mobileNotificationValue;
 
@@ -62,7 +61,8 @@ public class NotificationPushValue
     /**
      * the notification value id.
      *
-     * @param id            the notification value id
+     * @param id
+     *            the notification value id
      */
     public void setIdResourceHistory( int id )
     {
@@ -82,7 +82,8 @@ public class NotificationPushValue
     /**
      * the task id.
      *
-     * @param idTask            the task id
+     * @param idTask
+     *            the task id
      */
     public void setIdTask( int idTask )
     {
@@ -102,7 +103,8 @@ public class NotificationPushValue
     /**
      * Sets the mobile notification value.
      *
-     * @param mobileNotificationValue            the mobileNotificationValue to set
+     * @param mobileNotificationValue
+     *            the mobileNotificationValue to set
      */
     public void setMobileNotificationValue( String mobileNotificationValue )
     {

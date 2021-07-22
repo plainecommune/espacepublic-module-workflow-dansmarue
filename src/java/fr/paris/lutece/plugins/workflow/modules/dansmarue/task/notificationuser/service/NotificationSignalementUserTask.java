@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -44,6 +44,7 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
 import fr.paris.lutece.plugins.dansmarue.business.entities.PhotoDMR;
@@ -54,12 +55,14 @@ import fr.paris.lutece.plugins.dansmarue.service.ISignalementService;
 import fr.paris.lutece.plugins.dansmarue.util.constants.SignalementConstants;
 import fr.paris.lutece.plugins.dansmarue.utils.DateUtils;
 import fr.paris.lutece.plugins.dansmarue.utils.SignalementUtils;
+import fr.paris.lutece.plugins.workflow.modules.dansmarue.service.TaskUtils;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.AbstractSignalementTask;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notificationuser.business.NotificationSignalementUserTaskConfig;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notificationuser.business.NotificationSignalementUserTaskConfigDAO;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notificationuser.business.NotificationUserValue;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.utils.WorkflowSignalementUtil;
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceHistory;
+import fr.paris.lutece.portal.service.datastore.DatastoreService;
 import fr.paris.lutece.portal.service.mail.MailService;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
@@ -76,84 +79,96 @@ public class NotificationSignalementUserTask extends AbstractSignalementTask
 
     /** The Constant PROPERTY_TS_BASE_URL. */
     // PROPERTIES
-    private static final String                      PROPERTY_TS_BASE_URL                      = "lutece.ts.prod.url";
+    private static final String PROPERTY_TS_BASE_URL = "lutece.ts.prod.url";
 
     /** The Constant JSP_PORTAL_USER. */
     // JSP
-    private static final String                      JSP_PORTAL_USER                           = "jsp/site/Portal.jsp?instance=signalement";
+    private static final String JSP_PORTAL_USER = "jsp/site/Portal.jsp?instance=signalement";
 
     /** The Constant MARK_NUMERO. */
     // MARKERS
-    private static final String                      MARK_NUMERO                               = "numero";
+    private static final String MARK_NUMERO = "numero";
 
     /** The Constant MARK_TYPE. */
-    private static final String                      MARK_TYPE                                 = "type";
+    private static final String MARK_TYPE = "type";
+
+    /** The Constant MARK_ID_TYPE. */
+    private static final String MARK_ID_TYPE = "id_type";
 
     /** The Constant MARK_ADRESSE. */
-    private static final String                      MARK_ADRESSE                              = "adresse";
+    private static final String MARK_ADRESSE = "adresse";
 
     /** The Constant MARK_PRIORITE. */
-    private static final String                      MARK_PRIORITE                             = "priorite";
+    private static final String MARK_PRIORITE = "priorite";
 
     /** The Constant MARK_COMMENTAIRE. */
-    private static final String                      MARK_COMMENTAIRE                          = "commentaire";
+    private static final String MARK_COMMENTAIRE = "commentaire";
 
     /** The Constant MARK_PRECISION. */
-    private static final String                      MARK_PRECISION                            = "precision";
+    private static final String MARK_PRECISION = "precision";
 
     /** The Constant MARK_LIEN_CONSULTATION. */
-    private static final String                      MARK_LIEN_CONSULTATION                    = "lien_consultation";
+    private static final String MARK_LIEN_CONSULTATION = "lien_consultation";
 
     /** The Constant MARK_DATE_PROGRAMMATION. */
-    private static final String                      MARK_DATE_PROGRAMMATION                   = "date_programmation";
+    private static final String MARK_DATE_PROGRAMMATION = "date_programmation";
 
     /** The Constant MARK_DATE_DE_TRAITEMENT. */
-    private static final String                      MARK_DATE_DE_TRAITEMENT                   = "datetraitement";
+    private static final String MARK_DATE_DE_TRAITEMENT = "datetraitement";
 
     /** The Constant MARK_HEURE_DE_TRAITEMENT. */
-    private static final String                      MARK_HEURE_DE_TRAITEMENT                  = "heuretraitement";
+    private static final String MARK_HEURE_DE_TRAITEMENT = "heuretraitement";
+    private static final String MARK_URL_SONDAGE_DEMANDE = "urlSondageDemande";
+    private static final String MARK_URL_SONDAGE_SERVICE = "urlSondageService";
+    private static final String URL_SONDAGE_DEMANDE = "sitelabels.site_property.message.url.sondage.demande";
+    private static final String URL_SONDAGE_SERVICE = "sitelabels.site_property.message.url.sondage.sevice";
+    private static final String MARK_CP = "code_postal";
+    private static final String MARK_ID_TYPO_LVL_1 = "id_typologie_lvl_1";
 
     /** The Constant MARK_DATE_ENVOI. */
-    private static final String                      MARK_DATE_ENVOI                           = "dateEnvoi";
+    private static final String MARK_DATE_ENVOI = "dateEnvoi";
 
     /** The Constant MARK_HEURE_ENVOI. */
-    private static final String                      MARK_HEURE_ENVOI                          = "heureEnvoi";
+    private static final String MARK_HEURE_ENVOI = "heureEnvoi";
 
     /** The Constant MARK_RAISONS_REJET. */
-    private static final String                      MARK_RAISONS_REJET                        = "raisons_rejet";
+    private static final String MARK_RAISONS_REJET = "raisons_rejet";
 
     /** The Constant MARK_ALIAS_ANOMALIE. */
-    private static final String                      MARK_ALIAS_ANOMALIE                       = "alias_anomalie";
+    private static final String MARK_ALIAS_ANOMALIE = "alias_anomalie";
 
     /** The Constant MARK_ID_ANOMALIE. */
-    private static final String                      MARK_ID_ANOMALIE                          = "id_anomalie";
+    private static final String MARK_ID_ANOMALIE = "id_anomalie";
 
     /** The Constant PARAMETER_PAGE. */
     // PARAMETERS
-    private static final String                      PARAMETER_PAGE                            = "page";
+    private static final String PARAMETER_PAGE = "page";
 
     /** The Constant PARAMETER_SUIVI. */
-    private static final String                      PARAMETER_SUIVI                           = "suivi";
+    private static final String PARAMETER_SUIVI = "suivi";
 
     /** The Constant PARAMETER_TOKEN. */
-    private static final String                      PARAMETER_TOKEN                           = "token";
+    private static final String PARAMETER_TOKEN = "token";
 
     /** The Constant PARAMETER_MESSAGE_FOR_USER. */
-    private static final String                      PARAMETER_MESSAGE_FOR_USER                = "messageForUser";
+    private static final String PARAMETER_MESSAGE_FOR_USER = "messageForUser";
+
+    private static final String PARAMETER_WEBSERVICE_RAISON_REJET = "rejection_reason";
 
     /** The signalement service. */
     // SERVICES
-    private ISignalementService                      _signalementService                       = SpringContextService.getBean( "signalementService" );
+    private ISignalementService _signalementService = SpringContextService.getBean( "signalementService" );
 
     /** The notification user value service. */
-    private NotificationUserValueService             _notificationUserValueService             = SpringContextService.getBean( "signalement.notificationUserValueService" );
+    private NotificationUserValueService _notificationUserValueService = SpringContextService.getBean( "signalement.notificationUserValueService" );
 
     /** The observation rejet service. */
-    private IObservationRejetService                 _observationRejetService                  = SpringContextService.getBean( "observationRejetService" );
+    private IObservationRejetService _observationRejetService = SpringContextService.getBean( "observationRejetService" );
 
     /** The notification signalement user task config DAO. */
     // DAO
-    private NotificationSignalementUserTaskConfigDAO _notificationSignalementUserTaskConfigDAO = SpringContextService.getBean( "signalement.notificationSignalementUserTaskConfigDAO" );
+    private NotificationSignalementUserTaskConfigDAO _notificationSignalementUserTaskConfigDAO = SpringContextService
+            .getBean( "signalement.notificationSignalementUserTaskConfigDAO" );
 
     /**
      * Process task.
@@ -191,14 +206,16 @@ public class NotificationSignalementUserTask extends AbstractSignalementTask
         }
 
         // 2 - Sinon récupération du message configuré sur la tache
-        if ( StringUtils.isBlank( messageForUser ) )
+        if ( StringUtils.isBlank( messageForUser ) && StringUtils.isNotBlank( config.getMessage( ) ) )
         {
             messageForUser = config.getMessage( );
-            if ( !StringUtils.isBlank( messageForUser ) )
-            {
-                messageForUser = messageForUser.replaceAll( "\r\n", "<br />" ).replaceAll( "\r|\n", "<br />" );
-                config.setMessage( messageForUser );
-            }
+
+        }
+
+        if ( !StringUtils.isBlank( messageForUser ) )
+        {
+            messageForUser = messageForUser.replaceAll( "\r\n", "<br />" ).replaceAll( "\r|\n", "<br />" );
+            config.setMessage( messageForUser );
         }
 
         boolean hasMail = false;
@@ -219,6 +236,7 @@ public class NotificationSignalementUserTask extends AbstractSignalementTask
 
         emailModel.put( MARK_ID_ANOMALIE, idRessource );
         emailModel.put( MARK_NUMERO, signalement.getNumeroSignalement( ) );
+        emailModel.put( MARK_ID_TYPE, signalement.getTypeSignalement( ).getId( ) );
         emailModel.put( MARK_TYPE, signalement.getType( ) );
 
         // Alias de l'anomalie
@@ -293,11 +311,47 @@ public class NotificationSignalementUserTask extends AbstractSignalementTask
             emailModel.put( MARK_HEURE_ENVOI, StringUtils.EMPTY );
         }
 
-        String rejectReason = WorkflowSignalementUtil.buildValueMotifRejetForEmailNotification( request, _observationRejetService.getAllObservationRejetActif( ) );
+        emailModel.put( MARK_URL_SONDAGE_DEMANDE, DatastoreService.getDataValue( URL_SONDAGE_DEMANDE, "" ) );
+        emailModel.put( MARK_URL_SONDAGE_SERVICE, DatastoreService.getDataValue( URL_SONDAGE_SERVICE, "" ) );
+
+        if ( ( signalement.getAdresses( ) != null ) && ( CollectionUtils.isNotEmpty( signalement.getAdresses( ) ) )
+                && ( signalement.getAdresses( ).get( 0 ) != null ) && ( signalement.getAdresses( ).get( 0 ).getAdresse( ) != null ) )
+        {
+            emailModel.put( MARK_CP, TaskUtils.getCPFromAdresse( signalement.getAdresses( ).get( 0 ).getAdresse( ) ) );
+        }
+        else
+        {
+            emailModel.put( MARK_CP, StringUtils.EMPTY );
+        }
+
+        int idTypeAnoLvl1 = TaskUtils.getIdTypeAnoLvl1( signalement.getTypeSignalement( ) );
+        if ( idTypeAnoLvl1 > -1 )
+        {
+            emailModel.put( MARK_ID_TYPO_LVL_1, idTypeAnoLvl1 );
+        }
+        else
+        {
+            emailModel.put( MARK_ID_TYPO_LVL_1, StringUtils.EMPTY );
+        }
+
+        String rejectReason = WorkflowSignalementUtil.buildValueMotifRejetForEmailNotification( request,
+                _observationRejetService.getAllObservationRejetActif( ) );
         if ( StringUtils.isNotBlank( rejectReason ) )
         {
             emailModel.put( MARK_RAISONS_REJET, rejectReason );
         }
+        else
+            if ( ( request != null ) && ( request.getSession( ).getAttribute( PARAMETER_WEBSERVICE_RAISON_REJET ) != null ) )
+            {
+                // Récupération de la raison de rejet envoyé par le prestataire via WS
+                emailModel.put( MARK_RAISONS_REJET, request.getSession( ).getAttribute( PARAMETER_WEBSERVICE_RAISON_REJET ) );
+                request.getSession( ).removeAttribute( PARAMETER_WEBSERVICE_RAISON_REJET );
+            }
+            else
+            {
+                // Sinon afin de ne pas avoir d'erreur, on set la raison de rejet à vide
+                emailModel.put( MARK_RAISONS_REJET, "" );
+            }
 
         String message = AppTemplateService.getTemplateFromStringFtl( "[#ftl]" + config.getMessage( ), locale, emailModel ).getHtml( );
         String subject = AppTemplateService.getTemplateFromStringFtl( config.getSubject( ), locale, emailModel ).getHtml( );
@@ -325,23 +379,25 @@ public class NotificationSignalementUserTask extends AbstractSignalementTask
                 if ( ( photo.getImage( ) != null ) && ( photo.getImage( ).getImage( ) != null ) )
                 {
 
-                    String[] mime = photo.getImage( ).getMimeType( ).split( "/" );
+                    String [ ] mime = photo.getImage( ).getMimeType( ).split( "/" );
 
                     if ( photo.getVue( ) == 1 )
                     {
 
-                        files.add( new FileAttachment( SignalementConstants.NOM_PHOTO_ENSEMBLE_PJ + mime[1], photo.getImage( ).getImage( ), photo.getImage( ).getMimeType( ) ) );
+                        files.add( new FileAttachment( SignalementConstants.NOM_PHOTO_ENSEMBLE_PJ + mime [1], photo.getImage( ).getImage( ),
+                                photo.getImage( ).getMimeType( ) ) );
 
                     }
                     else
                     {
-                        files.add( new FileAttachment( SignalementConstants.NOM_PHOTO_PRES_PJ + mime[1], photo.getImage( ).getImage( ), photo.getImage( ).getMimeType( ) ) );
+                        files.add( new FileAttachment( SignalementConstants.NOM_PHOTO_PRES_PJ + mime [1], photo.getImage( ).getImage( ),
+                                photo.getImage( ).getMimeType( ) ) );
                     }
                 }
             }
 
-            MailService.sendMailMultipartHtml( email, null, null, config.getSender( ), AppPropertiesService.getProperty( "mail.noreply.email", "noreply-dansmarue@paris.fr" ), subject, message, null,
-                    files );
+            MailService.sendMailMultipartHtml( email, null, null, config.getSender( ),
+                    AppPropertiesService.getProperty( "mail.noreply.email", "noreply-dansmarue@paris.fr" ), subject, message, null, files );
 
             // save the email (notification) in the workflow history
             NotificationUserValue notificationUserValue = new NotificationUserValue( );

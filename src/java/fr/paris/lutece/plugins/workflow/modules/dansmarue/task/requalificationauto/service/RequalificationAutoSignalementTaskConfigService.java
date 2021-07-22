@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -60,10 +60,10 @@ public class RequalificationAutoSignalementTaskConfigService extends TaskConfigS
 {
 
     /** The Constant MESSAGE_EVERY_TYPE_SIGNALEMENT. */
-    private static final String                         MESSAGE_EVERY_TYPE_SIGNALEMENT = "module.workflow.dansmarue.task_requalification_auto_config.type_signalement.all";
+    private static final String MESSAGE_EVERY_TYPE_SIGNALEMENT = "module.workflow.dansmarue.task_requalification_auto_config.type_signalement.all";
 
     /** The Constant MESSAGE_NO_STATE_AFTER. */
-    private static final String                         MESSAGE_NO_STATE_AFTER         = "module.workflow.dansmarue.task_requalification_auto_config.noStateAfter";
+    private static final String MESSAGE_NO_STATE_AFTER = "module.workflow.dansmarue.task_requalification_auto_config.noStateAfter";
 
     /** The requalification auto signalement DAO. */
     @Inject
@@ -73,10 +73,10 @@ public class RequalificationAutoSignalementTaskConfigService extends TaskConfigS
     /** The type signalement service. */
     @Inject
     @Named( "typeSignalementService" )
-    private TypeSignalementService                      _typeSignalementService;
+    private TypeSignalementService _typeSignalementService;
 
     /** The workflow signalement plugin. */
-    private Plugin                                      _workflowSignalementPlugin;
+    private Plugin _workflowSignalementPlugin;
 
     /**
      * Create Unit.
@@ -163,7 +163,8 @@ public class RequalificationAutoSignalementTaskConfigService extends TaskConfigS
      *            the local
      * @return list of requalification
      */
-    public List<RequalificationAutoUnitDTO> convertRequalifAutoUnitsToDTO( List<RequalificationAutoConfigUnit> listRequalifsUnits, List<Unit> listUnits, List<State> listStates, Locale locale )
+    public List<RequalificationAutoUnitDTO> convertRequalifAutoUnitsToDTO( List<RequalificationAutoConfigUnit> listRequalifsUnits, List<Unit> listUnits,
+            List<State> listStates, Locale locale )
     {
         List<RequalificationAutoUnitDTO> listDTOs = new ArrayList<>( listRequalifsUnits.size( ) );
 
@@ -181,11 +182,12 @@ public class RequalificationAutoSignalementTaskConfigService extends TaskConfigS
                     requalifDTO.setSourceUnitName( unit.getLabel( ) );
                     bSourceFound = true;
                 }
-                else if ( unit.getIdUnit( ) == requalifDTO.getIdTargetUnit( ) )
-                {
-                    requalifDTO.setTargetUnitName( unit.getLabel( ) );
-                    bTargetFound = true;
-                }
+                else
+                    if ( unit.getIdUnit( ) == requalifDTO.getIdTargetUnit( ) )
+                    {
+                        requalifDTO.setTargetUnitName( unit.getLabel( ) );
+                        bTargetFound = true;
+                    }
                 if ( bSourceFound && bTargetFound )
                 {
                     break;

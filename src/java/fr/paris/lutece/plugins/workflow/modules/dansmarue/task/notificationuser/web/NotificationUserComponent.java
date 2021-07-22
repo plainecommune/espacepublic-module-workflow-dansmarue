@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -53,14 +53,17 @@ import fr.paris.lutece.plugins.dansmarue.service.FileMessageCreationService;
 import fr.paris.lutece.plugins.dansmarue.service.ISignalementService;
 import fr.paris.lutece.plugins.dansmarue.utils.DateUtils;
 import fr.paris.lutece.plugins.dansmarue.utils.SignalementUtils;
+import fr.paris.lutece.plugins.workflow.modules.dansmarue.service.TaskUtils;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.service.dto.BaliseFreemarkerDTO;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notificationuser.business.NotificationSignalementUserTaskConfig;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notificationuser.business.NotificationSignalementUserTaskConfigDAO;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notificationuser.business.NotificationUserValue;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notificationuser.service.NotificationUserValueService;
+import fr.paris.lutece.plugins.workflow.modules.dansmarue.utils.WorkflowSignalementConstants;
 import fr.paris.lutece.plugins.workflow.utils.WorkflowUtils;
 import fr.paris.lutece.plugins.workflow.web.task.AbstractTaskComponent;
 import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
+import fr.paris.lutece.portal.service.datastore.DatastoreService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.message.AdminMessage;
 import fr.paris.lutece.portal.service.message.AdminMessageService;
@@ -71,136 +74,142 @@ import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 import fr.paris.lutece.util.url.UrlItem;
 
-
 /**
  * The notification user component.
  */
 public class NotificationUserComponent extends AbstractTaskComponent
 {
-    
+
     /** The Constant PROPERTY_BASE_TS_URL. */
     // PROPERTIES
-    private static final String                      PROPERTY_BASE_TS_URL                        = "lutece.ts.prod.url";
+    private static final String PROPERTY_BASE_TS_URL = "lutece.ts.prod.url";
 
     /** The Constant JSP_PORTAL. */
     // JSP
-    private static final String                      JSP_PORTAL                                  = "jsp/site/Portal.jsp?instance=signalement";
+    private static final String JSP_PORTAL = "jsp/site/Portal.jsp?instance=signalement";
 
     /** The Constant MARK_CONFIG. */
     // MARKERS
-    private static final String                      MARK_CONFIG                                 = "config";
-    
+    private static final String MARK_CONFIG = "config";
+
     /** The Constant MARK_CONFIG_NOTIFICATION_USER. */
-    private static final String                      MARK_CONFIG_NOTIFICATION_USER               = "config_notification_user";
-    
+    private static final String MARK_CONFIG_NOTIFICATION_USER = "config_notification_user";
+
     /** The Constant MARK_WEBAPP_URL. */
-    private static final String                      MARK_WEBAPP_URL                             = "webapp_url";
-    
+    private static final String MARK_WEBAPP_URL = "webapp_url";
+
     /** The Constant MARK_LOCALE. */
-    private static final String                      MARK_LOCALE                                 = "locale";
-    
+    private static final String MARK_LOCALE = "locale";
+
     /** The Constant MARK_BALISES. */
-    private static final String                      MARK_BALISES                                = "balises";
+    private static final String MARK_BALISES = "balises";
 
     /** The Constant MARK_NUMERO. */
-    private static final String                      MARK_NUMERO                                 = "numero";
-    
+    private static final String MARK_NUMERO = "numero";
+
+    /** The Constant MARK_ID_TYPE. */
+    private static final String MARK_ID_TYPE = "id_type";
+
     /** The Constant MARK_TYPE. */
-    private static final String                      MARK_TYPE                                   = "type";
-    
+    private static final String MARK_TYPE = "type";
+
     /** The Constant MARK_ADRESSE. */
-    private static final String                      MARK_ADRESSE                                = "adresse";
-    
+    private static final String MARK_ADRESSE = "adresse";
+
     /** The Constant MARK_PRIORITE. */
-    private static final String                      MARK_PRIORITE                               = "priorite";
-    
+    private static final String MARK_PRIORITE = "priorite";
+
     /** The Constant MARK_COMMENTAIRE. */
-    private static final String                      MARK_COMMENTAIRE                            = "commentaire";
-    
+    private static final String MARK_COMMENTAIRE = "commentaire";
+
     /** The Constant MARK_PRECISION. */
-    private static final String                      MARK_PRECISION                              = "precision";
-    
+    private static final String MARK_PRECISION = "precision";
+
     /** The Constant MARK_NOTIFICATION_USER_VALUE. */
-    private static final String                      MARK_NOTIFICATION_USER_VALUE                = "notification_user_value";
-    
+    private static final String MARK_NOTIFICATION_USER_VALUE = "notification_user_value";
+
     /** The Constant MARK_LIEN_CONSULTATION. */
-    private static final String                      MARK_LIEN_CONSULTATION                      = "lien_consultation";
+    private static final String MARK_LIEN_CONSULTATION = "lien_consultation";
 
     /** The Constant MARK_DATE_PROGRAMMATION. */
-    private static final String                      MARK_DATE_PROGRAMMATION                     = "date_programmation";
-    
+    private static final String MARK_DATE_PROGRAMMATION = "date_programmation";
+
     /** The Constant MARK_DATE_DE_TRAITEMENT. */
-    private static final String                      MARK_DATE_DE_TRAITEMENT                     = "datetraitement";
-    
+    private static final String MARK_DATE_DE_TRAITEMENT = "datetraitement";
+
     /** The Constant MARK_HEURE_DE_TRAITEMENT. */
-    private static final String                      MARK_HEURE_DE_TRAITEMENT                    = "heuretraitement";
-    
+    private static final String MARK_HEURE_DE_TRAITEMENT = "heuretraitement";
+
     /** The Constant MARK_HAS_EMAIL_SIGNALEUR. */
-    private static final String                      MARK_HAS_EMAIL_SIGNALEUR                    = "has_email_signaleur";
+    private static final String MARK_HAS_EMAIL_SIGNALEUR = "has_email_signaleur";
 
     /** The Constant MARK_DATE_ENVOI. */
-    private static final String                      MARK_DATE_ENVOI                             = "dateEnvoi";
-    
-    /** The Constant MARK_HEURE_ENVOI. */
-    private static final String                      MARK_HEURE_ENVOI                            = "heureEnvoi";
+    private static final String MARK_DATE_ENVOI = "dateEnvoi";
 
-    /** The Constant MARK_ALIAS_ANOMALIE. */
-    private static final String                      MARK_ALIAS_ANOMALIE                         = "alias_anomalie";
+    /** The Constant MARK_HEURE_ENVOI. */
+    private static final String MARK_HEURE_ENVOI = "heureEnvoi";
+    private static final String MARK_URL_SONDAGE_DEMANDE = "urlSondageDemande";
+    private static final String MARK_URL_SONDAGE_SERVICE = "urlSondageService";
+    private static final String URL_SONDAGE_DEMANDE = "sitelabels.site_property.message.url.sondage.demande";
+    private static final String URL_SONDAGE_SERVICE = "sitelabels.site_property.message.url.sondage.sevice";
+    private static final String MARK_CP = "code_postal";
+    private static final String MARK_ID_TYPO_LVL_1 = "id_typologie_lvl_1";
+    private static final String MARK_ALIAS_ANOMALIE = "alias_anomalie";
 
     /** The Constant MARK_ID_ANOMALIE. */
-    private static final String                      MARK_ID_ANOMALIE                            = "id_anomalie";
+    private static final String MARK_ID_ANOMALIE = "id_anomalie";
 
     /** The Constant MESSAGE_EXCEPTION_OCCURED. */
     // MESSAGES
-    private static final String                      MESSAGE_EXCEPTION_OCCURED                   = "module.workflow.dansmarue.task_notification_config.message.exception";
-    
+    private static final String MESSAGE_EXCEPTION_OCCURED = "module.workflow.dansmarue.task_notification_config.message.exception";
+
     /** The Constant MESSAGE_MANDATORY_FIELD. */
-    private static final String                      MESSAGE_MANDATORY_FIELD                     = "module.workflow.dansmarue.task_notification_config.message.mandatory.field";
-    
+    private static final String MESSAGE_MANDATORY_FIELD = "module.workflow.dansmarue.task_notification_config.message.mandatory.field";
+
     /** The Constant ERROR_SENDER. */
-    private static final String                      ERROR_SENDER                                = "module.workflow.dansmarue.task_notification_config.error.sender";
-    
+    private static final String ERROR_SENDER = "module.workflow.dansmarue.task_notification_config.error.sender";
+
     /** The Constant ERROR_SUBJECT. */
-    private static final String                      ERROR_SUBJECT                               = "module.workflow.dansmarue.task_notification_config.error.subject";
-    
+    private static final String ERROR_SUBJECT = "module.workflow.dansmarue.task_notification_config.error.subject";
+
     /** The Constant ERROR_MESSAGE. */
-    private static final String                      ERROR_MESSAGE                               = "module.workflow.dansmarue.task_notification_config.error.message";
+    private static final String ERROR_MESSAGE = "module.workflow.dansmarue.task_notification_config.error.message";
 
     /** The Constant TEMPLATE_TASK_NOTIFICATION_CONFIG. */
     // TEMPLATES
-    private static final String                      TEMPLATE_TASK_NOTIFICATION_CONFIG           = "admin/plugins/workflow/modules/signalement/task_notification_signalement_user_config.html";
-    
+    private static final String TEMPLATE_TASK_NOTIFICATION_CONFIG = "admin/plugins/workflow/modules/signalement/task_notification_signalement_user_config.html";
+
     /** The Constant TEMPLATE_TASK_NOTIFICATION_FORM. */
-    private static final String                      TEMPLATE_TASK_NOTIFICATION_FORM             = "admin/plugins/workflow/modules/signalement/task_notification_signalement_user_form.html";
-    
+    private static final String TEMPLATE_TASK_NOTIFICATION_FORM = "admin/plugins/workflow/modules/signalement/task_notification_signalement_user_form.html";
+
     /** The Constant TEMPLATE_TASK_NOTIFICATION_USER_INFORMATION. */
-    private static final String                      TEMPLATE_TASK_NOTIFICATION_USER_INFORMATION = "admin/plugins/workflow/modules/signalement/task_notification_user_information.html";
+    private static final String TEMPLATE_TASK_NOTIFICATION_USER_INFORMATION = "admin/plugins/workflow/modules/signalement/task_notification_user_information.html";
 
     /** The Constant PARAMETER_PAGE. */
     // PARAMETERS
-    private static final String                      PARAMETER_PAGE                              = "page";
-    
+    private static final String PARAMETER_PAGE = "page";
+
     /** The Constant PARAMETER_SUIVI. */
-    private static final String                      PARAMETER_SUIVI                             = "suivi";
-    
+    private static final String PARAMETER_SUIVI = "suivi";
+
     /** The Constant PARAMETER_TOKEN. */
-    private static final String                      PARAMETER_TOKEN                             = "token";
+    private static final String PARAMETER_TOKEN = "token";
 
     /** The signalement service. */
     // SERVICES
     @Inject
     @Named( "signalementService" )
-    private ISignalementService                      _signalementService;
+    private ISignalementService _signalementService;
 
     /** The notification user value service. */
     @Inject
     @Named( "signalement.notificationUserValueService" )
-    private NotificationUserValueService             _notificationUserValueService;
+    private NotificationUserValueService _notificationUserValueService;
 
     /** The file message creation service. */
     @Inject
     @Named( "fileMessageCreationService" )
-    private FileMessageCreationService               _fileMessageCreationService;
+    private FileMessageCreationService _fileMessageCreationService;
 
     /** The notification signalement user task config DAO. */
     @Inject
@@ -210,18 +219,24 @@ public class NotificationUserComponent extends AbstractTaskComponent
     /**
      * Gets the display task form.
      *
-     * @param nIdResource the n id resource
-     * @param strResourceType the str resource type
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param nIdResource
+     *            the n id resource
+     * @param strResourceType
+     *            the str resource type
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the display task form
      */
     @Override
     public String getDisplayTaskForm( int nIdResource, String strResourceType, HttpServletRequest request, Locale locale, ITask task )
     {
         Map<String, Object> model = new HashMap<>( );
-        NotificationSignalementUserTaskConfig config = _notificationSignalementUserTaskConfigDAO.findByPrimaryKey( task.getId( ), SignalementUtils.getPlugin( ) );
+        NotificationSignalementUserTaskConfig config = _notificationSignalementUserTaskConfigDAO.findByPrimaryKey( task.getId( ),
+                SignalementUtils.getPlugin( ) );
 
         Signalement signalement = _signalementService.getSignalement( nIdResource );
         // Récupération du message
@@ -232,18 +247,15 @@ public class NotificationUserComponent extends AbstractTaskComponent
         if ( null != signalement )
         {
             // Récupération des mails signaleurs - selon la règle métier, il ne peut y avoir qu'un seul signaleur dans la liste getSignaleur
-            if ( CollectionUtils.isNotEmpty( signalement.getSignaleurs( ) ) && !StringUtils.isBlank( signalement.getSignaleurs( ).get( 0 ).getMail( ) ) )
-            {
-
-                hasEmailSignaleur = true;
-
-            }
+            hasEmailSignaleur = CollectionUtils.isNotEmpty( signalement.getSignaleurs( ) )
+                    && !StringUtils.isBlank( signalement.getSignaleurs( ).get( 0 ).getMail( ) );
 
             // Obtention des informations de l'email par remplacement des eventuelles balises freemarkers
             // ==> ajout des données pouvant être demandées ( correspondant à la map "balises" dans getDisplayConfigForm(...) )
             Map<String, Object> emailModel = new HashMap<>( );
             emailModel.put( MARK_ID_ANOMALIE, nIdResource );
             emailModel.put( MARK_NUMERO, signalement.getNumeroSignalement( ) );
+            emailModel.put( MARK_ID_TYPE, signalement.getTypeSignalement( ).getId( ) );
             emailModel.put( MARK_TYPE, signalement.getType( ) );
 
             // Alias de l'anomalie
@@ -311,6 +323,29 @@ public class NotificationUserComponent extends AbstractTaskComponent
                 emailModel.put( MARK_HEURE_ENVOI, StringUtils.EMPTY );
             }
 
+            emailModel.put( MARK_URL_SONDAGE_DEMANDE, DatastoreService.getDataValue( URL_SONDAGE_DEMANDE, "" ) );
+            emailModel.put( MARK_URL_SONDAGE_SERVICE, DatastoreService.getDataValue( URL_SONDAGE_SERVICE, "" ) );
+
+            if ( ( signalement.getAdresses( ) != null ) && ( signalement.getAdresses( ).get( 0 ) != null )
+                    && ( signalement.getAdresses( ).get( 0 ).getAdresse( ) != null ) )
+            {
+                emailModel.put( MARK_CP, TaskUtils.getCPFromAdresse( signalement.getAdresses( ).get( 0 ).getAdresse( ) ) );
+            }
+            else
+            {
+                emailModel.put( MARK_CP, StringUtils.EMPTY );
+            }
+
+            int idTypeAnoLvl1 = TaskUtils.getIdTypeAnoLvl1( signalement.getTypeSignalement( ) );
+            if ( idTypeAnoLvl1 > -1 )
+            {
+                emailModel.put( MARK_ID_TYPO_LVL_1, idTypeAnoLvl1 );
+            }
+            else
+            {
+                emailModel.put( MARK_ID_TYPO_LVL_1, StringUtils.EMPTY );
+            }
+
             // Application pré filtre sur les variables
             message = AppTemplateService.getTemplateFromStringFtl( message, locale, emailModel ).getHtml( );
         }
@@ -328,15 +363,19 @@ public class NotificationUserComponent extends AbstractTaskComponent
     /**
      * Gets the display config form.
      *
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the display config form
      */
     @Override
     public String getDisplayConfigForm( HttpServletRequest request, Locale locale, ITask task )
     {
-        NotificationSignalementUserTaskConfig config = _notificationSignalementUserTaskConfigDAO.findByPrimaryKey( task.getId( ), SignalementUtils.getPlugin( ) );
+        NotificationSignalementUserTaskConfig config = _notificationSignalementUserTaskConfigDAO.findByPrimaryKey( task.getId( ),
+                SignalementUtils.getPlugin( ) );
 
         String strMessage = _signalementService.loadMessageCreationSignalement( );
         if ( ( ( config != null ) && ( config.getMessage( ) == null ) ) && !strMessage.equals( StringUtils.EMPTY ) )
@@ -359,6 +398,10 @@ public class NotificationUserComponent extends AbstractTaskComponent
         dto = new BaliseFreemarkerDTO( );
         dto.setNom( "Numéro de l'anomalie" );
         dto.setValeur( MARK_NUMERO );
+        balises.add( dto );
+        dto = new BaliseFreemarkerDTO( );
+        dto.setNom( "Id du Type de l'anomalie" );
+        dto.setValeur( MARK_ID_TYPE );
         balises.add( dto );
         dto = new BaliseFreemarkerDTO( );
         dto.setNom( "Type d'anomalie" );
@@ -391,6 +434,21 @@ public class NotificationUserComponent extends AbstractTaskComponent
         dto = new BaliseFreemarkerDTO( );
         dto.setNom( "Date d'envoi" );
         dto.setValeur( MARK_DATE_ENVOI );
+        dto = new BaliseFreemarkerDTO( );
+        dto.setNom( "Url de sondage de demande" );
+        dto.setValeur( MARK_URL_SONDAGE_DEMANDE );
+        balises.add( dto );
+        dto = new BaliseFreemarkerDTO( );
+        dto.setNom( "Url de sondage de service" );
+        dto.setValeur( MARK_URL_SONDAGE_SERVICE );
+        balises.add( dto );
+        dto = new BaliseFreemarkerDTO( );
+        dto.setNom( "code postal" );
+        dto.setValeur( MARK_CP );
+        balises.add( dto );
+        dto = new BaliseFreemarkerDTO( );
+        dto.setNom( "ID de la catégorie de niveau 1" );
+        dto.setValeur( MARK_ID_TYPO_LVL_1 );
         balises.add( dto );
 
         dto = new BaliseFreemarkerDTO( );
@@ -406,9 +464,12 @@ public class NotificationUserComponent extends AbstractTaskComponent
     /**
      * Do save config.
      *
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the string
      */
     @Override
@@ -424,11 +485,13 @@ public class NotificationUserComponent extends AbstractTaskComponent
             config.setIdTask( task.getId( ) );
         }
 
-        catch ( Exception e )
+        catch( Exception e )
         {
             AppLogService.error( e.getMessage( ), e );
 
-            Object[] tabError = { e.getMessage( ) };
+            Object [ ] tabError = {
+                    e.getMessage( )
+            };
 
             return AdminMessageService.getMessageUrl( request, MESSAGE_EXCEPTION_OCCURED, tabError, AdminMessage.TYPE_STOP );
         }
@@ -438,17 +501,21 @@ public class NotificationUserComponent extends AbstractTaskComponent
         {
             strError = ERROR_SENDER;
         }
-        else if ( config.getSubject( ).equals( StringUtils.EMPTY ) )
-        {
-            strError = ERROR_SUBJECT;
-        }
-        else if ( config.getMessage( ).equals( StringUtils.EMPTY ) )
-        {
-            strError = ERROR_MESSAGE;
-        }
+        else
+            if ( config.getSubject( ).equals( StringUtils.EMPTY ) )
+            {
+                strError = ERROR_SUBJECT;
+            }
+            else
+                if ( config.getMessage( ).equals( StringUtils.EMPTY ) )
+                {
+                    strError = ERROR_MESSAGE;
+                }
         if ( !strError.equals( WorkflowUtils.EMPTY_STRING ) )
         {
-            Object[] tabRequiredFields = { I18nService.getLocalizedString( strError, locale ) };
+            Object [ ] tabRequiredFields = {
+                    I18nService.getLocalizedString( strError, locale )
+            };
 
             return AdminMessageService.getMessageUrl( request, MESSAGE_MANDATORY_FIELD, tabRequiredFields, AdminMessage.TYPE_STOP );
         }
@@ -468,10 +535,14 @@ public class NotificationUserComponent extends AbstractTaskComponent
     /**
      * Gets the display task information.
      *
-     * @param nIdHistory the n id history
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param nIdHistory
+     *            the n id history
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the display task information
      */
     @Override
@@ -492,10 +563,14 @@ public class NotificationUserComponent extends AbstractTaskComponent
     /**
      * Gets the task information xml.
      *
-     * @param nIdHistory the n id history
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param nIdHistory
+     *            the n id history
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the task information xml
      */
     @Override
@@ -507,11 +582,16 @@ public class NotificationUserComponent extends AbstractTaskComponent
     /**
      * Do validate task.
      *
-     * @param nIdResource the n id resource
-     * @param strResourceType the str resource type
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param nIdResource
+     *            the n id resource
+     * @param strResourceType
+     *            the str resource type
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the string
      */
     @Override
@@ -523,7 +603,8 @@ public class NotificationUserComponent extends AbstractTaskComponent
     /**
      * Get the link of the "consultation page" (front office signalement).
      *
-     * @param signalement            the report
+     * @param signalement
+     *            the report
      * @return the url
      */
     private String getLienConsultation( Signalement signalement )

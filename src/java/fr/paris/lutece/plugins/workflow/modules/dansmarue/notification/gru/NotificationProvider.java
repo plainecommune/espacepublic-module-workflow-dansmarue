@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -47,13 +47,14 @@ import fr.paris.lutece.plugins.dansmarue.business.entities.Signaleur;
 import fr.paris.lutece.plugins.dansmarue.service.ISignalementService;
 import fr.paris.lutece.plugins.dansmarue.service.IWorkflowService;
 import fr.paris.lutece.plugins.dansmarue.utils.DateUtils;
+import fr.paris.lutece.plugins.workflow.modules.dansmarue.service.TaskUtils;
 import fr.paris.lutece.plugins.workflow.modules.notifygru.service.provider.IProvider;
 import fr.paris.lutece.plugins.workflow.modules.notifygru.service.provider.NotifyGruMarker;
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceHistory;
+import fr.paris.lutece.portal.service.datastore.DatastoreService;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.util.url.UrlItem;
-
 
 /**
  * NotificationProvider.
@@ -63,179 +64,196 @@ public class NotificationProvider implements IProvider
 
     /** The Constant MARK_MESSAGE. */
     // MARKERS
-    private static final String MARK_MESSAGE                    = "message";
-    
+    private static final String MARK_MESSAGE = "message";
+
     /** The Constant MARK_NUMERO. */
-    private static final String MARK_NUMERO                     = "numero";
-    
+    private static final String MARK_NUMERO = "numero";
+
     /** The Constant MARK_TYPE. */
-    private static final String MARK_TYPE                       = "type";
-    
+    private static final String MARK_TYPE = "type";
+
     /** The Constant MARK_ADRESSE. */
-    private static final String MARK_ADRESSE                    = "adresse";
-    
+    private static final String MARK_ADRESSE = "adresse";
+
     /** The Constant MARK_PRIORITE. */
-    private static final String MARK_PRIORITE                   = "priorite";
-    
+    private static final String MARK_PRIORITE = "priorite";
+
     /** The Constant MARK_COMMENTAIRE. */
-    private static final String MARK_COMMENTAIRE                = "commentaire";
-    
+    private static final String MARK_COMMENTAIRE = "commentaire";
+
     /** The Constant MARK_PRECISION. */
-    private static final String MARK_PRECISION                  = "precision";
-    
+    private static final String MARK_PRECISION = "precision";
+
     /** The Constant MARK_LIEN_CONSULTATION. */
-    private static final String MARK_LIEN_CONSULTATION          = "lien_consultation";
-    
+    private static final String MARK_LIEN_CONSULTATION = "lien_consultation";
+
     /** The Constant MARK_ALIAS_ANOMALIE. */
-    private static final String MARK_ALIAS_ANOMALIE             = "alias_anomalie";
-    
+    private static final String MARK_ALIAS_ANOMALIE = "alias_anomalie";
+
     /** The Constant MARK_ALIAS_MOBILE_ANOMALIE. */
-    private static final String MARK_ALIAS_MOBILE_ANOMALIE      = "alias_mobile_anomalie";
-    
+    private static final String MARK_ALIAS_MOBILE_ANOMALIE = "alias_mobile_anomalie";
+
     /** The Constant MARK_ID_ANOMALIE. */
-    private static final String MARK_ID_ANOMALIE                = "id_anomalie";
+    private static final String MARK_ID_ANOMALIE = "id_anomalie";
 
     /** The Constant MARK_DATE_PROGRAMMATION. */
-    private static final String MARK_DATE_PROGRAMMATION         = "date_programmation";
-    
+    private static final String MARK_DATE_PROGRAMMATION = "date_programmation";
+
     /** The Constant MARK_DATE_DE_TRAITEMENT. */
-    private static final String MARK_DATE_DE_TRAITEMENT         = "datetraitement";
-    
+    private static final String MARK_DATE_DE_TRAITEMENT = "datetraitement";
+
     /** The Constant MARK_HEURE_DE_TRAITEMENT. */
-    private static final String MARK_HEURE_DE_TRAITEMENT        = "heuretraitement";
+    private static final String MARK_HEURE_DE_TRAITEMENT = "heuretraitement";
 
     /** The Constant MARK_DATE_ENVOI. */
-    private static final String MARK_DATE_ENVOI                 = "dateEnvoi";
-    
+    private static final String MARK_DATE_ENVOI = "dateEnvoi";
+
     /** The Constant MARK_HEURE_ENVOI. */
-    private static final String MARK_HEURE_ENVOI                = "heureEnvoi";
-    
+    private static final String MARK_HEURE_ENVOI = "heureEnvoi";
+
     /** The Constant MARK_EMAIL_USAGER. */
-    private static final String MARK_EMAIL_USAGER               = "emailUsager";
+    private static final String MARK_EMAIL_USAGER = "emailUsager";
 
     /** The Constant MARK_RAISONS_REJET. */
-    private static final String MARK_RAISONS_REJET              = "raisons_rejet";
+    private static final String MARK_RAISONS_REJET = "raisons_rejet";
 
     /** The Constant MARK_MESSAGE_DESC. */
     // DESCRIPTION
-    private static final String MARK_MESSAGE_DESC               = "Message associé";
-    
+    private static final String MARK_MESSAGE_DESC = "Message associé";
+
     /** The Constant MARK_NUMERO_DESC. */
-    private static final String MARK_NUMERO_DESC                = "Numéro de l'anomalie";
-    
+    private static final String MARK_NUMERO_DESC = "Numéro de l'anomalie";
+
     /** The Constant MARK_TYPE_DESC. */
-    private static final String MARK_TYPE_DESC                  = "Type d'anomalie";
-    
+    private static final String MARK_TYPE_DESC = "Type d'anomalie";
+
     /** The Constant MARK_ADRESSE_DESC. */
-    private static final String MARK_ADRESSE_DESC               = "Adresse de l'anomalie";
-    
+    private static final String MARK_ADRESSE_DESC = "Adresse de l'anomalie";
+
     /** The Constant MARK_PRIORITE_DESC. */
-    private static final String MARK_PRIORITE_DESC              = "Priorité";
-    
+    private static final String MARK_PRIORITE_DESC = "Priorité";
+
     /** The Constant MARK_COMMENTAIRE_DESC. */
-    private static final String MARK_COMMENTAIRE_DESC           = "Commentaire";
-    
+    private static final String MARK_COMMENTAIRE_DESC = "Commentaire";
+
     /** The Constant MARK_PRECISION_DESC. */
-    private static final String MARK_PRECISION_DESC             = "Précision de la localisation";
-    
+    private static final String MARK_PRECISION_DESC = "Précision de la localisation";
+
     /** The Constant MARK_LIEN_CONSULTATION_DESC. */
-    private static final String MARK_LIEN_CONSULTATION_DESC     = "Lien de consultation du message";
-    
+    private static final String MARK_LIEN_CONSULTATION_DESC = "Lien de consultation du message";
+
     /** The Constant MARK_ALIAS_ANOMALIE_DESC. */
-    private static final String MARK_ALIAS_ANOMALIE_DESC        = "Alias de l'anomalie";
-    
+    private static final String MARK_ALIAS_ANOMALIE_DESC = "Alias de l'anomalie";
+
     /** The Constant MARK_ALIAS_MOBILE_ANOMALIE_DESC. */
     private static final String MARK_ALIAS_MOBILE_ANOMALIE_DESC = "Alias mobile de l'anomalie";
-    
+
     /** The Constant MARK_ID_ANOMALIE_DESC. */
-    private static final String MARK_ID_ANOMALIE_DESC           = "Id de l'anomalie";
+    private static final String MARK_ID_ANOMALIE_DESC = "Id de l'anomalie";
 
     /** The Constant MARK_DATE_PROGRAMMATION_DESC. */
-    private static final String MARK_DATE_PROGRAMMATION_DESC    = "Date prévue du traitement de l'anomalie";
-    
+    private static final String MARK_DATE_PROGRAMMATION_DESC = "Date prévue du traitement de l'anomalie";
+
     /** The Constant MARK_DATE_DE_TRAITEMENT_DESC. */
-    private static final String MARK_DATE_DE_TRAITEMENT_DESC    = "Date de traitement de l'anomalie";
-    
+    private static final String MARK_DATE_DE_TRAITEMENT_DESC = "Date de traitement de l'anomalie";
+
     /** The Constant MARK_HEURE_DE_TRAITEMENT_DESC. */
-    private static final String MARK_HEURE_DE_TRAITEMENT_DESC   = "Heure de traitement de l'anomalie";
+    private static final String MARK_HEURE_DE_TRAITEMENT_DESC = "Heure de traitement de l'anomalie";
 
     /** The Constant MARK_DATE_ENVOI_DESC. */
-    private static final String MARK_DATE_ENVOI_DESC            = "Date d'envoi du signalement";
-    
+    private static final String MARK_DATE_ENVOI_DESC = "Date d'envoi du signalement";
+
     /** The Constant MARK_HEURE_ENVOI_DESC. */
-    private static final String MARK_HEURE_ENVOI_DESC           = "Heure d'envoi du signalement";
-    
+    private static final String MARK_HEURE_ENVOI_DESC = "Heure d'envoi du signalement";
+
     /** The Constant MARK_EMAIL_USAGER_DESC. */
-    private static final String MARK_EMAIL_USAGER_DESC          = "Email de l'usager";
+    private static final String MARK_EMAIL_USAGER_DESC = "Email de l'usager";
 
     /** The Constant MARK_RAISONS_REJET_DESC. */
-    private static final String MARK_RAISONS_REJET_DESC         = "Raisons du rejet";
+    private static final String MARK_RAISONS_REJET_DESC = "Raisons du rejet";
 
     /** The Constant MOTIF_REJET_PREPEND. */
     // REJET
-    private static final String MOTIF_REJET_PREPEND             = "- ";
-    
+    private static final String MOTIF_REJET_PREPEND = "- ";
+
     /** The Constant MOTIF_REJET_SEPARATOR. */
-    private static final String MOTIF_REJET_SEPARATOR           = "<br/>";
+    private static final String MOTIF_REJET_SEPARATOR = "<br/>";
 
     /** The Constant PARAMETER_PAGE. */
     // PARAMETERS
-    private static final String PARAMETER_PAGE                  = "page";
-    
+    private static final String PARAMETER_PAGE = "page";
+
     /** The Constant PARAMETER_INSTANCE. */
-    private static final String PARAMETER_INSTANCE              = "instance";
-    
+    private static final String PARAMETER_INSTANCE = "instance";
+
     /** The Constant PARAMETER_INSTANCE_VALUE. */
-    private static final String PARAMETER_INSTANCE_VALUE        = "signalement";
-    
+    private static final String PARAMETER_INSTANCE_VALUE = "signalement";
+
     /** The Constant PARAMETER_SUIVI. */
-    private static final String PARAMETER_SUIVI                 = "suivi";
-    
+    private static final String PARAMETER_SUIVI = "suivi";
+
     /** The Constant PARAMETER_TOKEN. */
-    private static final String PARAMETER_TOKEN                 = "token";
+    private static final String PARAMETER_TOKEN = "token";
 
     /** The Constant PROPERTY_BASE_URL. */
     // PROPERTIES
-    private static final String PROPERTY_BASE_URL               = "lutece.ts.prod.url";
+    private static final String PROPERTY_BASE_URL = "lutece.ts.prod.url";
 
     /** The Constant JSP_PORTAL. */
     // JSP
-    private static final String JSP_PORTAL                      = "jsp/site/Portal.jsp";
+    private static final String JSP_PORTAL = "jsp/site/Portal.jsp";
 
     /** The signalement service. */
-    private ISignalementService _signalementService             = SpringContextService.getBean( "signalementService" );
-    
+    private ISignalementService _signalementService = SpringContextService.getBean( "signalementService" );
+
     /** The signalement workflow service. */
-    private IWorkflowService    _signalementWorkflowService     = SpringContextService.getBean( "signalement.workflowService" );
+    private IWorkflowService _signalementWorkflowService = SpringContextService.getBean( "signalement.workflowService" );
 
     /** The signalement. */
-    private Signalement         _signalement;
-    
+    private Signalement _signalement;
+
     /** The signaleur. */
-    private Signaleur           _signaleur;
-    
+    private Signaleur _signaleur;
+
     /** The message. */
-    private String              _message;
+    private String _message;
 
     /** The str demande type id. */
-    private String              _strDemandeTypeId               = AppPropertiesService.getProperty( "dmr-signalement.guichet.id.type.demande" );
+    private String _strDemandeTypeId = AppPropertiesService.getProperty( "dmr-signalement.guichet.id.type.demande" );
+
+    private static final String URL_SONDAGE_DEMANDE = "sitelabels.site_property.message.url.sondage.demande";
+
+    private static final String URL_SONDAGE_SERVICE = "sitelabels.site_property.message.url.sondage.sevice";
+
+    private static final String MARK_URL_SONDAGE_DEMANDE = "urlSondageDemande";
+
+    private static final String MARK_URL_SONDAGE_SERVICE = "urlSondageService";
+
+    private static final String MARK_URL_SONDAGE_DEMANDE_DESC = "Url du sondage de demande";
+
+    private static final String MARK_URL_SONDAGE_SERVICE_DESC = "Url du sondage de service";
+
+    private static final String MARK_CP = "code_postal";
+
+    private static final String MARK_CP_DESC = "Code postal";
+
+    private static final String MARK_ID_TYPO_LVL_1 = "id_type";
+
+    private static final String MARK_ID_TYPO_LVL_1_DESC = "Id du niveau 1 du type";
 
     /**
      * Constructor.
      *
-     * @param resourceHistory            the resourceHistory
+     * @param resourceHistory
+     *            the resourceHistory
      */
     public NotificationProvider( ResourceHistory resourceHistory )
     {
         _signalement = _signalementService.getSignalementWithFullPhoto( resourceHistory.getIdResource( ) );
 
         _message = ( _signalementWorkflowService.selectMultiContentsMessageNotification( resourceHistory.getId( ) ) );
-        if ( _message != null )
-        {
-            _message=_message.replaceAll( "<br/>|<br>|<br />|<p>", System.getProperty( "line.separator" ) ).replaceAll( "<[^>]*>", "" );
-        }
 
-        if ( CollectionUtils.isNotEmpty( _signalement.getSignaleurs( ) ) )
+        if ( ( _signalement != null ) && CollectionUtils.isNotEmpty( _signalement.getSignaleurs( ) ) )
         {
             _signaleur = _signalement.getSignaleurs( ).get( 0 );
         }
@@ -332,7 +350,8 @@ public class NotificationProvider implements IProvider
     /**
      * Get the link of the "consultation page" (front office signalement).
      *
-     * @param signalement            the signalement
+     * @param signalement
+     *            the signalement
      * @return the url of the link
      */
     private String getLienConsultation( Signalement signalement )
@@ -489,6 +508,17 @@ public class NotificationProvider implements IProvider
             collectionNotifyGruMarkers.add( createMarkerValues( MARK_RAISONS_REJET, motifsRejetStr.toString( ) ) );
         }
 
+        collectionNotifyGruMarkers.add( createMarkerValues( MARK_URL_SONDAGE_DEMANDE, DatastoreService.getDataValue( URL_SONDAGE_DEMANDE, "" ) ) );
+        collectionNotifyGruMarkers.add( createMarkerValues( MARK_URL_SONDAGE_SERVICE, DatastoreService.getDataValue( URL_SONDAGE_SERVICE, "" ) ) );
+
+        String codePostal = _signalement.getAdresses( ) != null && _signalement.getAdresses( ).get( 0 ) != null
+                && _signalement.getAdresses( ).get( 0 ).getAdresse( ) != null ? TaskUtils.getCPFromAdresse( _signalement.getAdresses( ).get( 0 ).getAdresse( ) )
+                        : "";
+        collectionNotifyGruMarkers.add( createMarkerValues( MARK_CP, codePostal ) );
+
+        int idTypeAnoLvl1 = TaskUtils.getIdTypeAnoLvl1( _signalement.getTypeSignalement( ) );
+        collectionNotifyGruMarkers.add( createMarkerValues( MARK_ID_TYPO_LVL_1, idTypeAnoLvl1 > -1 ? Integer.toString( idTypeAnoLvl1 ) : "" ) );
+
         return collectionNotifyGruMarkers;
     }
 
@@ -524,6 +554,13 @@ public class NotificationProvider implements IProvider
         collectionNotifyGruMarkers.add( createMarkerDescriptions( MARK_EMAIL_USAGER, MARK_EMAIL_USAGER_DESC ) );
 
         collectionNotifyGruMarkers.add( createMarkerDescriptions( MARK_RAISONS_REJET, MARK_RAISONS_REJET_DESC ) );
+
+        collectionNotifyGruMarkers.add( createMarkerDescriptions( MARK_URL_SONDAGE_DEMANDE, MARK_URL_SONDAGE_DEMANDE_DESC ) );
+        collectionNotifyGruMarkers.add( createMarkerDescriptions( MARK_URL_SONDAGE_SERVICE, MARK_URL_SONDAGE_SERVICE_DESC ) );
+
+        collectionNotifyGruMarkers.add( createMarkerDescriptions( MARK_CP, MARK_CP_DESC ) );
+
+        collectionNotifyGruMarkers.add( createMarkerDescriptions( MARK_ID_TYPO_LVL_1, MARK_ID_TYPO_LVL_1_DESC ) );
 
         return collectionNotifyGruMarkers;
 

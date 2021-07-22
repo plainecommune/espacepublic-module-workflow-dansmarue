@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,19 +33,18 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.dansmarue.task.webservice.business;
 
-
 /**
  * WebServiceUserValue.
  */
 public class WebServiceValue
 {
-    
+
     /** The n id resource history. */
-    private int    _nIdResourceHistory;
-    
+    private int _nIdResourceHistory;
+
     /** The n id task. */
-    private int    _nIdTask;
-    
+    private int _nIdTask;
+
     /** The str value. */
     private String _strValue;
 
@@ -62,7 +61,8 @@ public class WebServiceValue
     /**
      * the webservice value id.
      *
-     * @param id            the webservice value id
+     * @param id
+     *            the webservice value id
      */
     public void setIdResourceHistory( int id )
     {
@@ -82,7 +82,8 @@ public class WebServiceValue
     /**
      * the task id.
      *
-     * @param idTask            the task id
+     * @param idTask
+     *            the task id
      */
     public void setIdTask( int idTask )
     {
@@ -102,7 +103,8 @@ public class WebServiceValue
     /**
      * set the value.
      *
-     * @param value            the value
+     * @param value
+     *            the value
      */
     public void setValue( String value )
     {

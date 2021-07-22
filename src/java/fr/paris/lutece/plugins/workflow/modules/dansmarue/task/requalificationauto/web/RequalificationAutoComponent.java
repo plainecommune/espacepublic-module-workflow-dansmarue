@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -71,31 +71,31 @@ public class RequalificationAutoComponent extends AbstractTaskComponent
 {
 
     /** The Constant MESSAGE_EVERY_TYPE_SIGNALEMENT. */
-    private static final String                             MESSAGE_EVERY_TYPE_SIGNALEMENT = "module.workflow.dansmarue.task_requalification_auto_config.type_signalement.all";
+    private static final String MESSAGE_EVERY_TYPE_SIGNALEMENT = "module.workflow.dansmarue.task_requalification_auto_config.type_signalement.all";
 
     /** The Constant MESSAGE_NO_STATE_AFTER. */
-    private static final String                             MESSAGE_NO_STATE_AFTER         = "module.workflow.dansmarue.task_requalification_auto_config.noStateAfter";
+    private static final String MESSAGE_NO_STATE_AFTER = "module.workflow.dansmarue.task_requalification_auto_config.noStateAfter";
 
     /** The Constant PROPERTY_ID. */
-    private static final String                             PROPERTY_ID                    = "id";
+    private static final String PROPERTY_ID = "id";
 
     /** The Constant MARK_FIRST_LEVEL_UNITS. */
-    private static final String                             MARK_FIRST_LEVEL_UNITS         = "first_level_units";
+    private static final String MARK_FIRST_LEVEL_UNITS = "first_level_units";
 
     /** The Constant MARK_LISTE_UNITS. */
-    private static final String                             MARK_LISTE_UNITS               = "liste_units";
+    private static final String MARK_LISTE_UNITS = "liste_units";
 
     /** The Constant MARK_LIST_REQUALIF_UNITS. */
-    private static final String                             MARK_LIST_REQUALIF_UNITS       = "list_requalif_units";
+    private static final String MARK_LIST_REQUALIF_UNITS = "list_requalif_units";
 
     /** The Constant MARK_LIST_TYPE_SIGNALEMENT. */
-    private static final String                             MARK_LIST_TYPE_SIGNALEMENT     = "list_type_signalement";
+    private static final String MARK_LIST_TYPE_SIGNALEMENT = "list_type_signalement";
 
     /** The Constant MARK_LIST_ACTIONS. */
-    private static final String                             MARK_LIST_ACTIONS              = "liste_states";
+    private static final String MARK_LIST_ACTIONS = "liste_states";
 
     /** The Constant TEMPLATE_TASK_CONFIGURATION. */
-    private static final String                             TEMPLATE_TASK_CONFIGURATION    = "admin/plugins/workflow/modules/signalement/task_requalification_auto_signalement_config.html";
+    private static final String TEMPLATE_TASK_CONFIGURATION = "admin/plugins/workflow/modules/signalement/task_requalification_auto_signalement_config.html";
 
     /** The requalification auto signalement task config service. */
     @Inject
@@ -104,15 +104,15 @@ public class RequalificationAutoComponent extends AbstractTaskComponent
     /** The unit service. */
     @Inject
     @Named( IUnitService.BEAN_UNIT_SERVICE )
-    private IUnitService                                    _unitService;
+    private IUnitService _unitService;
 
     /** The type signalement service. */
     @Inject
-    private ITypeSignalementService                         _typeSignalementService;
+    private ITypeSignalementService _typeSignalementService;
 
     /** The action service. */
     @Inject
-    private IActionService                                  _actionService;
+    private IActionService _actionService;
 
     /**
      * Gets the display task form.
@@ -155,18 +155,21 @@ public class RequalificationAutoComponent extends AbstractTaskComponent
         ReferenceList refListFirstLevelUnits = ListUtils.toReferenceList( listFirstLevelUnits, "idUnit", "label", StringUtils.EMPTY, false );
 
         List<RequalificationAutoConfigUnit> listRequalifUnits = _requalificationAutoSignalementTaskConfigService.findByTaskId( task.getId( ) );
-        ReferenceList refListTypeSignalement = ListUtils.toReferenceList( _typeSignalementService.getAllTypeSignalement( ), PROPERTY_ID, "formatTypeSignalement",
-                I18nService.getLocalizedString( MESSAGE_EVERY_TYPE_SIGNALEMENT, locale ), false );
+        ReferenceList refListTypeSignalement = ListUtils.toReferenceList( _typeSignalementService.getAllTypeSignalement( ), PROPERTY_ID,
+                "formatTypeSignalement", I18nService.getLocalizedString( MESSAGE_EVERY_TYPE_SIGNALEMENT, locale ), false );
         Action currentAction = _actionService.findByPrimaryKey( task.getAction( ).getId( ) );
         List<State> listStates = new ArrayList<>( );
-        for ( State state : WorkflowService.getInstance( ).getAllStateByWorkflow( currentAction.getWorkflow( ).getId( ), AdminUserService.getAdminUser( request ) ) )
+        for ( State state : WorkflowService.getInstance( ).getAllStateByWorkflow( currentAction.getWorkflow( ).getId( ),
+                AdminUserService.getAdminUser( request ) ) )
         {
             listStates.add( state );
         }
 
-        ReferenceList refListStates = ListUtils.toReferenceList( listStates, "id", "name", I18nService.getLocalizedString( MESSAGE_NO_STATE_AFTER, locale ), false );
+        ReferenceList refListStates = ListUtils.toReferenceList( listStates, "id", "name", I18nService.getLocalizedString( MESSAGE_NO_STATE_AFTER, locale ),
+                false );
 
-        List<RequalificationAutoUnitDTO> listDTO = _requalificationAutoSignalementTaskConfigService.convertRequalifAutoUnitsToDTO( listRequalifUnits, listUnits, listStates, locale );
+        List<RequalificationAutoUnitDTO> listDTO = _requalificationAutoSignalementTaskConfigService.convertRequalifAutoUnitsToDTO( listRequalifUnits, listUnits,
+                listStates, locale );
 
         Map<String, Object> model = new HashMap<>( );
         model.put( MARK_LISTE_UNITS, refListUnits );

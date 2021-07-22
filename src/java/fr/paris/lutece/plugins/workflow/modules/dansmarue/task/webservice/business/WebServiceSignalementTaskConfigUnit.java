@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,19 +36,18 @@ package fr.paris.lutece.plugins.workflow.modules.dansmarue.task.webservice.busin
 import fr.paris.lutece.plugins.unittree.business.unit.Unit;
 import fr.paris.lutece.plugins.workflowcore.business.config.TaskConfig;
 
-
 /**
  * WebServiceSignalementTaskConfigUnit class.
  */
 public class WebServiceSignalementTaskConfigUnit extends TaskConfig
 {
-    
+
     /** The unit. */
-    private Unit   _unit = new Unit( );
-    
+    private Unit _unit = new Unit( );
+
     /** The str prestataire sans WS. */
     private String _strPrestataireSansWS;
-    
+
     /** The str url prestataire. */
     private String _strUrlPrestataire;
 
@@ -65,7 +64,8 @@ public class WebServiceSignalementTaskConfigUnit extends TaskConfig
     /**
      * set the unit.
      *
-     * @param unit            the unit
+     * @param unit
+     *            the unit
      */
     public void setUnit( Unit unit )
     {
@@ -85,7 +85,8 @@ public class WebServiceSignalementTaskConfigUnit extends TaskConfig
     /**
      * set the prestatairesansws.
      *
-     * @param prestatairesansws            the prestatairesansws (value of the checkbox)
+     * @param prestatairesansws
+     *            the prestatairesansws (value of the checkbox)
      */
     public void setPrestataireSansWS( String prestatairesansws )
     {
@@ -105,7 +106,8 @@ public class WebServiceSignalementTaskConfigUnit extends TaskConfig
     /**
      * set the urlprestataire.
      *
-     * @param urlprestataire            the urlprestataire
+     * @param urlprestataire
+     *            the urlprestataire
      */
     public void setUrlPrestataire( String urlprestataire )
     {

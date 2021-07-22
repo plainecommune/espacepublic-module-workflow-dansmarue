@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -42,13 +42,12 @@ import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.webservice.busine
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.webservice.business.WebServiceSignalementTaskConfigUnitDAO;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 
-
 /**
  * IWebServiceSignalementTaskConfigUnitService.
  */
 public class WebServiceSignalementTaskConfigUnitService
 {
-    
+
     /** The dao. */
     // DAO
     @Inject
@@ -58,8 +57,10 @@ public class WebServiceSignalementTaskConfigUnitService
     /**
      * Insert.
      *
-     * @param config            the task configuration
-     * @param plugin            the plugin
+     * @param config
+     *            the task configuration
+     * @param plugin
+     *            the plugin
      */
     public void insert( WebServiceSignalementTaskConfigUnit config, Plugin plugin )
     {
@@ -69,8 +70,10 @@ public class WebServiceSignalementTaskConfigUnitService
     /**
      * Update.
      *
-     * @param config            the task configuration
-     * @param plugin            the plugin
+     * @param config
+     *            the task configuration
+     * @param plugin
+     *            the plugin
      */
     public void update( WebServiceSignalementTaskConfigUnit config, Plugin plugin )
     {
@@ -80,9 +83,12 @@ public class WebServiceSignalementTaskConfigUnitService
     /**
      * Find by primary key.
      *
-     * @param nIdTask            the task id
-     * @param nIdUnit            the unit id
-     * @param plugin            the plugin
+     * @param nIdTask
+     *            the task id
+     * @param nIdUnit
+     *            the unit id
+     * @param plugin
+     *            the plugin
      * @return WebServiceSignalementTaskConfigUnit
      */
     public WebServiceSignalementTaskConfigUnit findByPrimaryKey( int nIdTask, int nIdUnit, Plugin plugin )
@@ -93,9 +99,12 @@ public class WebServiceSignalementTaskConfigUnitService
     /**
      * Delete.
      *
-     * @param nIdTask            the task id
-     * @param nIdUnit            the unit id
-     * @param plugin            the plugin
+     * @param nIdTask
+     *            the task id
+     * @param nIdUnit
+     *            the unit id
+     * @param plugin
+     *            the plugin
      */
     public void delete( int nIdTask, int nIdUnit, Plugin plugin )
     {
@@ -105,8 +114,10 @@ public class WebServiceSignalementTaskConfigUnitService
     /**
      * Find by id task.
      *
-     * @param nIdTask            the task id
-     * @param plugin            the plugin
+     * @param nIdTask
+     *            the task id
+     * @param plugin
+     *            the plugin
      * @return the list of WebServiceSignalementTaskConfigUnit
      */
     public List<WebServiceSignalementTaskConfigUnit> findByIdTask( int nIdTask, Plugin plugin )
@@ -117,8 +128,10 @@ public class WebServiceSignalementTaskConfigUnitService
     /**
      * Delete all.
      *
-     * @param nIdTask            the task id
-     * @param plugin            the plugin
+     * @param nIdTask
+     *            the task id
+     * @param plugin
+     *            the plugin
      */
     public void deleteAll( int nIdTask, Plugin plugin )
     {
@@ -128,8 +141,10 @@ public class WebServiceSignalementTaskConfigUnitService
     /**
      * Find by unit.
      *
-     * @param nIdUnit            the id unit
-     * @param plugin            the plugin
+     * @param nIdUnit
+     *            the id unit
+     * @param plugin
+     *            the plugin
      * @return the WebServiceSignalementTaskConfigUnit
      */
     public List<WebServiceSignalementTaskConfigUnit> findByIdUnit( int nIdUnit, Plugin plugin )

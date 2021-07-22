@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -143,6 +143,7 @@ import org.apache.commons.lang.StringUtils;
 import fr.paris.lutece.plugins.dansmarue.business.entities.Signalement;
 import fr.paris.lutece.plugins.dansmarue.business.entities.TypeSignalement;
 import fr.paris.lutece.plugins.dansmarue.commons.exceptions.BusinessException;
+import fr.paris.lutece.plugins.dansmarue.commons.exceptions.TechnicalException;
 import fr.paris.lutece.plugins.dansmarue.service.ISignalementService;
 import fr.paris.lutece.plugins.dansmarue.service.ISignalementWebService;
 import fr.paris.lutece.plugins.dansmarue.service.SignalementPlugin;
@@ -165,7 +166,6 @@ import fr.paris.lutece.portal.service.util.AppLogService;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import net.sf.json.JSONObject;
 
-
 /**
  * WebServiceSignalementTask class.
  */
@@ -177,84 +177,93 @@ public class WebServiceSignalementTask extends AbstractSignalementTask
     // CONSTANTS
 
     /** The Constant CONSTANT_STATE_NULL. */
-    public static final int                        CONSTANT_STATE_NULL                         = 0;
+    public static final int CONSTANT_STATE_NULL = 0;
 
     /** The Constant ID_STATE_NOUVEAU. */
-    private static final String                    ID_STATE_NOUVEAU                            = "signalement.idStateNouveau";
+    private static final String ID_STATE_NOUVEAU = "signalement.idStateNouveau";
 
     /** The Constant ID_TASK_SIGNALEMENT_WS_DEFAULT_CONFIG. */
-    private static final String                    ID_TASK_SIGNALEMENT_WS_DEFAULT_CONFIG       = "signalement.idTaskSignalementWebServiceDefaultConfig";
+    private static final String ID_TASK_SIGNALEMENT_WS_DEFAULT_CONFIG = "signalement.idTaskSignalementWebServiceDefaultConfig";
 
     /** The Constant ID_STATE_ECHEC_WS. */
-    private static final String                    ID_STATE_ECHEC_WS                           = "signalement.idStateEchecEnvoiWS";
+    private static final String ID_STATE_ECHEC_WS = "signalement.idStateEchecEnvoiWS";
 
     // MESSAGES
 
     /** The Constant MESSAGE_PROVIDER_WEBSERVICE_SUCCESS. */
-    private static final String                    MESSAGE_PROVIDER_WEBSERVICE_SUCCESS         = "module.workflow.dansmarue.task_webservice_config.history.provider_webservice_success";
+    private static final String MESSAGE_PROVIDER_WEBSERVICE_SUCCESS = "module.workflow.dansmarue.task_webservice_config.history.provider_webservice_success";
 
     /** The Constant MESSAGE_WEBSERVICE_DONE_SUCCESS. */
-    private static final String                    MESSAGE_WEBSERVICE_DONE_SUCCESS             = "module.workflow.dansmarue.task_webservice_config.history.webservice_done_success";
+    private static final String MESSAGE_WEBSERVICE_DONE_SUCCESS = "module.workflow.dansmarue.task_webservice_config.history.webservice_done_success";
 
     /** The Constant MESSAGE_PROVIDER_WEBSERVICE_FAILURE. */
-    private static final String                    MESSAGE_PROVIDER_WEBSERVICE_FAILURE         = "module.workflow.dansmarue.task_webservice_config.history.provider_webservice_failure";
+    private static final String MESSAGE_PROVIDER_WEBSERVICE_FAILURE = "module.workflow.dansmarue.task_webservice_config.history.provider_webservice_failure";
+
+    /** The Constant MESSAGE_PROVIDER_WEBSERVICE_FAILURE_WRONG_RESPONSE. */
+    private static final String MESSAGE_PROVIDER_WEBSERVICE_FAILURE_WRONG_RESPONSE = "module.workflow.dansmarue.task_webservice_config.history.provider_webservice_failure_wrong_response";
 
     /** The Constant MESSAGE_WEBSERVICE_FAILURE_WRONG_ADDRESS. */
-    private static final String                    MESSAGE_WEBSERVICE_FAILURE_WRONG_ADDRESS    = "module.workflow.dansmarue.task_webservice_config.history.webservice_failure_wrong_address";
+    private static final String MESSAGE_WEBSERVICE_FAILURE_WRONG_ADDRESS = "module.workflow.dansmarue.task_webservice_config.history.webservice_failure_wrong_address";
 
     /** The Constant MESSAGE_PROVIDER_WEBSERVICE_NO_CONFIG_SAVED. */
-    private static final String                    MESSAGE_PROVIDER_WEBSERVICE_NO_CONFIG_SAVED = "module.workflow.dansmarue.task_webservice_config.history.no_config_saved";
+    private static final String MESSAGE_PROVIDER_WEBSERVICE_NO_CONFIG_SAVED = "module.workflow.dansmarue.task_webservice_config.history.no_config_saved";
 
     /** The Constant MESSAGE_PROVIDER_WITHOUT_WEBSERVICE. */
-    private static final String                    MESSAGE_PROVIDER_WITHOUT_WEBSERVICE         = "module.workflow.dansmarue.task_webservice_config.history.without_webservice";
+    private static final String MESSAGE_PROVIDER_WITHOUT_WEBSERVICE = "module.workflow.dansmarue.task_webservice_config.history.without_webservice";
 
     /** The Constant PARAMETER_WEBSERVICE_SERVICE_FAIT_PRESTA. */
     // PARAMETERS
-    private static final String                    PARAMETER_WEBSERVICE_SERVICE_FAIT_PRESTA    = "webservice_service_fait_presta";
+    private static final String PARAMETER_WEBSERVICE_SERVICE_FAIT_PRESTA = "webservice_service_fait_presta";
 
     // SERVICES
 
     /** The signalement web service. */
-    private ISignalementWebService                 _signalementWebService                      = SpringContextService
+    private ISignalementWebService _signalementWebService = SpringContextService
 
             .getBean( "signalement.signalementWebService" );
 
     /** The signalement service. */
-    private ISignalementService                    _signalementService                         = SpringContextService.getBean( "signalementService" );
+    private ISignalementService _signalementService = SpringContextService.getBean( "signalementService" );
 
     /** The webservice value service. */
-    private WebServiceValueService                 _webserviceValueService                     = SpringContextService
+    private WebServiceValueService _webserviceValueService = SpringContextService
 
             .getBean( "signalement.webserviceValueService" );
 
     /** The unit service. */
-    private IUnitService                           _unitService                                = SpringContextService.getBean( "unittree.unitService" );
+    private IUnitService _unitService = SpringContextService.getBean( "unittree.unitService" );
 
     // DAO
 
     /** The config DAO. */
-    private WebServiceSignalementTaskConfigDAO     _configDAO                                  = SpringContextService
+    private WebServiceSignalementTaskConfigDAO _configDAO = SpringContextService
 
             .getBean( "signalement.webserviceSignalementTaskConfigDAO" );
 
     /** The configunit DAO. */
-    private WebServiceSignalementTaskConfigUnitDAO _configunitDAO                              = SpringContextService
+    private WebServiceSignalementTaskConfigUnitDAO _configunitDAO = SpringContextService
 
             .getBean( "signalement.webserviceSignalementTaskConfigUnitDAO" );
 
     /** The state service. */
-    private IStateService                          _stateService                               = SpringContextService.getBean( "workflow.stateService" );
+    private IStateService _stateService = SpringContextService.getBean( "workflow.stateService" );
 
     /** The Constant JSON_TAG_ANSWER. */
     // Constant
-    private static final String                    JSON_TAG_ANSWER                             = "answer";
+    private static final String JSON_TAG_ANSWER = "answer";
+
+    /** The Constant JSON_TAG_ERROR. */
+    private static final String JSON_TAG_ERROR = "error";
 
     /**
      * Process task.
      *
-     * @param nIdResourceHistory the n id resource history
-     * @param request the request
-     * @param locale the locale
+     * @param nIdResourceHistory
+     *            the n id resource history
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
      */
     @Override
     public void processTask( int nIdResourceHistory, HttpServletRequest request, Locale locale )
@@ -263,7 +272,7 @@ public class WebServiceSignalementTask extends AbstractSignalementTask
         // Si on vient du Webservice Service fait, ne fait rien
 
         if ( ( request != null ) && ( request.getSession( ).getAttribute( PARAMETER_WEBSERVICE_SERVICE_FAIT_PRESTA ) != null )
-                && ( boolean ) request.getSession( ).getAttribute( PARAMETER_WEBSERVICE_SERVICE_FAIT_PRESTA ) )
+                && (boolean) request.getSession( ).getAttribute( PARAMETER_WEBSERVICE_SERVICE_FAIT_PRESTA ) )
         {
             request.getSession( ).removeAttribute( PARAMETER_WEBSERVICE_SERVICE_FAIT_PRESTA );
             return;
@@ -295,16 +304,26 @@ public class WebServiceSignalementTask extends AbstractSignalementTask
         }
 
         // For service done case
-        if ( getAction( ).getStateAfter( ).getId( ) == Integer.parseInt( AppPropertiesService.getProperty( SignalementConstants.PROPERTY_SERVICE_FAIT_VALUE ) ) )
+        if ( getAction( ).getStateAfter( ).getId( ) == Integer
+                .parseInt( AppPropertiesService.getProperty( SignalementConstants.PROPERTY_SERVICE_FAIT_VALUE ) ) )
         {
-            // if Task is call to notify partner service done
-            callWSPartnerServiceDone( nIdResourceHistory, bean, idUnit );
-            return;
+            if ( checkDateServiceFaitTraitement( bean ) )
+            {
+                // if Task is call to notify partner service done
+                callWSPartnerServiceDone( nIdResourceHistory, bean, idUnit );
+                return;
+            }
+            else
+            {
+                return;
+            }
         }
 
         // id task to use, for deamon us task id 102
         int idTaskDaemonWSPartner = Integer.parseInt( AppPropertiesService.getProperty( ID_TASK_SIGNALEMENT_WS_DEFAULT_CONFIG ) );
-        int idTaskToUse = getAction( ).getId( ) == AppPropertiesService.getPropertyInt( SignalementConstants.ID_ACTION_TRANSFERT_PARTNER, -1 ) ? idTaskDaemonWSPartner : getId( );
+        int idTaskToUse = getAction( ).getId( ) == AppPropertiesService.getPropertyInt( SignalementConstants.ID_ACTION_TRANSFERT_PARTNER, -1 )
+                ? idTaskDaemonWSPartner
+                : getId( );
 
         WebServiceSignalementTaskConfig wsconfig = _configDAO.findByPrimaryKey( idTaskToUse,
 
@@ -344,7 +363,8 @@ public class WebServiceSignalementTask extends AbstractSignalementTask
 
         // Check if the signalement type is not TypeEncombrant and of unit DPE and in not direction DEVE
 
-        if ( !( TaskUtils.isSignalementOfTypeEncombrant( listeTypeSignalement, bean ) && ( idUnit == SignalementConstants.UNIT_DPE ) ) && !checkIsDirectionDEVE( bean ) )
+        if ( !( TaskUtils.isSignalementOfTypeEncombrant( listeTypeSignalement, bean ) && ( idUnit == SignalementConstants.UNIT_DPE ) )
+                && !checkIsDirectionDEVE( bean ) )
 
         {
 
@@ -401,11 +421,28 @@ public class WebServiceSignalementTask extends AbstractSignalementTask
                             }
                             else
                             {
-                                webservicevalue.setValue( I18nService.getLocalizedString(
+                                if ( wsResult.containsKey( JSON_TAG_ANSWER ) && ( wsResult.getJSONObject( JSON_TAG_ANSWER ) != null ) )
+                                {
+                                    webservicevalue.setValue( I18nService.getLocalizedString(
 
-                                        MESSAGE_PROVIDER_WEBSERVICE_FAILURE, Locale.FRENCH )
+                                            MESSAGE_PROVIDER_WEBSERVICE_FAILURE, Locale.FRENCH )
 
-                                        + wsResult.getJSONObject( JSON_TAG_ANSWER ).getString( "error" ) );
+                                            + wsResult.getJSONObject( JSON_TAG_ANSWER ).getString( JSON_TAG_ERROR ) );
+                                }
+                                else
+                                    if ( wsResult.containsKey( JSON_TAG_ERROR ) )
+                                    {
+                                        webservicevalue.setValue( I18nService.getLocalizedString(
+
+                                                MESSAGE_PROVIDER_WEBSERVICE_FAILURE, Locale.FRENCH )
+
+                                                + wsResult.getString( JSON_TAG_ERROR ) );
+                                    }
+                                    else
+                                    {
+                                        throw new TechnicalException(
+                                                I18nService.getLocalizedString( MESSAGE_PROVIDER_WEBSERVICE_FAILURE_WRONG_RESPONSE, Locale.FRENCH ) );
+                                    }
                             }
 
                         }
@@ -505,11 +542,11 @@ public class WebServiceSignalementTask extends AbstractSignalementTask
             {
                 responseJson = _signalementWebService.callWSPartnerServiceDone( signalement, wsunitconfig.getUrlPrestataire( ) );
             }
-            catch ( BusinessException e )
+            catch( BusinessException e )
             {
                 AppLogService.error( e.getMessage( ), e );
                 responseJson = new JSONObject( );
-                responseJson.accumulate( "error", true );
+                responseJson.accumulate( JSON_TAG_ERROR, true );
             }
 
             if ( !checkResponse( signalement, responseJson ) )
@@ -533,7 +570,8 @@ public class WebServiceSignalementTask extends AbstractSignalementTask
     /**
      * Check if direction of the signalement is DEVE.
      *
-     * @param signalement            report to check
+     * @param signalement
+     *            report to check
      * @return true if is DEVE
      */
     private boolean checkIsDirectionDEVE( Signalement signalement )
@@ -588,7 +626,7 @@ public class WebServiceSignalementTask extends AbstractSignalementTask
 
         }
 
-        catch ( Exception e )
+        catch( Exception e )
 
         {
 
@@ -603,7 +641,8 @@ public class WebServiceSignalementTask extends AbstractSignalementTask
     /**
      * Do remove task information.
      *
-     * @param nIdHistory the n id history
+     * @param nIdHistory
+     *            the n id history
      */
     @Override
     public void doRemoveTaskInformation( int nIdHistory )
@@ -631,7 +670,8 @@ public class WebServiceSignalementTask extends AbstractSignalementTask
     /**
      * Gets the title.
      *
-     * @param locale the locale
+     * @param locale
+     *            the locale
      * @return the title
      */
     @Override
@@ -646,7 +686,8 @@ public class WebServiceSignalementTask extends AbstractSignalementTask
     /**
      * Gets the task form entries.
      *
-     * @param locale the locale
+     * @param locale
+     *            the locale
      * @return the task form entries
      */
     @Override
@@ -656,6 +697,17 @@ public class WebServiceSignalementTask extends AbstractSignalementTask
 
         return null;
 
+    }
+
+    /**
+     * Check if the signalement has a non null date service fait value
+     * 
+     * @param signalement
+     * @return False if the DateServiceFaitTraitement value is null (DateServiceFaitTraitement), True otherwise
+     */
+    private boolean checkDateServiceFaitTraitement( Signalement signalement )
+    {
+        return ( signalement != null ) && ( signalement.getDateServiceFaitTraitement( ) != null );
     }
 
 }

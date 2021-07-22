@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,11 +56,11 @@ public class WebServiceCommentComponent extends AbstractTaskComponent
 
     /** The Constant TEMPLATE_TASK_COMMENT_INFORMATION. */
     // TEMPLATES
-    private static final String  TEMPLATE_TASK_COMMENT_INFORMATION = "admin/plugins/workflow/modules/signalement/task_webservice_comment_information.html";
+    private static final String TEMPLATE_TASK_COMMENT_INFORMATION = "admin/plugins/workflow/modules/signalement/task_webservice_comment_information.html";
 
     /** The Constant MARK_COMMENT_VALUE. */
     // Markers
-    private static final String  MARK_COMMENT_VALUE                = "comment_value";
+    private static final String MARK_COMMENT_VALUE = "comment_value";
 
     /** The comment value service. */
     @Inject

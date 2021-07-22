@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,18 +35,17 @@ package fr.paris.lutece.plugins.workflow.modules.dansmarue.task.ajoutentitehisto
 
 import fr.paris.lutece.util.sql.DAOUtil;
 
-
 /**
  * NotificationSuiviValueDAO.
  */
 public class AjoutEntiteDAO
 {
-    
+
     /** The Constant SQL_QUERY_FIND_BY_PRIMARY_KEY. */
     private static final String SQL_QUERY_FIND_BY_PRIMARY_KEY = "SELECT entite FROM signalement_workflow_entite_value WHERE id_history=? AND id_task=?";
-    
+
     /** The Constant SQL_QUERY_INSERT. */
-    private static final String SQL_QUERY_INSERT              = "INSERT INTO  signalement_workflow_entite_value " + "(id_history,id_task,entite) VALUES(?,?,?)";
+    private static final String SQL_QUERY_INSERT = "INSERT INTO  signalement_workflow_entite_value " + "(id_history,id_task,entite) VALUES(?,?,?)";
 
     /**
      * Insert.

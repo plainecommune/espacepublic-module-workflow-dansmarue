@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,7 +37,6 @@ import fr.paris.lutece.plugins.workflowcore.business.config.ITaskConfigDAO;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.util.sql.DAOUtil;
 
-
 /**
  * NotificationSuiviTaskConfigDAO.
  */
@@ -45,16 +44,19 @@ public class NotificationSuiviTaskConfigDAO implements ITaskConfigDAO<Notificati
 {
 
     /** The Constant SQL_QUERY_FIND_BY_PRIMARY_KEY. */
-    private static final String SQL_QUERY_FIND_BY_PRIMARY_KEY = "SELECT id_task,subject, sender,mail_message " + " FROM signalement_workflow_notification_suivi_config WHERE id_task=?";
-    
+    private static final String SQL_QUERY_FIND_BY_PRIMARY_KEY = "SELECT id_task,subject, sender,mail_message "
+            + " FROM signalement_workflow_notification_suivi_config WHERE id_task=?";
+
     /** The Constant SQL_QUERY_INSERT. */
-    private static final String SQL_QUERY_INSERT              = "INSERT INTO signalement_workflow_notification_suivi_config  " + "(id_task,subject,sender,mail_message)VALUES(?,?,?,?)";
-    
+    private static final String SQL_QUERY_INSERT = "INSERT INTO signalement_workflow_notification_suivi_config  "
+            + "(id_task,subject,sender,mail_message)VALUES(?,?,?,?)";
+
     /** The Constant SQL_QUERY_UPDATE. */
-    private static final String SQL_QUERY_UPDATE              = "UPDATE signalement_workflow_notification_suivi_config " + "SET id_task=?,subject=?, sender=?, mail_message=?" + " WHERE id_task=?";
-    
+    private static final String SQL_QUERY_UPDATE = "UPDATE signalement_workflow_notification_suivi_config "
+            + "SET id_task=?,subject=?, sender=?, mail_message=?" + " WHERE id_task=?";
+
     /** The Constant SQL_QUERY_DELETE. */
-    private static final String SQL_QUERY_DELETE              = "DELETE FROM signalement_workflow_notification_suivi_config WHERE id_task=? ";
+    private static final String SQL_QUERY_DELETE = "DELETE FROM signalement_workflow_notification_suivi_config WHERE id_task=? ";
 
     /**
      * Insert.
@@ -66,7 +68,7 @@ public class NotificationSuiviTaskConfigDAO implements ITaskConfigDAO<Notificati
      */
     public synchronized void insert( NotificationSuiviTaskConfig config, Plugin plugin )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) ; )
         {
 
             int nIndex = 1;
@@ -92,7 +94,7 @@ public class NotificationSuiviTaskConfigDAO implements ITaskConfigDAO<Notificati
      */
     public void store( NotificationSuiviTaskConfig config, Plugin plugin )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) ; )
         {
 
             int nIndex = 1;
@@ -121,7 +123,7 @@ public class NotificationSuiviTaskConfigDAO implements ITaskConfigDAO<Notificati
     public NotificationSuiviTaskConfig load( int nIdTask, Plugin plugin )
     {
         NotificationSuiviTaskConfig suiviTaskConfig = new NotificationSuiviTaskConfig( );
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_PRIMARY_KEY, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_PRIMARY_KEY, plugin ) ; )
         {
 
             int nIndex = 1;
@@ -155,7 +157,7 @@ public class NotificationSuiviTaskConfigDAO implements ITaskConfigDAO<Notificati
      */
     public void delete( int nIdTask, Plugin plugin )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ) ; )
         {
             int nIndex = 1;
 

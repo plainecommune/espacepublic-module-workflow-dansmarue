@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -80,76 +80,76 @@ public class WebServiceComponent extends AbstractTaskComponent
 
     /** The Constant I18N_FIELD_WITHWS_SUCCESS. */
     // I18N
-    private static final String                    I18N_FIELD_WITHWS_SUCCESS            = "module.workflow.dansmarue.task_webservice_config.withWS.success";
+    private static final String I18N_FIELD_WITHWS_SUCCESS = "module.workflow.dansmarue.task_webservice_config.withWS.success";
 
     /** The Constant I18N_FIELD_WITHWS_FAILURE. */
-    private static final String                    I18N_FIELD_WITHWS_FAILURE            = "module.workflow.dansmarue.task_webservice_config.withWS.failure";
+    private static final String I18N_FIELD_WITHWS_FAILURE = "module.workflow.dansmarue.task_webservice_config.withWS.failure";
 
     /** The Constant I18N_FIELD_WITHOUTWS. */
-    private static final String                    I18N_FIELD_WITHOUTWS                 = "module.workflow.dansmarue.task_webservice_config.withoutWS";
+    private static final String I18N_FIELD_WITHOUTWS = "module.workflow.dansmarue.task_webservice_config.withoutWS";
 
     /** The Constant MARK_LIST_STATE. */
     // MARKERS
-    private static final String                    MARK_LIST_STATE                      = "state_list";
+    private static final String MARK_LIST_STATE = "state_list";
 
     /** The Constant MARK_CONFIG. */
-    private static final String                    MARK_CONFIG                          = "config";
+    private static final String MARK_CONFIG = "config";
 
     /** The Constant MARK_LISTE_UNITS. */
-    private static final String                    MARK_LISTE_UNITS                     = "liste_units";
+    private static final String MARK_LISTE_UNITS = "liste_units";
 
     /** The Constant MARK_CONFIG_DTO. */
-    private static final String                    MARK_CONFIG_DTO                      = "configDTO";
+    private static final String MARK_CONFIG_DTO = "configDTO";
 
     /** The Constant MARK_WEBAPP_URL. */
-    private static final String                    MARK_WEBAPP_URL                      = "webapp_url";
+    private static final String MARK_WEBAPP_URL = "webapp_url";
 
     /** The Constant MARK_LOCALE. */
-    private static final String                    MARK_LOCALE                          = "locale";
+    private static final String MARK_LOCALE = "locale";
 
     /** The Constant MARK_WEBSERVICE_VALUE. */
-    private static final String                    MARK_WEBSERVICE_VALUE                = "webservice_value";
+    private static final String MARK_WEBSERVICE_VALUE = "webservice_value";
 
     /** The Constant PARAMETER_ADD_UNIT. */
     // PARAMETERS
-    private static final String                    PARAMETER_ADD_UNIT                   = "add_unit";
+    private static final String PARAMETER_ADD_UNIT = "add_unit";
 
     /** The Constant PARAMETER_ID_TASK. */
-    private static final String                    PARAMETER_ID_TASK                    = "id_task";
+    private static final String PARAMETER_ID_TASK = "id_task";
 
     /** The Constant CONSTANT_STATE_NULL. */
     // CONSTANTS
-    public static final int                        CONSTANT_STATE_NULL                  = 0;
+    public static final int CONSTANT_STATE_NULL = 0;
 
     /** The Constant MESSAGE_MANDATORY_FIELD. */
     // MESSAGES
-    private static final String                    MESSAGE_MANDATORY_FIELD              = "module.workflow.dansmarue.task_webservice_config.message.mandatory.field";
+    private static final String MESSAGE_MANDATORY_FIELD = "module.workflow.dansmarue.task_webservice_config.message.mandatory.field";
 
     /** The Constant MESSAGE_INVALID_STATE. */
-    private static final String                    MESSAGE_INVALID_STATE                = "module.workflow.dansmarue.task_webservice_config.message.invalid.state";
+    private static final String MESSAGE_INVALID_STATE = "module.workflow.dansmarue.task_webservice_config.message.invalid.state";
 
     /** The Constant MESSAGE_EXCEPTION_OCCURED. */
-    private static final String                    MESSAGE_EXCEPTION_OCCURED            = "module.workflow.dansmarue.task_webservice_config.message.exception";
+    private static final String MESSAGE_EXCEPTION_OCCURED = "module.workflow.dansmarue.task_webservice_config.message.exception";
 
     /** The Constant ERROR_UNIT. */
-    private static final String                    ERROR_UNIT                           = "module.workflow.dansmarue.task_webservice_config.error.entite";
+    private static final String ERROR_UNIT = "module.workflow.dansmarue.task_webservice_config.error.entite";
 
     /** The Constant ERROR_URL. */
-    private static final String                    ERROR_URL                            = "module.workflow.dansmarue.task_webservice_config.error.url";
+    private static final String ERROR_URL = "module.workflow.dansmarue.task_webservice_config.error.url";
 
     /** The Constant MESSAGE_ERROR_UNIT_ALLREADY_EXISTS. */
-    private static final String                    MESSAGE_ERROR_UNIT_ALLREADY_EXISTS   = "module.workflow.dansmarue.task_webservice_config.error.entite.exists";
+    private static final String MESSAGE_ERROR_UNIT_ALLREADY_EXISTS = "module.workflow.dansmarue.task_webservice_config.error.entite.exists";
 
     /** The Constant TEMPLATE_TASK_WEBSERVICE_CONFIG. */
     // TEMPLATES
-    private static final String                    TEMPLATE_TASK_WEBSERVICE_CONFIG      = "admin/plugins/workflow/modules/signalement/task_webservice_config.html";
+    private static final String TEMPLATE_TASK_WEBSERVICE_CONFIG = "admin/plugins/workflow/modules/signalement/task_webservice_config.html";
 
     /** The Constant TEMPLATE_TASK_WEBSERVICE_INFORMATION. */
-    private static final String                    TEMPLATE_TASK_WEBSERVICE_INFORMATION = "admin/plugins/workflow/modules/signalement/task_webservice_information.html";
+    private static final String TEMPLATE_TASK_WEBSERVICE_INFORMATION = "admin/plugins/workflow/modules/signalement/task_webservice_information.html";
 
     /** The Constant JSP_MODIFY_TASK. */
     // JSP
-    private static final String                    JSP_MODIFY_TASK                      = "jsp/admin/plugins/workflow/ModifyTask.jsp";
+    private static final String JSP_MODIFY_TASK = "jsp/admin/plugins/workflow/ModifyTask.jsp";
 
     /** The webservice signalement task config service. */
     @Inject
@@ -159,27 +159,27 @@ public class WebServiceComponent extends AbstractTaskComponent
     /** The unit service. */
     @Inject
     @Named( IUnitService.BEAN_UNIT_SERVICE )
-    private IUnitService                           _unitService;
+    private IUnitService _unitService;
 
     /** The signalement workflow service. */
     @Inject
     @Named( "signalement.workflowService" )
-    private IWorkflowService                       _signalementWorkflowService;
+    private IWorkflowService _signalementWorkflowService;
 
     /** The webservice value service. */
     @Inject
     @Named( "signalement.webserviceValueService" )
-    private WebServiceValueService                 _webserviceValueService;
+    private WebServiceValueService _webserviceValueService;
 
     /** The config DAO. */
     @Inject
     @Named( "signalement.webserviceSignalementTaskConfigDAO" )
-    private WebServiceSignalementTaskConfigDAO     _configDAO;
+    private WebServiceSignalementTaskConfigDAO _configDAO;
 
     /** The state service. */
     @Inject
     @Named( "workflow.stateService" )
-    private IStateService                          _stateService;
+    private IStateService _stateService;
 
     /**
      * Gets the display task form.
@@ -351,10 +351,12 @@ public class WebServiceComponent extends AbstractTaskComponent
                 BeanUtils.populate( configUnit, request.getParameterMap( ) );
                 configUnit.setIdTask( task.getId( ) );
             }
-            catch ( Exception e )
+            catch( Exception e )
             {
                 AppLogService.error( e.getMessage( ), e );
-                Object[] tabError = { e.getMessage( ) };
+                Object [ ] tabError = {
+                        e.getMessage( )
+                };
                 return AdminMessageService.getMessageUrl( request, MESSAGE_EXCEPTION_OCCURED, tabError, AdminMessage.TYPE_STOP );
             }
 
@@ -363,21 +365,25 @@ public class WebServiceComponent extends AbstractTaskComponent
             {
                 strError = ERROR_UNIT;
             }
-            else if ( ( configUnit.getPrestataireSansWS( ) == null ) && StringUtils.isBlank( configUnit.getUrlPrestataire( ) ) )
-            {
-                strError = ERROR_URL;
-            }
+            else
+                if ( ( configUnit.getPrestataireSansWS( ) == null ) && StringUtils.isBlank( configUnit.getUrlPrestataire( ) ) )
+                {
+                    strError = ERROR_URL;
+                }
 
             if ( !strError.equals( WorkflowUtils.EMPTY_STRING ) )
             {
-                Object[] tabRequiredFields = { I18nService.getLocalizedString( strError, locale ) };
+                Object [ ] tabRequiredFields = {
+                        I18nService.getLocalizedString( strError, locale )
+                };
 
                 return AdminMessageService.getMessageUrl( request, MESSAGE_MANDATORY_FIELD, tabRequiredFields, AdminMessage.TYPE_STOP );
             }
-            else if ( _webserviceSignalementTaskConfigService.findUnitByPrimaryKey( task.getId( ), configUnit.getUnit( ).getIdUnit( ) ) != null )
-            {
-                return AdminMessageService.getMessageUrl( request, MESSAGE_ERROR_UNIT_ALLREADY_EXISTS, AdminMessage.TYPE_STOP );
-            }
+            else
+                if ( _webserviceSignalementTaskConfigService.findUnitByPrimaryKey( task.getId( ), configUnit.getUnit( ).getIdUnit( ) ) != null )
+                {
+                    return AdminMessageService.getMessageUrl( request, MESSAGE_ERROR_UNIT_ALLREADY_EXISTS, AdminMessage.TYPE_STOP );
+                }
 
             // Insertion de l'unit
             _webserviceSignalementTaskConfigService.insertUnit( configUnit );
@@ -395,11 +401,13 @@ public class WebServiceComponent extends AbstractTaskComponent
             {
                 BeanUtils.populate( config, request.getParameterMap( ) );
             }
-            catch ( Exception e )
+            catch( Exception e )
             {
                 AppLogService.error( e.getMessage( ), e );
 
-                Object[] tabError = { e.getMessage( ) };
+                Object [ ] tabError = {
+                        e.getMessage( )
+                };
 
                 return AdminMessageService.getMessageUrl( request, MESSAGE_MANDATORY_FIELD, tabError, AdminMessage.TYPE_STOP );
             }
@@ -411,18 +419,22 @@ public class WebServiceComponent extends AbstractTaskComponent
             {
                 strError = I18N_FIELD_WITHWS_SUCCESS;
             }
-            else if ( config.getStateWithWSFailure( ) == CONSTANT_STATE_NULL )
-            {
-                strError = I18N_FIELD_WITHWS_FAILURE;
-            }
-            else if ( config.getStateWithoutWS( ) == CONSTANT_STATE_NULL )
-            {
-                strError = I18N_FIELD_WITHOUTWS;
-            }
+            else
+                if ( config.getStateWithWSFailure( ) == CONSTANT_STATE_NULL )
+                {
+                    strError = I18N_FIELD_WITHWS_FAILURE;
+                }
+                else
+                    if ( config.getStateWithoutWS( ) == CONSTANT_STATE_NULL )
+                    {
+                        strError = I18N_FIELD_WITHOUTWS;
+                    }
 
             if ( !strError.equals( WorkflowUtils.EMPTY_STRING ) )
             {
-                Object[] tabRequiredFields = { I18nService.getLocalizedString( strError, locale ) };
+                Object [ ] tabRequiredFields = {
+                        I18nService.getLocalizedString( strError, locale )
+                };
 
                 return AdminMessageService.getMessageUrl( request, MESSAGE_MANDATORY_FIELD, tabRequiredFields, AdminMessage.TYPE_STOP );
             }
@@ -432,19 +444,23 @@ public class WebServiceComponent extends AbstractTaskComponent
             {
                 strError = I18N_FIELD_WITHWS_SUCCESS;
             }
-            else if ( _stateService.findByPrimaryKey( config.getStateWithWSFailure( ) ) == null )
-            {
-                strError = I18N_FIELD_WITHWS_FAILURE;
-            }
-            else if ( _stateService.findByPrimaryKey( config.getStateWithoutWS( ) ) == null )
-            {
-                strError = I18N_FIELD_WITHWS_FAILURE;
-            }
+            else
+                if ( _stateService.findByPrimaryKey( config.getStateWithWSFailure( ) ) == null )
+                {
+                    strError = I18N_FIELD_WITHWS_FAILURE;
+                }
+                else
+                    if ( _stateService.findByPrimaryKey( config.getStateWithoutWS( ) ) == null )
+                    {
+                        strError = I18N_FIELD_WITHWS_FAILURE;
+                    }
 
             if ( !strError.equals( WorkflowUtils.EMPTY_STRING ) )
             {
 
-                Object[] tabRequiredFields = { I18nService.getLocalizedString( strError, locale ) };
+                Object [ ] tabRequiredFields = {
+                        I18nService.getLocalizedString( strError, locale )
+                };
 
                 return AdminMessageService.getMessageUrl( request, MESSAGE_INVALID_STATE, tabRequiredFields, AdminMessage.TYPE_STOP );
             }

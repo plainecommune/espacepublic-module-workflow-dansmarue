@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -43,7 +43,6 @@ import fr.paris.lutece.portal.service.message.AdminMessage;
 import fr.paris.lutece.portal.service.message.AdminMessageService;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 
-
 /**
  * Allow to add task to the workflow.
  */
@@ -51,16 +50,16 @@ public abstract class AbstractSignalementTask extends Task
 {
 
     /** The Constant MARK_NEXT. */
-    public static final String        MARK_NEXT               = "next";
+    public static final String MARK_NEXT = "next";
 
     /** The _signalement service. */
-    private ISignalementService       _signalementService     = SpringContextService.getBean( "signalementService" );
+    private ISignalementService _signalementService = SpringContextService.getBean( "signalementService" );
 
     /** The resource history service. */
     protected IResourceHistoryService _resourceHistoryService = SpringContextService.getBean( "workflow.resourceHistoryService" );
 
     /** The type signalement service. */
-    private ITypeSignalementService   _typeSignalementService = SpringContextService.getBean( "typeSignalementService" );
+    private ITypeSignalementService _typeSignalementService = SpringContextService.getBean( "typeSignalementService" );
 
     /**
      * Do remove config.
@@ -96,8 +95,10 @@ public abstract class AbstractSignalementTask extends Task
     /**
      * Return url.
      *
-     * @param strI18nKey            le clé i18n
-     * @param request            the request
+     * @param strI18nKey
+     *            le clé i18n
+     * @param request
+     *            the request
      * @return l'url
      */
     protected String getMessageUrl( String strI18nKey, HttpServletRequest request )

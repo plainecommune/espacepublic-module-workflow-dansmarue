@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -67,25 +67,25 @@ public class ProgrammationComponent extends AbstractTaskComponent
 {
 
     /** The Constant TEMPLATE_TASK_FORM. */
-    private static final String TEMPLATE_TASK_FORM       = "admin/plugins/workflow/modules/signalement/task_programmation_signalement_form.html";
+    private static final String TEMPLATE_TASK_FORM = "admin/plugins/workflow/modules/signalement/task_programmation_signalement_form.html";
 
     /** The Constant MESSAGE_WRONG_DATE. */
     // MESSAGES
-    private static final String MESSAGE_WRONG_DATE       = "module.workflow.dansmarue.programmation.wrongdate";
+    private static final String MESSAGE_WRONG_DATE = "module.workflow.dansmarue.programmation.wrongdate";
 
     /** The Constant MESSAGE_ERROR_EXCEPTION. */
-    private static final String MESSAGE_ERROR_EXCEPTION  = "module.workflow.dansmarue.programmation.errordate";
+    private static final String MESSAGE_ERROR_EXCEPTION = "module.workflow.dansmarue.programmation.errordate";
 
     /** The Constant MESSAGE_ERROR_EMPTY_DATE. */
     private static final String MESSAGE_ERROR_EMPTY_DATE = "module.workflow.dansmarue.programmation.error.emptydate";
 
     /** The Constant MARK_SIGNALEMENT_ID. */
     // MARKERS
-    private static final String MARK_SIGNALEMENT_ID      = "signalement_id";
+    private static final String MARK_SIGNALEMENT_ID = "signalement_id";
 
     /** The Constant EMPTY_STRING. */
     // CONSTANTS
-    private static final String EMPTY_STRING             = "";
+    private static final String EMPTY_STRING = "";
 
     /** The signalement service. */
     // SERVICES
@@ -219,7 +219,7 @@ public class ProgrammationComponent extends AbstractTaskComponent
                 }
 
             }
-            catch ( Exception e )
+            catch( Exception e )
             {
                 AppLogService.error( e );
                 // Invalid date was entered

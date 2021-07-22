@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,22 +35,21 @@ package fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notificationpush
 
 import fr.paris.lutece.plugins.workflowcore.business.config.TaskConfig;
 
-
 /**
  * The Class NotificationPushTaskConfig.
  */
 public class NotificationPushTaskConfig extends TaskConfig
 {
-    
+
     /** The mobile subject. */
-    private String  _mobileSubject;
-    
+    private String _mobileSubject;
+
     /** The mobile message. */
-    private String  _mobileMessage;
-    
+    private String _mobileMessage;
+
     /** The is diffusion declarant. */
     private boolean _isDiffusionDeclarant;
-    
+
     /** The is diffusion suiveur. */
     private boolean _isDiffusionSuiveur;
 
@@ -67,7 +66,8 @@ public class NotificationPushTaskConfig extends TaskConfig
     /**
      * Sets the mobile message.
      *
-     * @param mobileMessage            the mobileMessage to set
+     * @param mobileMessage
+     *            the mobileMessage to set
      */
     public void setMobileMessage( String mobileMessage )
     {
@@ -87,7 +87,8 @@ public class NotificationPushTaskConfig extends TaskConfig
     /**
      * Sets the mobile subject.
      *
-     * @param mobileSubject            the mobileSubject to set
+     * @param mobileSubject
+     *            the mobileSubject to set
      */
     public void setMobileSubject( String mobileSubject )
     {
@@ -107,7 +108,8 @@ public class NotificationPushTaskConfig extends TaskConfig
     /**
      * Sets the checks if is diffusion declarant.
      *
-     * @param isDiffusionDeclarant the new checks if is diffusion declarant
+     * @param isDiffusionDeclarant
+     *            the new checks if is diffusion declarant
      */
     public void setIsDiffusionDeclarant( boolean isDiffusionDeclarant )
     {
@@ -127,7 +129,8 @@ public class NotificationPushTaskConfig extends TaskConfig
     /**
      * Sets the checks if is diffusion suiveur.
      *
-     * @param isDiffusionSuiveur the new checks if is diffusion suiveur
+     * @param isDiffusionSuiveur
+     *            the new checks if is diffusion suiveur
      */
     public void setIsDiffusionSuiveur( boolean isDiffusionSuiveur )
     {

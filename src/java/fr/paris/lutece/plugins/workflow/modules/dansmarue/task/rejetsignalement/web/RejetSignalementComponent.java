@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -61,54 +61,53 @@ import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.ReferenceList;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
-
 /**
  * The Class RejetSignalementComponent.
  */
 public class RejetSignalementComponent extends AbstractTaskComponent
 {
-    
+
     /** The Constant TEMPLATE_TASK_FORM. */
-    private static final String      TEMPLATE_TASK_FORM              = "admin/plugins/workflow/modules/signalement/task_rejet_signalement_form.html";
+    private static final String TEMPLATE_TASK_FORM = "admin/plugins/workflow/modules/signalement/task_rejet_signalement_form.html";
 
     /** The Constant MESSAGE_ERROR_EMPTY_MOTIF_REJET. */
     // MESSAGES
-    private static final String      MESSAGE_ERROR_EMPTY_MOTIF_REJET = "module.workflow.dansmarue.rejet.error.emptymotif";
-    
+    private static final String MESSAGE_ERROR_EMPTY_MOTIF_REJET = "module.workflow.dansmarue.rejet.error.emptymotif";
+
     /** The Constant MESSAGE_ERROR_EMPTY_MOTIF_AUTRE. */
-    private static final String      MESSAGE_ERROR_EMPTY_MOTIF_AUTRE = "module.workflow.dansmarue.rejet.error.empty.motif.autre";
+    private static final String MESSAGE_ERROR_EMPTY_MOTIF_AUTRE = "module.workflow.dansmarue.rejet.error.empty.motif.autre";
 
     /** The Constant MARK_SIGNALEMENT. */
     // MARKERS
-    private static final String      MARK_SIGNALEMENT                = "signalement";
-    
+    private static final String MARK_SIGNALEMENT = "signalement";
+
     /** The Constant MARK_OBSERVATION_REJET_LIST. */
-    private static final String      MARK_OBSERVATION_REJET_LIST     = "observation_list";
-    
+    private static final String MARK_OBSERVATION_REJET_LIST = "observation_list";
+
     /** The Constant MARK_HAS_EMAIL_SIGNALEUR. */
-    private static final String      MARK_HAS_EMAIL_SIGNALEUR        = "has_email_signaleur";
+    private static final String MARK_HAS_EMAIL_SIGNALEUR = "has_email_signaleur";
 
     /** The Constant PARAMETER_MOTIF_REJET. */
     // PARAMETERS
-    private static final String      PARAMETER_MOTIF_REJET           = "motif_rejet";
-    
+    private static final String PARAMETER_MOTIF_REJET = "motif_rejet";
+
     /** The Constant PARAMETER_MOTIF_AUTRE_CHECKBOX. */
-    private static final String      PARAMETER_MOTIF_AUTRE_CHECKBOX  = "motif_autre_checkbox";
-    
+    private static final String PARAMETER_MOTIF_AUTRE_CHECKBOX = "motif_autre_checkbox";
+
     /** The Constant PARAMETER_MOTIF_AUTRE. */
-    private static final String      PARAMETER_MOTIF_AUTRE           = "motif_autre";
+    private static final String PARAMETER_MOTIF_AUTRE = "motif_autre";
 
     /** The signalement service. */
     // SERVICES
     @Inject
     @Named( "signalementService" )
-    private ISignalementService      _signalementService;
+    private ISignalementService _signalementService;
 
     /** The signalement workflow service. */
     @Inject
     @Named( "signalement.workflowService" )
-    private IWorkflowService         _signalementWorkflowService;
-    
+    private IWorkflowService _signalementWorkflowService;
+
     /** The observation rejet service. */
     @Inject
     @Named( "observationRejetService" )
@@ -117,11 +116,16 @@ public class RejetSignalementComponent extends AbstractTaskComponent
     /**
      * Gets the display task form.
      *
-     * @param nIdResource the n id resource
-     * @param strResourceType the str resource type
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param nIdResource
+     *            the n id resource
+     * @param strResourceType
+     *            the str resource type
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the display task form
      */
     @Override
@@ -131,15 +135,16 @@ public class RejetSignalementComponent extends AbstractTaskComponent
 
         Signalement signalement = _signalementService.getSignalement( nIdResource );
 
-        boolean hasEmailSignaleur = false;
+        boolean hasEmailSignaleurOrFallower = false;
 
-        if ( ( null != signalement ) && CollectionUtils.isNotEmpty( signalement.getSignaleurs( ) ) && !StringUtils.isBlank( signalement.getSignaleurs( ).get( 0 ).getMail( ) ) )
+        if ( ( signalement.getSuivi( ) > 0 ) || ( ( null != signalement ) && CollectionUtils.isNotEmpty( signalement.getSignaleurs( ) )
+                && !StringUtils.isBlank( signalement.getSignaleurs( ).get( 0 ).getMail( ) ) ) )
         {
-            hasEmailSignaleur = true;
+            hasEmailSignaleurOrFallower = true;
 
         }
 
-        model.put( MARK_HAS_EMAIL_SIGNALEUR, hasEmailSignaleur );
+        model.put( MARK_HAS_EMAIL_SIGNALEUR, hasEmailSignaleurOrFallower );
 
         // get the signalement
         model.put( MARK_SIGNALEMENT, signalement );
@@ -158,9 +163,12 @@ public class RejetSignalementComponent extends AbstractTaskComponent
     /**
      * Gets the display config form.
      *
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the display config form
      */
     @Override
@@ -172,10 +180,14 @@ public class RejetSignalementComponent extends AbstractTaskComponent
     /**
      * Gets the display task information.
      *
-     * @param nIdHistory the n id history
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param nIdHistory
+     *            the n id history
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the display task information
      */
     @Override
@@ -187,10 +199,14 @@ public class RejetSignalementComponent extends AbstractTaskComponent
     /**
      * Gets the task information xml.
      *
-     * @param nIdHistory the n id history
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param nIdHistory
+     *            the n id history
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the task information xml
      */
     @Override
@@ -202,11 +218,16 @@ public class RejetSignalementComponent extends AbstractTaskComponent
     /**
      * Do validate task.
      *
-     * @param nIdResource the n id resource
-     * @param strResourceType the str resource type
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param nIdResource
+     *            the n id resource
+     * @param strResourceType
+     *            the str resource type
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the string
      */
     @Override
@@ -214,7 +235,8 @@ public class RejetSignalementComponent extends AbstractTaskComponent
     {
         boolean hasEmailSignaleur = false;
         Signalement signalement = _signalementService.getSignalement( nIdResource );
-        if ( ( null != signalement ) && CollectionUtils.isNotEmpty( signalement.getSignaleurs( ) ) && !StringUtils.isBlank( signalement.getSignaleurs( ).get( 0 ).getMail( ) ) )
+        if ( ( null != signalement ) && CollectionUtils.isNotEmpty( signalement.getSignaleurs( ) )
+                && !StringUtils.isBlank( signalement.getSignaleurs( ).get( 0 ).getMail( ) ) )
         {
 
             hasEmailSignaleur = true;
@@ -227,7 +249,7 @@ public class RejetSignalementComponent extends AbstractTaskComponent
             return null;
         }
 
-        String[] motifsRejetIds = request.getParameterValues( PARAMETER_MOTIF_REJET );
+        String [ ] motifsRejetIds = request.getParameterValues( PARAMETER_MOTIF_REJET );
         boolean motifAutreCheckbox = StringUtils.isNotBlank( request.getParameter( PARAMETER_MOTIF_AUTRE_CHECKBOX ) );
 
         boolean emptyMotif = ArrayUtils.isEmpty( motifsRejetIds );

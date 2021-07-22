@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -44,16 +44,15 @@ import fr.paris.lutece.plugins.workflow.modules.comment.business.CommentValue;
 import fr.paris.lutece.plugins.workflow.modules.comment.service.ICommentValueService;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.AbstractSignalementTask;
 
-
 /**
  * TaskWebServiceComment.
  */
 public class TaskWebServiceComment extends AbstractSignalementTask
 {
-    
+
     /** The Constant PARAMETER_WEBSERVICE_COMMENT_VALUE. */
     // Parameters
-    private static final String  PARAMETER_WEBSERVICE_COMMENT_VALUE = "webservice_comment_value";
+    private static final String PARAMETER_WEBSERVICE_COMMENT_VALUE = "webservice_comment_value";
 
     /** The comment value service. */
     @Inject
@@ -63,7 +62,8 @@ public class TaskWebServiceComment extends AbstractSignalementTask
     /**
      * Gets the title.
      *
-     * @param locale the locale
+     * @param locale
+     *            the locale
      * @return the title
      */
     @Override
@@ -75,14 +75,17 @@ public class TaskWebServiceComment extends AbstractSignalementTask
     /**
      * Process task.
      *
-     * @param nIdResourceHistory the n id resource history
-     * @param request the request
-     * @param locale the locale
+     * @param nIdResourceHistory
+     *            the n id resource history
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
      */
     @Override
     public void processTask( int nIdResourceHistory, HttpServletRequest request, Locale locale )
     {
-        String strCommentValue = ( String ) request.getSession( ).getAttribute( PARAMETER_WEBSERVICE_COMMENT_VALUE );
+        String strCommentValue = (String) request.getSession( ).getAttribute( PARAMETER_WEBSERVICE_COMMENT_VALUE );
         if ( null != strCommentValue )
         {
             request.getSession( ).removeAttribute( PARAMETER_WEBSERVICE_COMMENT_VALUE );
@@ -97,7 +100,8 @@ public class TaskWebServiceComment extends AbstractSignalementTask
     /**
      * Gets the task form entries.
      *
-     * @param locale the locale
+     * @param locale
+     *            the locale
      * @return the task form entries
      */
     @Override

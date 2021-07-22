@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,28 +36,29 @@ package fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notificationsuiv
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.util.sql.DAOUtil;
 
-
 /**
  * NotificationSuiviValueDAO.
  */
 public class NotificationSuiviValueDAO
 {
-    
+
     /** The Constant SQL_QUERY_FIND_BY_PRIMARY_KEY. */
     private static final String SQL_QUERY_FIND_BY_PRIMARY_KEY = "SELECT id_history,id_task,mail_notification_value  "
             + "FROM signalement_workflow_notification_suivi_value WHERE id_history=? AND id_task=?";
-    
+
     /** The Constant SQL_QUERY_LOAD_BY_HISTORY. */
-    private static final String SQL_QUERY_LOAD_BY_HISTORY     = "SELECT id_history,id_task,mail_notification_value  " + "FROM signalement_workflow_notification_suivi_value WHERE id_history=? ";
-    
+    private static final String SQL_QUERY_LOAD_BY_HISTORY = "SELECT id_history,id_task,mail_notification_value  "
+            + "FROM signalement_workflow_notification_suivi_value WHERE id_history=? ";
+
     /** The Constant SQL_QUERY_INSERT. */
-    private static final String SQL_QUERY_INSERT              = "INSERT INTO  signalement_workflow_notification_suivi_value " + "(id_history,id_task,mail_notification_value)VALUES(?,?,?)";
-    
+    private static final String SQL_QUERY_INSERT = "INSERT INTO  signalement_workflow_notification_suivi_value "
+            + "(id_history,id_task,mail_notification_value)VALUES(?,?,?)";
+
     /** The Constant SQL_QUERY_DELETE_BY_HISTORY. */
-    private static final String SQL_QUERY_DELETE_BY_HISTORY   = "DELETE FROM signalement_workflow_notification_suivi_value  WHERE id_history=? AND id_task=?";
-    
+    private static final String SQL_QUERY_DELETE_BY_HISTORY = "DELETE FROM signalement_workflow_notification_suivi_value  WHERE id_history=? AND id_task=?";
+
     /** The Constant SQL_QUERY_DELETE_BY_TASK. */
-    private static final String SQL_QUERY_DELETE_BY_TASK      = "DELETE FROM signalement_workflow_notification_suivi_value  WHERE id_task=?";
+    private static final String SQL_QUERY_DELETE_BY_TASK = "DELETE FROM signalement_workflow_notification_suivi_value  WHERE id_task=?";
 
     /**
      * Insert.
@@ -67,7 +68,7 @@ public class NotificationSuiviValueDAO
      */
     public synchronized void insert( NotificationSuiviValue notificationSuiviValue )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT ) ; )
         {
 
             int nPos = 0;
@@ -96,7 +97,7 @@ public class NotificationSuiviValueDAO
     {
         NotificationSuiviValue notificationValue = null;
 
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_PRIMARY_KEY, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_PRIMARY_KEY, plugin ) ; )
         {
             int nPos = 0;
             daoUtil.setInt( ++nPos, nIdHistory );
@@ -133,7 +134,7 @@ public class NotificationSuiviValueDAO
      */
     public void deleteByHistory( int nIdHistory, int nIdTask, Plugin plugin )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_BY_HISTORY, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_BY_HISTORY, plugin ) ; )
         {
             int nPos = 0;
             daoUtil.setInt( ++nPos, nIdHistory );
@@ -155,7 +156,7 @@ public class NotificationSuiviValueDAO
      */
     public void deleteByTask( int nIdTask, Plugin plugin )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_BY_TASK, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_BY_TASK, plugin ) ; )
         {
             int nPos = 0;
             daoUtil.setInt( ++nPos, nIdTask );
@@ -176,7 +177,7 @@ public class NotificationSuiviValueDAO
     {
         NotificationSuiviValue notificationValue = null;
 
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_LOAD_BY_HISTORY ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_LOAD_BY_HISTORY ) ; )
         {
             int nPos = 0;
             daoUtil.setInt( ++nPos, nIdHistory );

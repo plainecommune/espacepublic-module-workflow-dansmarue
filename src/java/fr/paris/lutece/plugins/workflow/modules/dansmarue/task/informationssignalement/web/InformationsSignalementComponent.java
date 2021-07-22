@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -55,25 +55,24 @@ import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
-
 /**
  * The notification component.
  */
 public class InformationsSignalementComponent extends NoConfigTaskComponent
 {
-    
+
     /** The Constant MARK_PHOTOS. */
     // MARKERS
-    private static final String MARK_PHOTOS                                 = "photos";
-    
+    private static final String MARK_PHOTOS = "photos";
+
     /** The Constant MARK_ADRESSE. */
-    private static final String MARK_ADRESSE                                = "adresse";
-    
+    private static final String MARK_ADRESSE = "adresse";
+
     /** The Constant MARK_SIGNALEMENT. */
-    private static final String MARK_SIGNALEMENT                            = "signalement";
-    
+    private static final String MARK_SIGNALEMENT = "signalement";
+
     /** The Constant MARK_SIGNALEUR. */
-    private static final String MARK_SIGNALEUR                              = "signaleur";
+    private static final String MARK_SIGNALEUR = "signaleur";
 
     // PARAMETERS
 
@@ -96,26 +95,31 @@ public class InformationsSignalementComponent extends NoConfigTaskComponent
     /** The adresse service. */
     @Inject
     @Named( "adresseSignalementService" )
-    private IAdresseService     _adresseService;
+    private IAdresseService _adresseService;
 
     /** The signaleur service. */
     @Inject
     @Named( "signaleurService" )
-    private ISignaleurService   _signaleurService;
+    private ISignaleurService _signaleurService;
 
     /** The photo service. */
     @Inject
     @Named( "photoService" )
-    private IPhotoService       _photoService;
+    private IPhotoService _photoService;
 
     /**
      * Gets the display task form.
      *
-     * @param nIdResource the n id resource
-     * @param strResourceType the str resource type
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param nIdResource
+     *            the n id resource
+     * @param strResourceType
+     *            the str resource type
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the display task form
      */
     @Override
@@ -144,10 +148,14 @@ public class InformationsSignalementComponent extends NoConfigTaskComponent
     /**
      * Gets the display task information.
      *
-     * @param nIdHistory the n id history
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param nIdHistory
+     *            the n id history
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the display task information
      */
     @Override
@@ -159,10 +167,14 @@ public class InformationsSignalementComponent extends NoConfigTaskComponent
     /**
      * Gets the task information xml.
      *
-     * @param nIdHistory the n id history
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param nIdHistory
+     *            the n id history
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the task information xml
      */
     @Override
@@ -174,11 +186,16 @@ public class InformationsSignalementComponent extends NoConfigTaskComponent
     /**
      * Do validate task.
      *
-     * @param nIdResource the n id resource
-     * @param strResourceType the str resource type
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param nIdResource
+     *            the n id resource
+     * @param strResourceType
+     *            the str resource type
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the string
      */
     @Override

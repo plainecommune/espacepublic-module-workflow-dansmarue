@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,16 +33,15 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.dansmarue.task.rejetsignalement.business;
 
-
 /**
  * RejetSignalementDTO class.
  */
 public class RejetSignalementDTO
 {
-    
+
     /** The n id signalement. */
     private Integer _nIdSignalement;
-    
+
     /** The l id observation rejet. */
     private Integer _lIdObservationRejet;
 
@@ -59,7 +58,8 @@ public class RejetSignalementDTO
     /**
      * Set the signalement id.
      *
-     * @param idSignalement            the id report
+     * @param idSignalement
+     *            the id report
      */
     public void setIdSignalement( Integer idSignalement )
     {
@@ -79,7 +79,8 @@ public class RejetSignalementDTO
     /**
      * Set the observation rejet id.
      *
-     * @param idObservationRejet            the observation rejet id
+     * @param idObservationRejet
+     *            the observation rejet id
      */
     public void setIdObservationRejet( Integer idObservationRejet )
     {

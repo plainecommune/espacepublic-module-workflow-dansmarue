@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,20 +39,19 @@ import fr.paris.lutece.plugins.dansmarue.business.entities.TypeSignalement;
 import fr.paris.lutece.plugins.unittree.business.unit.Unit;
 import fr.paris.lutece.plugins.workflowcore.business.config.TaskConfig;
 
-
 /**
  * NotificationSignalementTaskConfigUnit class.
  */
 public class NotificationSignalementTaskConfigUnit extends TaskConfig
 {
-    
+
     /** The str destinataires. */
     @NotBlank
-    private String          _strDestinataires;
-    
+    private String _strDestinataires;
+
     /** The unit. */
-    private Unit            _unit            = new Unit( );
-    
+    private Unit _unit = new Unit( );
+
     /** The type signalement. */
     private TypeSignalement _typeSignalement = new TypeSignalement( );
 
@@ -69,7 +68,8 @@ public class NotificationSignalementTaskConfigUnit extends TaskConfig
     /**
      * set the destinataires of the notification.
      *
-     * @param destinataires            the destinataires (separator ;)
+     * @param destinataires
+     *            the destinataires (separator ;)
      */
     public void setDestinataires( String destinataires )
     {
@@ -89,7 +89,8 @@ public class NotificationSignalementTaskConfigUnit extends TaskConfig
     /**
      * set the unit.
      *
-     * @param unit            the unit
+     * @param unit
+     *            the unit
      */
     public void setUnit( Unit unit )
     {
@@ -109,7 +110,8 @@ public class NotificationSignalementTaskConfigUnit extends TaskConfig
     /**
      * Sets the type signalement.
      *
-     * @param typeSignalement the new type signalement
+     * @param typeSignalement
+     *            the new type signalement
      */
     public void setTypeSignalement( TypeSignalement typeSignalement )
     {

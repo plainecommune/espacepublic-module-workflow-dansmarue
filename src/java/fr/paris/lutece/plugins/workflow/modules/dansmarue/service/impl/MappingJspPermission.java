@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -60,11 +60,11 @@ public class MappingJspPermission
     {
         MAPPING_JSP_PERMISSIONS = new HashMap<>( );
 
-        MAPPING_JSP_PERMISSIONS.put( "GetManageTrackingMessage.jsp",
-                new PermissionRessourceType( WorkflowSignalementResourceIdService.KEY_ID_RESOURCE, WorkflowSignalementResourceIdService.PERMISSION_GESTION_TRACKING_MESSAGE ) );
+        MAPPING_JSP_PERMISSIONS.put( "GetManageTrackingMessage.jsp", new PermissionRessourceType( WorkflowSignalementResourceIdService.KEY_ID_RESOURCE,
+                WorkflowSignalementResourceIdService.PERMISSION_GESTION_TRACKING_MESSAGE ) );
 
-        MAPPING_JSP_PERMISSIONS.put( "DoDeleteUnitMessageTracking.jsp",
-                new PermissionRessourceType( WorkflowSignalementResourceIdService.KEY_ID_RESOURCE, WorkflowSignalementResourceIdService.PERMISSION_GESTION_TRACKING_MESSAGE ) );
+        MAPPING_JSP_PERMISSIONS.put( "DoDeleteUnitMessageTracking.jsp", new PermissionRessourceType( WorkflowSignalementResourceIdService.KEY_ID_RESOURCE,
+                WorkflowSignalementResourceIdService.PERMISSION_GESTION_TRACKING_MESSAGE ) );
 
     }
 }

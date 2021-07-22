@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,7 +34,6 @@
 package fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notification.business;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import fr.paris.lutece.plugins.workflowcore.business.config.TaskConfig;
@@ -46,13 +45,13 @@ public class NotificationSignalementTaskConfigDTO extends TaskConfig
 {
 
     /** The str subject. */
-    private String                                      _strSubject;
+    private String _strSubject;
 
     /** The str message. */
-    private String                                      _strMessage;
+    private String _strMessage;
 
     /** The str sender. */
-    private String                                      _strSender;
+    private String _strSender;
 
     /** The list config unit. */
     private List<NotificationSignalementTaskConfigUnit> _listConfigUnit = new ArrayList<>( );
@@ -138,7 +137,7 @@ public class NotificationSignalementTaskConfigDTO extends TaskConfig
      */
     public void setListConfigUnit( List<NotificationSignalementTaskConfigUnit> listConfigUnit )
     {
-        Collections.copy( _listConfigUnit, listConfigUnit );
+        _listConfigUnit = listConfigUnit;
     }
 
     // setter pour le populate de task_notification_signalement_config.html

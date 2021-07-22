@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -44,7 +44,6 @@ import fr.paris.lutece.plugins.workflow.modules.notifygru.service.provider.Provi
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceHistory;
 import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
 
-
 /**
  * NotificationProviderManager.
  */
@@ -54,7 +53,8 @@ public class NotificationProviderManager extends AbstractProviderManager
     /**
      * NotificationProviderManager.
      *
-     * @param strId            the id of the manager
+     * @param strId
+     *            the id of the manager
      */
     public NotificationProviderManager( String strId )
     {
@@ -64,9 +64,12 @@ public class NotificationProviderManager extends AbstractProviderManager
     /**
      * Creates the provider.
      *
-     * @param strProviderId the str provider id
-     * @param resourceHistory the resource history
-     * @param request the request
+     * @param strProviderId
+     *            the str provider id
+     * @param resourceHistory
+     *            the resource history
+     * @param request
+     *            the request
      * @return the i provider
      */
     @Override
@@ -85,7 +88,8 @@ public class NotificationProviderManager extends AbstractProviderManager
     /**
      * Gets the all provider descriptions.
      *
-     * @param task the task
+     * @param task
+     *            the task
      * @return the all provider descriptions
      */
     @Override
@@ -99,7 +103,8 @@ public class NotificationProviderManager extends AbstractProviderManager
     /**
      * Gets the provider description.
      *
-     * @param strProviderId the str provider id
+     * @param strProviderId
+     *            the str provider id
      * @return the provider description
      */
     @Override

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -52,6 +52,7 @@ import fr.paris.lutece.plugins.dansmarue.service.IMessageTypologieService;
 import fr.paris.lutece.plugins.dansmarue.service.impl.SignalementService;
 import fr.paris.lutece.plugins.dansmarue.util.constants.SignalementConstants;
 import fr.paris.lutece.plugins.dansmarue.utils.SignalementUtils;
+import fr.paris.lutece.plugins.workflow.modules.dansmarue.service.TaskUtils;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.AbstractSignalementTask;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notificationusermulticontents.business.NotificationSignalementUserMultiContentsTaskConfig;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notificationusermulticontents.business.NotificationSignalementUserMultiContentsTaskConfigDAO;
@@ -64,7 +65,6 @@ import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.util.mail.FileAttachment;
 
-
 /**
  * NotificationSignalementUserTask class.
  */
@@ -73,72 +73,82 @@ public class NotificationSignalementUserMultiContentsTask extends AbstractSignal
 
     /** The Constant MARK_NUMERO. */
     // MARKER
-    private static final String                                   MARK_NUMERO                                            = "numero";
-    
+    private static final String MARK_NUMERO = "numero";
+
+    /** The Constant MARK_ID_TYPE. */
+    private static final String MARK_ID_TYPE = "id_type";
+
     /** The Constant MARK_TYPE. */
-    private static final String                                   MARK_TYPE                                              = "type";
-    
+    private static final String MARK_TYPE = "type";
+
     /** The Constant MARK_ADRESSE. */
-    private static final String                                   MARK_ADRESSE                                           = "adresse";
-    
+    private static final String MARK_ADRESSE = "adresse";
+
     /** The Constant MARK_PRIORITE. */
-    private static final String                                   MARK_PRIORITE                                          = "priorite";
-    
+    private static final String MARK_PRIORITE = "priorite";
+
     /** The Constant MARK_COMMENTAIRE. */
-    private static final String                                   MARK_COMMENTAIRE                                       = "commentaire";
-    
+    private static final String MARK_COMMENTAIRE = "commentaire";
+
     /** The Constant MARK_PRECISION. */
-    private static final String                                   MARK_PRECISION                                         = "precision";
-    
+    private static final String MARK_PRECISION = "precision";
+
     /** The Constant MARK_LIEN_CONSULTATION. */
-    private static final String                                   MARK_LIEN_CONSULTATION                                 = "lien_consultation";
-    
+    private static final String MARK_LIEN_CONSULTATION = "lien_consultation";
+
     /** The Constant MARK_DATE_PROGRAMMATION. */
-    private static final String                                   MARK_DATE_PROGRAMMATION                                = "date_programmation";
-    
+    private static final String MARK_DATE_PROGRAMMATION = "date_programmation";
+
     /** The Constant MARK_DATE_DE_TRAITEMENT. */
-    private static final String                                   MARK_DATE_DE_TRAITEMENT                                = "datetraitement";
-    
+    private static final String MARK_DATE_DE_TRAITEMENT = "datetraitement";
+
     /** The Constant MARK_HEURE_DE_TRAITEMENT. */
-    private static final String                                   MARK_HEURE_DE_TRAITEMENT                               = "heuretraitement";
-    
+    private static final String MARK_HEURE_DE_TRAITEMENT = "heuretraitement";
+
     /** The Constant MARK_ALIAS_ANOMALIE. */
-    private static final String                                   MARK_ALIAS_ANOMALIE                                    = "alias_anomalie";
-    
+    private static final String MARK_ALIAS_ANOMALIE = "alias_anomalie";
+
     /** The Constant MARK_ID_ANOMALIE. */
-    private static final String                                   MARK_ID_ANOMALIE                                       = "id_anomalie";
+    private static final String MARK_ID_ANOMALIE = "id_anomalie";
+    private static final String MARK_URL_SONDAGE_DEMANDE = "urlSondageDemande";
+    private static final String MARK_URL_SONDAGE_SERVICE = "urlSondageService";
+    private static final String URL_SONDAGE_DEMANDE = "sitelabels.site_property.message.url.sondage.demande";
+    private static final String URL_SONDAGE_SERVICE = "sitelabels.site_property.message.url.sondage.sevice";
+    private static final String MARK_CP = "code_postal";
+    private static final String MARK_ID_TYPO_LVL_1 = "id_typologie_lvl_1";
 
     /** The Constant PARAMETER_CHOSEN_MESSAGE. */
     // PARAMETERS
-    private static final String                                   PARAMETER_CHOSEN_MESSAGE                               = "chosenMessage";
-    
+    private static final String PARAMETER_CHOSEN_MESSAGE = "chosenMessage";
+
     /** The Constant PARAMETER_IS_MESSAGE_TYPO. */
-    private static final String                                   PARAMETER_IS_MESSAGE_TYPO                              = "isMessageTypo";
-    
+    private static final String PARAMETER_IS_MESSAGE_TYPO = "isMessageTypo";
+
+    private static final String MESSAGE_TYPO = "messageTypo";
+
     /** The Constant PARAMETER_MESSAGE_CONTENT. */
-    private static final String                                   PARAMETER_MESSAGE_CONTENT                              = "message";
-    
+    private static final String PARAMETER_MESSAGE_CONTENT = "message";
+
     /** The Constant PARAMETER_ISROADMAP. */
-    private static final String                                   PARAMETER_ISROADMAP                                    = "isRoadMap";
+    private static final String PARAMETER_ISROADMAP = "isRoadMap";
 
     /** The Constant PROPERTY_TACHES_NOTIF_SUIVEURS. */
     // PROPERTY
-    private static final String                                   PROPERTY_TACHES_NOTIF_SUIVEURS                         = "signalement.workflow.taches.notification.suiveurs";
+    private static final String PROPERTY_TACHES_NOTIF_SUIVEURS = "signalement.workflow.taches.notification.suiveurs";
 
     /** The Constant SUBJECT_MESSAGE_TYPOLOGIE. */
-    private static final String                                   SUBJECT_MESSAGE_TYPOLOGIE                              = "Dansmarue : Suivi de l’anomalie ${numero}";
+    private static final String SUBJECT_MESSAGE_TYPOLOGIE = "Dansmarue : Suivi de l’anomalie ${numero}";
 
     /** The signalement service. */
     // SERVICES
-    private SignalementService                                    _signalementService                                    = SpringContextService.getBean( "signalementService" );
-    
+    private SignalementService _signalementService = SpringContextService.getBean( "signalementService" );
+
     /** The notification user multi contents value service. */
-    private NotificationUserMultiContentsValueService             _notificationUserMultiContentsValueService             = SpringContextService
+    private NotificationUserMultiContentsValueService _notificationUserMultiContentsValueService = SpringContextService
             .getBean( "signalement.notificationUserMultiContentsValueService" );
 
-
     /** The message typologie service. */
-    private IMessageTypologieService                              _messageTypologieService                               = SpringContextService.getBean( "messageTypologieService" );
+    private IMessageTypologieService _messageTypologieService = SpringContextService.getBean( "messageTypologieService" );
 
     /** The notification signalement user multi contents task config DAO. */
     // DAO
@@ -148,9 +158,12 @@ public class NotificationSignalementUserMultiContentsTask extends AbstractSignal
     /**
      * Process task.
      *
-     * @param nIdResourceHistory the n id resource history
-     * @param request the request
-     * @param locale the locale
+     * @param nIdResourceHistory
+     *            the n id resource history
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
      */
     @Override
     public void processTask( int nIdResourceHistory, HttpServletRequest request, Locale locale )
@@ -202,12 +215,16 @@ public class NotificationSignalementUserMultiContentsTask extends AbstractSignal
 
         // get the config
 
-        String strChosenMessage = request.getParameter( PARAMETER_CHOSEN_MESSAGE ) != null ? request.getParameter( PARAMETER_CHOSEN_MESSAGE ) : StringUtils.EMPTY;
-        String attrChosenMessage = request.getSession( ).getAttribute( PARAMETER_CHOSEN_MESSAGE ) != null ? request.getSession( ).getAttribute( PARAMETER_CHOSEN_MESSAGE ).toString( )
+        String strChosenMessage = request.getParameter( PARAMETER_CHOSEN_MESSAGE ) != null ? request.getParameter( PARAMETER_CHOSEN_MESSAGE )
+                : StringUtils.EMPTY;
+        String attrChosenMessage = request.getSession( ).getAttribute( PARAMETER_CHOSEN_MESSAGE ) != null
+                ? request.getSession( ).getAttribute( PARAMETER_CHOSEN_MESSAGE ).toString( )
                 : StringUtils.EMPTY;
 
-        Boolean isMessageTypo = ( ( ( request.getParameter( PARAMETER_IS_MESSAGE_TYPO ) != null ) && Boolean.valueOf( request.getParameter( PARAMETER_IS_MESSAGE_TYPO ) ) )
-                || ( ( request.getSession( ).getAttribute( PARAMETER_IS_MESSAGE_TYPO ) != null ) && Boolean.valueOf( request.getSession( ).getAttribute( PARAMETER_IS_MESSAGE_TYPO ).toString( ) ) ) );
+        Boolean isMessageTypo = ( ( ( request.getParameter( PARAMETER_IS_MESSAGE_TYPO ) != null )
+                && Boolean.valueOf( request.getParameter( PARAMETER_IS_MESSAGE_TYPO ) ) )
+                || ( ( request.getSession( ).getAttribute( PARAMETER_IS_MESSAGE_TYPO ) != null )
+                        && Boolean.valueOf( request.getSession( ).getAttribute( PARAMETER_IS_MESSAGE_TYPO ).toString( ) ) ) );
 
         NotificationSignalementUserMultiContentsTaskConfig config = new NotificationSignalementUserMultiContentsTaskConfig( );
         String message;
@@ -216,7 +233,8 @@ public class NotificationSignalementUserMultiContentsTask extends AbstractSignal
         {
             if ( !strChosenMessage.isEmpty( ) )
             {
-                config = _notificationSignalementUserMultiContentsTaskConfigDAO.findByPrimaryKey( Long.parseLong( strChosenMessage ), SignalementUtils.getPlugin( ) );
+                config = _notificationSignalementUserMultiContentsTaskConfigDAO.findByPrimaryKey( Long.parseLong( strChosenMessage ),
+                        SignalementUtils.getPlugin( ) );
                 // Vérifie si on a pas modifié le message de base
                 if ( !config.getMessage( ).equals( request.getParameter( PARAMETER_MESSAGE_CONTENT + Long.parseLong( strChosenMessage ) ) ) )
                 {
@@ -228,49 +246,61 @@ public class NotificationSignalementUserMultiContentsTask extends AbstractSignal
                 }
 
             }
-            else if ( !attrChosenMessage.isEmpty( ) && ( !"ramen_ok".equals( attrChosenMessage ) ) && ( !"ramen_ko".equals( attrChosenMessage ) ) )
-            {
-                config = _notificationSignalementUserMultiContentsTaskConfigDAO.findByPrimaryKey( Long.parseLong( attrChosenMessage ), SignalementUtils.getPlugin( ) );
-                message = config.getMessage( );
-            }
             else
-            {
-                List<Long> listIdMessageTask = _notificationSignalementUserMultiContentsTaskConfigDAO.selectAllMessageTask( getId( ), SignalementUtils.getPlugin( ) );
-                config = _notificationSignalementUserMultiContentsTaskConfigDAO.findByPrimaryKey( listIdMessageTask.get( 0 ), SignalementUtils.getPlugin( ) );
-                message = config.getMessage( );
-            }
+                if ( !attrChosenMessage.isEmpty( ) && ( !"ramen_ok".equals( attrChosenMessage ) ) && ( !"ramen_ko".equals( attrChosenMessage ) ) )
+                {
+                    config = _notificationSignalementUserMultiContentsTaskConfigDAO.findByPrimaryKey( Long.parseLong( attrChosenMessage ),
+                            SignalementUtils.getPlugin( ) );
+                    message = config.getMessage( );
+                }
+                else
+                {
+                    List<Long> listIdMessageTask = _notificationSignalementUserMultiContentsTaskConfigDAO.selectAllMessageTask( getId( ),
+                            SignalementUtils.getPlugin( ) );
+                    config = _notificationSignalementUserMultiContentsTaskConfigDAO.findByPrimaryKey( listIdMessageTask.get( 0 ),
+                            SignalementUtils.getPlugin( ) );
+                    message = config.getMessage( );
+                }
         }
         else
         {
-            // Ajout de l'entete
-            message = DatastoreService.getDataValue( "sitelabels.site_property.message.typologie.entete.htmlblock", "" );
-            // Message lié à la typologie
-            MessageTypologie messageTypologie = new MessageTypologie( );
-            if ( !strChosenMessage.isEmpty( ) )
+            if ( !StringUtils.isEmpty( strChosenMessage ) && StringUtils.isEmpty( request.getParameter( MESSAGE_TYPO + Long.parseLong( strChosenMessage ) ) ) )
             {
-                messageTypologie = _messageTypologieService.loadMessageTypologie( Integer.parseInt( strChosenMessage ) );
+                // Ajout de l'entete
+                message = DatastoreService.getDataValue( "sitelabels.site_property.message.typologie.entete.htmlblock", "" );
+                // Message lié à la typologie
+                MessageTypologie messageTypologie = new MessageTypologie( );
+                if ( !strChosenMessage.isEmpty( ) )
+                {
+                    messageTypologie = _messageTypologieService.loadMessageTypologie( Integer.parseInt( strChosenMessage ) );
+                    config.setIdMessage( Long.valueOf( strChosenMessage ) );
+                }
+                else
+                    if ( !attrChosenMessage.isEmpty( ) )
+                    {
+                        messageTypologie = _messageTypologieService.loadMessageTypologie( Integer.parseInt( attrChosenMessage ) );
+                        config.setIdMessage( Long.valueOf( attrChosenMessage ) );
+                    }
+                message = message.concat( messageTypologie.getContenuMessage( ).replace( "<p>", "" ).replace( "</p>", "" ) );
+
+                // Ajout du pied de page
+
+                message = message.concat( DatastoreService.getDataValue( "sitelabels.site_property.message.typologie.pieddepage.htmlblock", "" ) );
+            }
+            else
+            {
+                message = request.getParameter( MESSAGE_TYPO + Long.parseLong( strChosenMessage ) );
                 config.setIdMessage( Long.valueOf( strChosenMessage ) );
             }
-            else if ( !attrChosenMessage.isEmpty( ) )
-            {
-                messageTypologie = _messageTypologieService.loadMessageTypologie( Integer.parseInt( attrChosenMessage ) );
-                config.setIdMessage( Long.valueOf( attrChosenMessage ) );
-            }
-            message = message.concat( messageTypologie.getContenuMessage( ).replace( "<p>", "" ).replace( "</p>", "" ) );
-
-            // Ajout du pied de page
-
-            message = message.concat( DatastoreService.getDataValue( "sitelabels.site_property.message.typologie.pieddepage.htmlblock", "" ) );
-
             config.setMessage( message );
             config.setSubject( SUBJECT_MESSAGE_TYPOLOGIE );
-
         }
 
         // if message is null, get the first contenu
         if ( message == null )
         {
-            List<Long> listIdMessageTask = _notificationSignalementUserMultiContentsTaskConfigDAO.selectAllMessageTask( getId( ), SignalementUtils.getPlugin( ) );
+            List<Long> listIdMessageTask = _notificationSignalementUserMultiContentsTaskConfigDAO.selectAllMessageTask( getId( ),
+                    SignalementUtils.getPlugin( ) );
             config = _notificationSignalementUserMultiContentsTaskConfigDAO.findByPrimaryKey( listIdMessageTask.get( 0 ), SignalementUtils.getPlugin( ) );
             message = config.getMessage( );
         }
@@ -283,6 +313,7 @@ public class NotificationSignalementUserMultiContentsTask extends AbstractSignal
         Map<String, Object> emailModel = new HashMap<>( );
         emailModel.put( MARK_ID_ANOMALIE, idRessource );
         emailModel.put( MARK_NUMERO, signalement.getNumeroSignalement( ) );
+        emailModel.put( MARK_ID_TYPE, signalement.getTypeSignalement( ).getId( ) );
         emailModel.put( MARK_TYPE, signalement.getType( ) );
         String aliasType = signalement.getTypeSignalement( ).getAlias( );
         if ( null == aliasType )
@@ -324,15 +355,40 @@ public class NotificationSignalementUserMultiContentsTask extends AbstractSignal
             heureDeTraitement = StringUtils.EMPTY;
         }
         emailModel.put( MARK_HEURE_DE_TRAITEMENT, heureDeTraitement );
+
+        emailModel.put( MARK_URL_SONDAGE_DEMANDE, DatastoreService.getDataValue( URL_SONDAGE_DEMANDE, "" ) );
+        emailModel.put( MARK_URL_SONDAGE_SERVICE, DatastoreService.getDataValue( URL_SONDAGE_SERVICE, "" ) );
+
+        if ( ( signalement.getAdresses( ) != null ) && ( signalement.getAdresses( ).get( 0 ) != null )
+                && ( signalement.getAdresses( ).get( 0 ).getAdresse( ) != null ) )
+        {
+            emailModel.put( MARK_CP, TaskUtils.getCPFromAdresse( signalement.getAdresses( ).get( 0 ).getAdresse( ) ) );
+        }
+        else
+        {
+            emailModel.put( MARK_CP, StringUtils.EMPTY );
+        }
+
+        int idTypeAnoLvl1 = TaskUtils.getIdTypeAnoLvl1( signalement.getTypeSignalement( ) );
+        if ( idTypeAnoLvl1 > -1 )
+        {
+            emailModel.put( MARK_ID_TYPO_LVL_1, idTypeAnoLvl1 );
+        }
+        else
+        {
+            emailModel.put( MARK_ID_TYPO_LVL_1, StringUtils.EMPTY );
+        }
+
         String messageHtml = "";
         if ( hasMail )
         {
             messageHtml = AppTemplateService.getTemplateFromStringFtl( messageFormat, locale, emailModel ).getHtml( );
         }
-        else if ( ( dateDeTraitement != null ) && ( heureDeTraitement != null ) )
-        {
-            messageHtml = "Passage le " + dateDeTraitement + " \u00E0 " + heureDeTraitement;
-        }
+        else
+            if ( ( dateDeTraitement != null ) && ( heureDeTraitement != null ) )
+            {
+                messageHtml = "Passage le " + dateDeTraitement + " \u00E0 " + heureDeTraitement;
+            }
 
         String subject = AppTemplateService.getTemplateFromStringFtl( config.getSubject( ), locale, emailModel ).getHtml( );
 
@@ -350,22 +406,26 @@ public class NotificationSignalementUserMultiContentsTask extends AbstractSignal
             {
                 if ( ( photo.getImage( ) != null ) && ( photo.getImage( ).getImage( ) != null ) )
                 {
-                    String[] mime = photo.getImage( ).getMimeType( ).split( "/" );
+                    String [ ] mime = photo.getImage( ).getMimeType( ).split( "/" );
 
                     if ( photo.getVue( ).intValue( ) == SignalementConstants.OVERVIEW )
                     {
 
-                        files.add( new FileAttachment( SignalementConstants.NOM_PHOTO_ENSEMBLE_PJ + mime[1], photo.getImage( ).getImage( ), photo.getImage( ).getMimeType( ) ) );
+                        files.add( new FileAttachment( SignalementConstants.NOM_PHOTO_ENSEMBLE_PJ + mime [1], photo.getImage( ).getImage( ),
+                                photo.getImage( ).getMimeType( ) ) );
 
                     }
-                    else if ( photo.getVue( ).intValue( ) == SignalementConstants.SERVICE_DONE_VIEW )
-                    {
-                        files.add( new FileAttachment( SignalementConstants.NOM_PHOTO_SERVICE_FAIT_PJ + mime[1], photo.getImage( ).getImage( ), photo.getImage( ).getMimeType( ) ) );
-                    }
                     else
-                    {
-                        files.add( new FileAttachment( SignalementConstants.NOM_PHOTO_PRES_PJ + mime[1], photo.getImage( ).getImage( ), photo.getImage( ).getMimeType( ) ) );
-                    }
+                        if ( photo.getVue( ).intValue( ) == SignalementConstants.SERVICE_DONE_VIEW )
+                        {
+                            files.add( new FileAttachment( SignalementConstants.NOM_PHOTO_SERVICE_FAIT_PJ + mime [1], photo.getImage( ).getImage( ),
+                                    photo.getImage( ).getMimeType( ) ) );
+                        }
+                        else
+                        {
+                            files.add( new FileAttachment( SignalementConstants.NOM_PHOTO_PRES_PJ + mime [1], photo.getImage( ).getImage( ),
+                                    photo.getImage( ).getMimeType( ) ) );
+                        }
                 }
             }
 
@@ -378,14 +438,14 @@ public class NotificationSignalementUserMultiContentsTask extends AbstractSignal
 
                 for ( String mail : listMailSuiveurs )
                 {
-                    MailService.sendMailMultipartHtml( mail, null, null, config.getSender( ), AppPropertiesService.getProperty( "mail.noreply.email", "noreply-dansmarue@paris.fr" ), subject,
-                            messageHtml, null, files );
+                    MailService.sendMailMultipartHtml( mail, null, null, config.getSender( ),
+                            AppPropertiesService.getProperty( "mail.noreply.email", "noreply-dansmarue@paris.fr" ), subject, messageHtml, null, files );
                 }
             }
             else
             {
-                MailService.sendMailMultipartHtml( email, null, null, config.getSender( ), AppPropertiesService.getProperty( "mail.noreply.email", "noreply-dansmarue@paris.fr" ), subject, messageHtml,
-                        null, files );
+                MailService.sendMailMultipartHtml( email, null, null, config.getSender( ),
+                        AppPropertiesService.getProperty( "mail.noreply.email", "noreply-dansmarue@paris.fr" ), subject, messageHtml, null, files );
             }
 
         }
@@ -414,7 +474,8 @@ public class NotificationSignalementUserMultiContentsTask extends AbstractSignal
     /**
      * Gets the title.
      *
-     * @param locale the locale
+     * @param locale
+     *            the locale
      * @return the title
      */
     @Override
@@ -436,7 +497,8 @@ public class NotificationSignalementUserMultiContentsTask extends AbstractSignal
     /**
      * Do remove task information.
      *
-     * @param nIdHistory the n id history
+     * @param nIdHistory
+     *            the n id history
      */
     @Override
     public void doRemoveTaskInformation( int nIdHistory )
@@ -447,7 +509,8 @@ public class NotificationSignalementUserMultiContentsTask extends AbstractSignal
     /**
      * Gets the task form entries.
      *
-     * @param locale the locale
+     * @param locale
+     *            the locale
      * @return the task form entries
      */
     @Override

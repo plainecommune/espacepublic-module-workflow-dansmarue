@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,19 +35,18 @@ package fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notification.bus
 
 import fr.paris.lutece.plugins.workflowcore.business.config.TaskConfig;
 
-
 /**
  * NotificationSignalementTaskConfig.
  */
 public class NotificationSignalementTaskConfig extends TaskConfig
 {
-    
+
     /** The str subject. */
     private String _strSubject;
-    
+
     /** The str message. */
     private String _strMessage;
-    
+
     /** The str sender. */
     private String _strSender;
 
@@ -64,7 +63,8 @@ public class NotificationSignalementTaskConfig extends TaskConfig
     /**
      * set the subject of the message.
      *
-     * @param subject            the subject of the message
+     * @param subject
+     *            the subject of the message
      */
     public void setSubject( String subject )
     {
@@ -84,7 +84,8 @@ public class NotificationSignalementTaskConfig extends TaskConfig
     /**
      * set the message of the notification.
      *
-     * @param message            the message of the notifictaion
+     * @param message
+     *            the message of the notifictaion
      */
     public void setMessage( String message )
     {
@@ -104,7 +105,8 @@ public class NotificationSignalementTaskConfig extends TaskConfig
     /**
      * set the sender of the notification.
      *
-     * @param sender            the sender
+     * @param sender
+     *            the sender
      */
     public void setSender( String sender )
     {

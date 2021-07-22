@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -64,7 +64,6 @@ import fr.paris.lutece.portal.service.util.AppLogService;
 import fr.paris.lutece.portal.service.util.AppPathService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
-
 /**
  * NotificationSuiviComponent.
  */
@@ -73,122 +72,121 @@ public class NotificationSuiviComponent extends AbstractTaskComponent
 
     /** The Constant MARK_CONFIG. */
     // MARKERS
-    private static final String            MARK_CONFIG                                  = "config";
-    
+    private static final String MARK_CONFIG = "config";
+
     /** The Constant MARK_WEBAPP_URL. */
-    private static final String            MARK_WEBAPP_URL                              = "webapp_url";
-    
+    private static final String MARK_WEBAPP_URL = "webapp_url";
+
     /** The Constant MARK_LOCALE. */
-    private static final String            MARK_LOCALE                                  = "locale";
-    
+    private static final String MARK_LOCALE = "locale";
+
     /** The Constant MARK_BALISES. */
-    private static final String            MARK_BALISES                                 = "balises";
+    private static final String MARK_BALISES = "balises";
 
     /** The Constant MARK_NUMERO. */
-    private static final String            MARK_NUMERO                                  = "numero";
-    
+    private static final String MARK_NUMERO = "numero";
+
     /** The Constant MARK_TYPE. */
-    private static final String            MARK_TYPE                                    = "type";
-    
+    private static final String MARK_TYPE = "type";
+
     /** The Constant MARK_ADRESSE. */
-    private static final String            MARK_ADRESSE                                 = "adresse";
-    
+    private static final String MARK_ADRESSE = "adresse";
+
     /** The Constant MARK_PRIORITE. */
-    private static final String            MARK_PRIORITE                                = "priorite";
-    
+    private static final String MARK_PRIORITE = "priorite";
+
     /** The Constant MARK_COMMENTAIRE. */
-    private static final String            MARK_COMMENTAIRE                             = "commentaire";
-    
+    private static final String MARK_COMMENTAIRE = "commentaire";
+
     /** The Constant MARK_PRECISION. */
-    private static final String            MARK_PRECISION                               = "precision";
-    
+    private static final String MARK_PRECISION = "precision";
+
     /** The Constant MARK_LIEN_CONSULTATION. */
-    private static final String            MARK_LIEN_CONSULTATION                       = "lien_consultation";
+    private static final String MARK_LIEN_CONSULTATION = "lien_consultation";
 
     /** The Constant MARK_DATE_PROGRAMMATION. */
-    private static final String            MARK_DATE_PROGRAMMATION                      = "date_programmation";
-    
+    private static final String MARK_DATE_PROGRAMMATION = "date_programmation";
+
     /** The Constant MARK_DATE_DE_TRAITEMENT. */
-    private static final String            MARK_DATE_DE_TRAITEMENT                      = "datetraitement";
-    
+    private static final String MARK_DATE_DE_TRAITEMENT = "datetraitement";
+
     /** The Constant MARK_HEURE_DE_TRAITEMENT. */
-    private static final String            MARK_HEURE_DE_TRAITEMENT                     = "heuretraitement";
+    private static final String MARK_HEURE_DE_TRAITEMENT = "heuretraitement";
 
     /** The Constant MARK_DATE_ENVOI. */
-    private static final String            MARK_DATE_ENVOI                              = "dateEnvoi";
-    
+    private static final String MARK_DATE_ENVOI = "dateEnvoi";
+
     /** The Constant MARK_HEURE_ENVOI. */
-    private static final String            MARK_HEURE_ENVOI                             = "heureEnvoi";
-    
+    private static final String MARK_HEURE_ENVOI = "heureEnvoi";
+
     /** The Constant MARK_EMAIL_USAGER. */
-    private static final String            MARK_EMAIL_USAGER                            = "emailUsager";
+    private static final String MARK_EMAIL_USAGER = "emailUsager";
 
     /** The Constant MARK_ALIAS_ANOMALIE. */
-    private static final String            MARK_ALIAS_ANOMALIE                          = "alias_anomalie";
-    
+    private static final String MARK_ALIAS_ANOMALIE = "alias_anomalie";
+
     /** The Constant MARK_ALIAS_MOBILE_ANOMALIE. */
-    private static final String            MARK_ALIAS_MOBILE_ANOMALIE                   = "alias_mobile_anomalie";
+    private static final String MARK_ALIAS_MOBILE_ANOMALIE = "alias_mobile_anomalie";
 
     /** The Constant MARK_ID_ANOMALIE. */
-    private static final String            MARK_ID_ANOMALIE                             = "id_anomalie";
+    private static final String MARK_ID_ANOMALIE = "id_anomalie";
 
     /** The Constant MARK_NOTIFICATION_SUIVI. */
-    private static final String            MARK_NOTIFICATION_SUIVI                      = "notification_suivi";
+    private static final String MARK_NOTIFICATION_SUIVI = "notification_suivi";
 
     /** The Constant MESSAGE_EXCEPTION_OCCURED. */
     // MESSAGES
-    private static final String            MESSAGE_EXCEPTION_OCCURED                    = "module.workflow.dansmarue.task_notification_config.message.exception";
-    
-    /** The Constant MESSAGE_MANDATORY_FIELD. */
-    private static final String            MESSAGE_MANDATORY_FIELD                      = "module.workflow.dansmarue.task_notification_config.message.mandatory.field";
-    
-    /** The Constant ERROR_SENDER. */
-    private static final String            ERROR_SENDER                                 = "module.workflow.dansmarue.task_notification_config.error.sender";
-    
-    /** The Constant ERROR_SUBJECT. */
-    private static final String            ERROR_SUBJECT                                = "module.workflow.dansmarue.task_notification_config.error.subject";
-    
-    /** The Constant ERROR_MAIL_MESSAGE. */
-    private static final String            ERROR_MAIL_MESSAGE                           = "module.workflow.dansmarue.task_notification_config.suivi.mail.message.title";
+    private static final String MESSAGE_EXCEPTION_OCCURED = "module.workflow.dansmarue.task_notification_config.message.exception";
 
+    /** The Constant MESSAGE_MANDATORY_FIELD. */
+    private static final String MESSAGE_MANDATORY_FIELD = "module.workflow.dansmarue.task_notification_config.message.mandatory.field";
+
+    /** The Constant ERROR_SENDER. */
+    private static final String ERROR_SENDER = "module.workflow.dansmarue.task_notification_config.error.sender";
+
+    /** The Constant ERROR_SUBJECT. */
+    private static final String ERROR_SUBJECT = "module.workflow.dansmarue.task_notification_config.error.subject";
+
+    /** The Constant ERROR_MAIL_MESSAGE. */
+    private static final String ERROR_MAIL_MESSAGE = "module.workflow.dansmarue.task_notification_config.suivi.mail.message.title";
 
     /** The Constant TEMPLATE_TASK_NOTIFICATION_SUIVI_CONFIG. */
     // TEMPLATES
-    private static final String            TEMPLATE_TASK_NOTIFICATION_SUIVI_CONFIG      = "admin/plugins/workflow/modules/signalement/task_notification_suivi_config.html";
-    
+    private static final String TEMPLATE_TASK_NOTIFICATION_SUIVI_CONFIG = "admin/plugins/workflow/modules/signalement/task_notification_suivi_config.html";
+
     /** The Constant TEMPLATE_TASK_NOTIFICATION_SUIVI_INFORMATION. */
-    private static final String            TEMPLATE_TASK_NOTIFICATION_SUIVI_INFORMATION = "admin/plugins/workflow/modules/signalement/task_notification_suivi_information.html";
+    private static final String TEMPLATE_TASK_NOTIFICATION_SUIVI_INFORMATION = "admin/plugins/workflow/modules/signalement/task_notification_suivi_information.html";
 
     /** The Constant LABEL_DATE_ENVOI. */
     // LABELS
-    private static final String            LABEL_DATE_ENVOI                             = "#i18n{module.workflow.dansmarue.task_notification_config.freemarker.dateenvoi.label}";
-    
+    private static final String LABEL_DATE_ENVOI = "#i18n{module.workflow.dansmarue.task_notification_config.freemarker.dateenvoi.label}";
+
     /** The Constant LABEL_HEURE_ENVOI. */
-    private static final String            LABEL_HEURE_ENVOI                            = "#i18n{module.workflow.dansmarue.task_notification_config.freemarker.heureenvoi.label}";
-    
+    private static final String LABEL_HEURE_ENVOI = "#i18n{module.workflow.dansmarue.task_notification_config.freemarker.heureenvoi.label}";
+
     /** The Constant LABEL_EMAIL_USAGER. */
-    private static final String            LABEL_EMAIL_USAGER                           = "#i18n{module.workflow.dansmarue.task_notification_config.freemarker.emailusager.label}";
-    
+    private static final String LABEL_EMAIL_USAGER = "#i18n{module.workflow.dansmarue.task_notification_config.freemarker.emailusager.label}";
+
     /** The Constant LABEL_DATE_PROGRAMMATION. */
-    private static final String            LABEL_DATE_PROGRAMMATION                     = "#i18n{module.workflow.dansmarue.task_notification_config.freemarker.dateprogrammation.label}";
-    
+    private static final String LABEL_DATE_PROGRAMMATION = "#i18n{module.workflow.dansmarue.task_notification_config.freemarker.dateprogrammation.label}";
+
     /** The Constant LABEL_DATE_DE_TRAITEMENT. */
-    private static final String            LABEL_DATE_DE_TRAITEMENT                     = "#i18n{module.workflow.dansmarue.task_notification_config.freemarker.datetraitement.label}";
-    
+    private static final String LABEL_DATE_DE_TRAITEMENT = "#i18n{module.workflow.dansmarue.task_notification_config.freemarker.datetraitement.label}";
+
     /** The Constant LABEL_HEURE_DE_TRAITEMENT. */
-    private static final String            LABEL_HEURE_DE_TRAITEMENT                    = "#i18n{module.workflow.dansmarue.task_notification_config.freemarker.heuretraitement.label}";
+    private static final String LABEL_HEURE_DE_TRAITEMENT = "#i18n{module.workflow.dansmarue.task_notification_config.freemarker.heuretraitement.label}";
 
     /** The signalement service. */
     // SERVICES
     @Inject
     @Named( "signalementService" )
-    private ISignalementService            _signalementService;
+    private ISignalementService _signalementService;
 
     /** The notification suivi value service. */
     @Inject
     @Named( "signalement.notificationSuiviValueService" )
-    private NotificationSuiviValueService  _notificationSuiviValueService;
-    
+    private NotificationSuiviValueService _notificationSuiviValueService;
+
     /** The notification suivi task config DAO. */
     @Inject
     @Named( "signalement.notificationSignalementSuiviTaskConfigDAO" )
@@ -197,11 +195,16 @@ public class NotificationSuiviComponent extends AbstractTaskComponent
     /**
      * Gets the display task form.
      *
-     * @param nIdResource the n id resource
-     * @param strResourceType the str resource type
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param nIdResource
+     *            the n id resource
+     * @param strResourceType
+     *            the str resource type
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the display task form
      */
     @Override
@@ -213,9 +216,12 @@ public class NotificationSuiviComponent extends AbstractTaskComponent
     /**
      * Gets the display config form.
      *
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the display config form
      */
     @Override
@@ -305,9 +311,12 @@ public class NotificationSuiviComponent extends AbstractTaskComponent
     /**
      * Do save config.
      *
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the string
      */
     @Override
@@ -323,11 +332,13 @@ public class NotificationSuiviComponent extends AbstractTaskComponent
             config.setIdTask( task.getId( ) );
         }
 
-        catch ( Exception e )
+        catch( Exception e )
         {
             AppLogService.error( e.getMessage( ), e );
 
-            Object[] tabError = { e.getMessage( ) };
+            Object [ ] tabError = {
+                    e.getMessage( )
+            };
 
             return AdminMessageService.getMessageUrl( request, MESSAGE_EXCEPTION_OCCURED, tabError, AdminMessage.TYPE_STOP );
         }
@@ -337,17 +348,21 @@ public class NotificationSuiviComponent extends AbstractTaskComponent
         {
             strError = ERROR_SENDER;
         }
-        else if ( config.getSubject( ).equals( StringUtils.EMPTY ) )
-        {
-            strError = ERROR_SUBJECT;
-        }
-        else if ( config.getMailMessage( ).equals( StringUtils.EMPTY ) )
-        {
-            strError = ERROR_MAIL_MESSAGE;
-        }
+        else
+            if ( config.getSubject( ).equals( StringUtils.EMPTY ) )
+            {
+                strError = ERROR_SUBJECT;
+            }
+            else
+                if ( config.getMailMessage( ).equals( StringUtils.EMPTY ) )
+                {
+                    strError = ERROR_MAIL_MESSAGE;
+                }
         if ( !strError.equals( WorkflowUtils.EMPTY_STRING ) )
         {
-            Object[] tabRequiredFields = { I18nService.getLocalizedString( strError, locale ) };
+            Object [ ] tabRequiredFields = {
+                    I18nService.getLocalizedString( strError, locale )
+            };
 
             return AdminMessageService.getMessageUrl( request, MESSAGE_MANDATORY_FIELD, tabRequiredFields, AdminMessage.TYPE_STOP );
         }
@@ -367,10 +382,14 @@ public class NotificationSuiviComponent extends AbstractTaskComponent
     /**
      * Gets the display task information.
      *
-     * @param nIdHistory the n id history
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param nIdHistory
+     *            the n id history
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the display task information
      */
     @Override
@@ -389,10 +408,14 @@ public class NotificationSuiviComponent extends AbstractTaskComponent
     /**
      * Gets the task information xml.
      *
-     * @param nIdHistory the n id history
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param nIdHistory
+     *            the n id history
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the task information xml
      */
     @Override
@@ -404,11 +427,16 @@ public class NotificationSuiviComponent extends AbstractTaskComponent
     /**
      * Do validate task.
      *
-     * @param nIdResource the n id resource
-     * @param strResourceType the str resource type
-     * @param request the request
-     * @param locale the locale
-     * @param task the task
+     * @param nIdResource
+     *            the n id resource
+     * @param strResourceType
+     *            the str resource type
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
+     * @param task
+     *            the task
      * @return the string
      */
     @Override

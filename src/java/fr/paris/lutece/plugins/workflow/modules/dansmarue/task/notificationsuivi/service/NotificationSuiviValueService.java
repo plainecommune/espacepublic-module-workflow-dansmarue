@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,13 +40,12 @@ import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notificationsuivi
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notificationsuivi.business.NotificationSuiviValueDAO;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 
-
 /**
  * NotificationSuiviValueService.
  */
 public class NotificationSuiviValueService
 {
-    
+
     /** The dao. */
     @Inject
     @Named( "signalement.notificationSuiviValueDAO" )
@@ -62,7 +61,8 @@ public class NotificationSuiviValueService
     /**
      * Creation of an instance of notification value.
      *
-     * @param notificationSuiviValue            The instance of notification valuewhich contains the informations to store
+     * @param notificationSuiviValue
+     *            The instance of notification valuewhich contains the informations to store
      */
     public void create( NotificationSuiviValue notificationSuiviValue )
     {
@@ -72,9 +72,12 @@ public class NotificationSuiviValueService
     /**
      * remove notification value by history.
      *
-     * @param nIdHistory            the history key
-     * @param nIdTask            The task key
-     * @param plugin            the Plugin
+     * @param nIdHistory
+     *            the history key
+     * @param nIdTask
+     *            The task key
+     * @param plugin
+     *            the Plugin
      */
     public void removeByHistory( int nIdHistory, int nIdTask, Plugin plugin )
     {
@@ -84,8 +87,10 @@ public class NotificationSuiviValueService
     /**
      * remove notification value by task.
      *
-     * @param nIdTask            The task key
-     * @param plugin            the Plugin
+     * @param nIdTask
+     *            The task key
+     * @param plugin
+     *            the Plugin
      */
     public void removeByTask( int nIdTask, Plugin plugin )
     {
@@ -98,9 +103,12 @@ public class NotificationSuiviValueService
     /**
      * Load the notificationValue Object.
      *
-     * @param nIdHistory            the history id
-     * @param nIdTask            the task id
-     * @param plugin            the plugin
+     * @param nIdHistory
+     *            the history id
+     * @param nIdTask
+     *            the task id
+     * @param plugin
+     *            the plugin
      * @return the notification
      */
     public NotificationSuiviValue findByPrimaryKey( int nIdHistory, int nIdTask, Plugin plugin )
@@ -111,7 +119,8 @@ public class NotificationSuiviValueService
     /**
      * Load the notificationValue Object.
      *
-     * @param nIdHistory            the history id
+     * @param nIdHistory
+     *            the history id
      * @return the notification
      */
     public NotificationSuiviValue loadByHistory( int nIdHistory )

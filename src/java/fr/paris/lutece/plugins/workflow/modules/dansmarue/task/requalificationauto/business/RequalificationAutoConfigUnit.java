@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,25 +35,24 @@ package fr.paris.lutece.plugins.workflow.modules.dansmarue.task.requalificationa
 
 import fr.paris.lutece.plugins.workflowcore.business.config.TaskConfig;
 
-
 /**
  * Requalifier signalement task configuration.
  */
 public class RequalificationAutoConfigUnit extends TaskConfig
 {
-    
+
     /** The n id config unit. */
     private int _nIdConfigUnit;
-    
+
     /** The n id source unit. */
     private int _nIdSourceUnit;
-    
+
     /** The n id type signalement. */
     private int _nIdTypeSignalement;
-    
+
     /** The n id target unit. */
     private int _nIdTargetUnit;
-    
+
     /** The n id state after. */
     private int _nIdStateAfter;
 
@@ -70,7 +69,8 @@ public class RequalificationAutoConfigUnit extends TaskConfig
     /**
      * Set the id.
      *
-     * @param nIdConfigUnit            The id
+     * @param nIdConfigUnit
+     *            The id
      */
     public void setIdConfigUnit( int nIdConfigUnit )
     {
@@ -90,7 +90,8 @@ public class RequalificationAutoConfigUnit extends TaskConfig
     /**
      * Set the id of the source unit of the requalification.
      *
-     * @param nIdSourceUnit            The id of the source unit of the requalification
+     * @param nIdSourceUnit
+     *            The id of the source unit of the requalification
      */
     public void setIdSourceUnit( int nIdSourceUnit )
     {
@@ -110,7 +111,8 @@ public class RequalificationAutoConfigUnit extends TaskConfig
     /**
      * Set the id of the type signalement, or -1 if no type signalement is associated with this requalification unit.
      *
-     * @param nIdTypeSignalement            The id of the type signalement
+     * @param nIdTypeSignalement
+     *            The id of the type signalement
      */
     public void setIdTypeSignalement( int nIdTypeSignalement )
     {
@@ -130,7 +132,8 @@ public class RequalificationAutoConfigUnit extends TaskConfig
     /**
      * Set the id of the target unit of this requalification.
      *
-     * @param nIdTargetUnit            The id of the target unit of this requalification
+     * @param nIdTargetUnit
+     *            The id of the target unit of this requalification
      */
     public void setIdTargetUnit( int nIdTargetUnit )
     {
@@ -150,7 +153,8 @@ public class RequalificationAutoConfigUnit extends TaskConfig
     /**
      * Set the id of the workflow action to execute after this task.
      *
-     * @param nIdStateAfter            The id of the workflow state to set the resource after executing the requalification, or a negative value to keep the original state
+     * @param nIdStateAfter
+     *            The id of the workflow state to set the resource after executing the requalification, or a negative value to keep the original state
      */
     public void setIdStateAfter( int nIdStateAfter )
     {

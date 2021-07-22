@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -48,33 +48,35 @@ import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.portal.service.util.AppLogService;
 import fr.paris.lutece.portal.service.workflow.WorkflowService;
 
-
 /**
  * ProgrammationSignalementTask class.
  */
 public class ProgrammationSignalementTask extends AbstractSignalementTask
 {
-    
+
     /** The Constant PARAMETER_WEBSERVICE_DATE_PREVUE_TRAITEMENT. */
     // Parameters
     private static final String PARAMETER_WEBSERVICE_DATE_PREVUE_TRAITEMENT = "DatePrevueTraitement";
 
     /** The Constant TASK_TITLE. */
-    private static final String TASK_TITLE                                  = "Intervention sur le signalement programmée";
+    private static final String TASK_TITLE = "Intervention sur le signalement programmée";
 
     /** The signalement service. */
     // SERVICES
-    private ISignalementService _signalementService                         = SpringContextService.getBean( "signalementService" );
-    
+    private ISignalementService _signalementService = SpringContextService.getBean( "signalementService" );
+
     /** The signalement workflow service. */
-    private IWorkflowService    _signalementWorkflowService                 = SpringContextService.getBean( "signalement.workflowService" );
+    private IWorkflowService _signalementWorkflowService = SpringContextService.getBean( "signalement.workflowService" );
 
     /**
      * Process task.
      *
-     * @param nIdResourceHistory the n id resource history
-     * @param request the request
-     * @param locale the locale
+     * @param nIdResourceHistory
+     *            the n id resource history
+     * @param request
+     *            the request
+     * @param locale
+     *            the locale
      */
     @Override
     public void processTask( int nIdResourceHistory, HttpServletRequest request, Locale locale )
@@ -84,7 +86,7 @@ public class ProgrammationSignalementTask extends AbstractSignalementTask
         if ( request.getSession( ).getAttribute( PARAMETER_WEBSERVICE_DATE_PREVUE_TRAITEMENT ) != null )
         {
             // Cas ou la tache est declenchee suite a l'appel du WS /rest/signalement/api/changeStatus
-            String datePrevueTraitement = ( String ) request.getSession( ).getAttribute( PARAMETER_WEBSERVICE_DATE_PREVUE_TRAITEMENT );
+            String datePrevueTraitement = (String) request.getSession( ).getAttribute( PARAMETER_WEBSERVICE_DATE_PREVUE_TRAITEMENT );
             request.getSession( ).removeAttribute( PARAMETER_WEBSERVICE_DATE_PREVUE_TRAITEMENT );
             ResourceHistory resourceHistory = _resourceHistoryService.findByPrimaryKey( nIdResourceHistory );
             Integer idRessource = resourceHistory.getIdResource( );
@@ -129,7 +131,8 @@ public class ProgrammationSignalementTask extends AbstractSignalementTask
     /**
      * Gets the title.
      *
-     * @param locale the locale
+     * @param locale
+     *            the locale
      * @return the title
      */
     @Override
@@ -141,7 +144,8 @@ public class ProgrammationSignalementTask extends AbstractSignalementTask
     /**
      * Gets the task form entries.
      *
-     * @param locale the locale
+     * @param locale
+     *            the locale
      * @return the task form entries
      */
     @Override

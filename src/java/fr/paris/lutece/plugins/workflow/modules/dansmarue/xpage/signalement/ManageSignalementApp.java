@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -48,7 +48,6 @@ import fr.paris.lutece.portal.web.xpages.XPage;
 import fr.paris.lutece.portal.web.xpages.XPageApplication;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
-
 /**
  * the XPage app to manage signalement without Web Service.
  */
@@ -58,24 +57,26 @@ public class ManageSignalementApp implements XPageApplication
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 2512573733277059166L;
 
-
     /** The Constant TEMPLATE_ACTIONS. */
-    private static final  String TEMPLATE_ACTIONS    = "skin/plugins/workflow/modules/signalement/managewithoutws/mange_actions.html";
+    private static final String TEMPLATE_ACTIONS = "skin/plugins/workflow/modules/signalement/managewithoutws/mange_actions.html";
 
     /** The Constant MARK_MOTIFS. */
-    private static final String MARK_MOTIFS         = "motifs";
-
-
+    private static final String MARK_MOTIFS = "motifs";
 
     /**
      * Gets the page.
      *
-     * @param request the request
-     * @param nMode the n mode
-     * @param plugin the plugin
+     * @param request
+     *            the request
+     * @param nMode
+     *            the n mode
+     * @param plugin
+     *            the plugin
      * @return the page
-     * @throws UserNotSignedException the user not signed exception
-     * @throws SiteMessageException the site message exception
+     * @throws UserNotSignedException
+     *             the user not signed exception
+     * @throws SiteMessageException
+     *             the site message exception
      */
     @Override
     public XPage getPage( HttpServletRequest request, int nMode, Plugin plugin ) throws UserNotSignedException, SiteMessageException
@@ -84,12 +85,8 @@ public class ManageSignalementApp implements XPageApplication
         String templatePath = null;
         Map<String, Object> model = new HashMap<>( );
 
-
-
-
         addMotifs( model );
         templatePath = TEMPLATE_ACTIONS;
-
 
         HtmlTemplate template = AppTemplateService.getTemplate( templatePath, request.getLocale( ), model );
 
@@ -108,12 +105,14 @@ public class ManageSignalementApp implements XPageApplication
      */
     private void addMotifs( Map<String, Object> model )
     {
-        List<String[]> motifs = new ArrayList<>( );
-        motifs.add( new String[] { "1", "Observation de rejet 1" } );
-        motifs.add( new String[] { "2", "Observation de rejet 2" } );
+        List<String [ ]> motifs = new ArrayList<>( );
+        motifs.add( new String [ ] {
+                "1", "Observation de rejet 1"
+        } );
+        motifs.add( new String [ ] {
+                "2", "Observation de rejet 2"
+        } );
         model.put( MARK_MOTIFS, motifs );
     }
-
-
 
 }

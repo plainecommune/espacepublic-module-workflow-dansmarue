@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -69,75 +69,74 @@ import fr.paris.lutece.portal.util.mvc.commons.annotations.View;
 import fr.paris.lutece.portal.util.mvc.xpage.annotations.Controller;
 import fr.paris.lutece.portal.web.xpages.XPage;
 
-
 /**
  * XPageSuivi.
  */
 @Controller( xpageName = AbstractXPage.XPAGE_SUIVI, pageTitleI18nKey = "dansmarue.xpage.dansmarue.pageTitle", pagePathI18nKey = "dansmarue.xpage.dansmarue.pagePathLabel" )
 public class XPageSuivi extends AbstractXPage
 {
-    
+
     /** The Constant serialVersionUID. */
-    private static final long                         serialVersionUID                           = 1L;
+    private static final long serialVersionUID = 1L;
 
     /** The Constant TEMPLATE_XPAGE_SUIVI_SIGNALEMENT. */
     // TEMPLATES
-    private static final String                       TEMPLATE_XPAGE_SUIVI_SIGNALEMENT           = "/admin/plugins/workflow/modules/signalement/suivi_signalement.html";
+    private static final String TEMPLATE_XPAGE_SUIVI_SIGNALEMENT = "/admin/plugins/workflow/modules/signalement/suivi_signalement.html";
 
     /** The Constant ACTION_VALIDER_CHECKBOX. */
     // ACTIONS
-    private static final String                       ACTION_VALIDER_CHECKBOX                    = "validate_checkbox";
+    private static final String ACTION_VALIDER_CHECKBOX = "validate_checkbox";
 
     /** The Constant PARAMETER_VALIDATE_SUIVI. */
     // PARAMETERS
-    private static final String                       PARAMETER_VALIDATE_SUIVI                   = "validate_suivi";
+    private static final String PARAMETER_VALIDATE_SUIVI = "validate_suivi";
 
     /** The Constant MESSAGE_ERREUR_SIGNALEMENT_INTROUVABLE. */
     // MESSAGES
-    private static final String                       MESSAGE_ERREUR_SIGNALEMENT_INTROUVABLE     = "dansmarue.page.suivi.erreur.signalement.introuvable";
+    private static final String MESSAGE_ERREUR_SIGNALEMENT_INTROUVABLE = "dansmarue.page.suivi.erreur.signalement.introuvable";
 
     /** The Constant MARK_SIGNALEMENT. */
     // MARKER
-    private static final String                       MARK_SIGNALEMENT                           = "signalement";
-    
+    private static final String MARK_SIGNALEMENT = "signalement";
+
     /** The Constant MARK_MESSAGE_ERREUR. */
-    private static final String                       MARK_MESSAGE_ERREUR                        = "erreur";
-    
+    private static final String MARK_MESSAGE_ERREUR = "erreur";
+
     /** The Constant MARK_CURRENT_STATE. */
-    private static final String                       MARK_CURRENT_STATE                         = "currentState";
-    
+    private static final String MARK_CURRENT_STATE = "currentState";
+
     /** The Constant MARK_DATE_LAST_STATE. */
-    private static final String                       MARK_DATE_LAST_STATE                       = "currentStateDate";
-    
+    private static final String MARK_DATE_LAST_STATE = "currentStateDate";
+
     /** The Constant MARK_HISTORY. */
-    private static final String                       MARK_HISTORY                               = "history";
-    
+    private static final String MARK_HISTORY = "history";
+
     /** The Constant MARK_SERVICE_FAIT_AVAILABLE. */
-    private static final String                       MARK_SERVICE_FAIT_AVAILABLE                = "service_fait_available";
-    
+    private static final String MARK_SERVICE_FAIT_AVAILABLE = "service_fait_available";
+
     /** The Constant MARK_TOKEN. */
-    private static final String                       MARK_TOKEN                                 = "token";
+    private static final String MARK_TOKEN = "token";
 
     /** The Constant PROPERTY_ID_STATE_SERVICE_FAIT. */
     // PROPERTIES
-    public static final String                        PROPERTY_ID_STATE_SERVICE_FAIT             = "signalement.idStateServiceFait";
+    public static final String PROPERTY_ID_STATE_SERVICE_FAIT = "signalement.idStateServiceFait";
 
     /** The signalement service. */
     // SERVICES
-    private transient ISignalementService                       _signalementService                        = SpringContextService.getBean( "signalementService" );
-    
-    /** The signalement workflow service. */
-    private transient IWorkflowService                          _signalementWorkflowService                = SpringContextService.getBean( "signalement.workflowService" );
-    
-    /** The notification user multi contents value service. */
-    private transient NotificationUserMultiContentsValueService _notificationUserMultiContentsValueService = SpringContextService.getBean( "signalement.notificationUserMultiContentsValueService" );
-    
-    /** The notification user value service. */
-    private transient NotificationUserValueService              _notificationUserValueService              = SpringContextService.getBean( "signalement.notificationUserValueService" );
-    
-    /** The resource history service. */
-    private transient IResourceHistoryService                   _resourceHistoryService                    = SpringContextService.getBean( "workflow.resourceHistoryService" );
+    private transient ISignalementService _signalementService = SpringContextService.getBean( "signalementService" );
 
+    /** The signalement workflow service. */
+    private transient IWorkflowService _signalementWorkflowService = SpringContextService.getBean( "signalement.workflowService" );
+
+    /** The notification user multi contents value service. */
+    private transient NotificationUserMultiContentsValueService _notificationUserMultiContentsValueService = SpringContextService
+            .getBean( "signalement.notificationUserMultiContentsValueService" );
+
+    /** The notification user value service. */
+    private transient NotificationUserValueService _notificationUserValueService = SpringContextService.getBean( "signalement.notificationUserValueService" );
+
+    /** The resource history service. */
+    private transient IResourceHistoryService _resourceHistoryService = SpringContextService.getBean( "workflow.resourceHistoryService" );
 
     /**
      * Returns the content of the page accueil.
@@ -153,7 +152,6 @@ public class XPageSuivi extends AbstractXPage
     {
         Map<String, Object> model = getModel( );
 
-
         String erreur = "";
         SuiviDTO suiviDTO = new SuiviDTO( );
         populate( suiviDTO, request );
@@ -162,7 +160,7 @@ public class XPageSuivi extends AbstractXPage
         {
             getSignalement( request, model, suiviDTO );
         }
-        catch ( BusinessException e )
+        catch( BusinessException e )
         {
             AppLogService.error( e );
             erreur = e.getCode( );
@@ -192,9 +190,12 @@ public class XPageSuivi extends AbstractXPage
     /**
      * Fill model with Signalement data.
      *
-     * @param request            The HTTP request
-     * @param model            The model
-     * @param suiviDTO            SuiviDTO
+     * @param request
+     *            The HTTP request
+     * @param model
+     *            The model
+     * @param suiviDTO
+     *            SuiviDTO
      * @return the signalement
      */
     private void getSignalement( HttpServletRequest request, Map<String, Object> model, SuiviDTO suiviDTO )
@@ -210,7 +211,8 @@ public class XPageSuivi extends AbstractXPage
 
             if ( signalement == null )
             {
-                throw new BusinessException( new Signalement( ), I18nService.getLocalizedString( MESSAGE_ERREUR_SIGNALEMENT_INTROUVABLE, request.getLocale( ) ) );
+                throw new BusinessException( new Signalement( ),
+                        I18nService.getLocalizedString( MESSAGE_ERREUR_SIGNALEMENT_INTROUVABLE, request.getLocale( ) ) );
             }
 
             WorkflowService workflowService = WorkflowService.getInstance( );
@@ -226,7 +228,8 @@ public class XPageSuivi extends AbstractXPage
 
                 if ( request.getParameter( PARAMETER_VALIDATE_SUIVI ) != null )
                 {
-                    workflowService.doProcessAction( signalement.getId( ).intValue( ), Signalement.WORKFLOW_RESOURCE_TYPE, idActionServiceFait, null, request, request.getLocale( ), true );
+                    workflowService.doProcessAction( signalement.getId( ).intValue( ), Signalement.WORKFLOW_RESOURCE_TYPE, idActionServiceFait, null, request,
+                            request.getLocale( ), true );
                     // Une fois service fait, réaffichage avec les nouvelles données
                     model.remove( MARK_SERVICE_FAIT_AVAILABLE );
                     stateOfSignalement = workflowService.getState( signalement.getId( ).intValue( ), Signalement.WORKFLOW_RESOURCE_TYPE, nIdWorkflow, null );
@@ -237,7 +240,8 @@ public class XPageSuivi extends AbstractXPage
             String strState = _signalementService.changeToGoodStateForSuivi( stateOfSignalement );
 
             // get the current state's date
-            ResourceHistory rhLastState = _resourceHistoryService.getLastHistoryResource( signalement.getId( ).intValue( ), Signalement.WORKFLOW_RESOURCE_TYPE, nIdWorkflow );
+            ResourceHistory rhLastState = _resourceHistoryService.getLastHistoryResource( signalement.getId( ).intValue( ), Signalement.WORKFLOW_RESOURCE_TYPE,
+                    nIdWorkflow );
 
             Date dateLastState = new Date( rhLastState.getCreationDate( ).getTime( ) );
             SimpleDateFormat sdfDate = new SimpleDateFormat( "dd/MM/yyyy" );
@@ -262,7 +266,8 @@ public class XPageSuivi extends AbstractXPage
     /**
      * Get the history of a signalement with its id.
      *
-     * @param nIdSignalement            the signalement id
+     * @param nIdSignalement
+     *            the signalement id
      * @return the list of history signalement dto
      */
     private List<HistorySignalementDTO> getHistorySignalement( int nIdSignalement )

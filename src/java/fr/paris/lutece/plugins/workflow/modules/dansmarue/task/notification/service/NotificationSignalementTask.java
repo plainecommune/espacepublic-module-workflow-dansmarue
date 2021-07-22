@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,7 +56,6 @@ import fr.paris.lutece.plugins.dansmarue.util.constants.SignalementConstants;
 import fr.paris.lutece.plugins.dansmarue.utils.DateUtils;
 import fr.paris.lutece.plugins.unittree.business.unit.Unit;
 import fr.paris.lutece.plugins.unittree.service.unit.IUnitService;
-import fr.paris.lutece.plugins.workflow.modules.dansmarue.service.TaskUtils;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.AbstractSignalementTask;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notification.business.NotificationSignalementTaskConfigDTO;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.notification.business.NotificationSignalementTaskConfigUnit;
@@ -76,77 +75,78 @@ public class NotificationSignalementTask extends AbstractSignalementTask
 
     /** The Constant PROPERTY_BASE_URL. */
     // PROPERTIES
-    private static final String                      PROPERTY_BASE_URL                         = "lutece.prod.url";
+    private static final String PROPERTY_BASE_URL = "lutece.prod.url";
 
     /** The Constant MARK_NUMERO. */
     // MARKERS
-    private static final String                      MARK_NUMERO                               = "numero";
+    private static final String MARK_NUMERO = "numero";
 
     /** The Constant MARK_TYPE. */
-    private static final String                      MARK_TYPE                                 = "type";
+    private static final String MARK_TYPE = "type";
 
     /** The Constant MARK_ADRESSE. */
-    private static final String                      MARK_ADRESSE                              = "adresse";
+    private static final String MARK_ADRESSE = "adresse";
 
     /** The Constant MARK_PRIORITE. */
-    private static final String                      MARK_PRIORITE                             = "priorite";
+    private static final String MARK_PRIORITE = "priorite";
 
     /** The Constant MARK_COMMENTAIRE. */
-    private static final String                      MARK_COMMENTAIRE                          = "description";
+    private static final String MARK_COMMENTAIRE = "description";
 
     /** The Constant MARK_PRECISION. */
-    private static final String                      MARK_PRECISION                            = "precision";
+    private static final String MARK_PRECISION = "precision";
 
     /** The Constant MARK_LIEN_CONSULT. */
-    private static final String                      MARK_LIEN_CONSULT                         = "lien";
+    private static final String MARK_LIEN_CONSULT = "lien";
 
     /** The Constant MARK_LIEN_SIGNALEMENT_WS. */
-    private static final String                      MARK_LIEN_SIGNALEMENT_WS                  = "wsSignalement";
+    private static final String MARK_LIEN_SIGNALEMENT_WS = "wsSignalement";
 
     /** The Constant MARK_DATE_ENVOI. */
-    private static final String                      MARK_DATE_ENVOI                           = "dateEnvoi";
+    private static final String MARK_DATE_ENVOI = "dateEnvoi";
 
     /** The Constant MARK_HEURE_ENVOI. */
-    private static final String                      MARK_HEURE_ENVOI                          = "heureEnvoi";
+    private static final String MARK_HEURE_ENVOI = "heureEnvoi";
 
     /** The Constant MARK_EMAIL_USAGER. */
-    private static final String                      MARK_EMAIL_USAGER                         = "emailUsager";
+    private static final String MARK_EMAIL_USAGER = "emailUsager";
 
     /** The Constant MARK_ID_ANOMALIE. */
-    private static final String                      MARK_ID_ANOMALIE                          = "id_anomalie";
+    private static final String MARK_ID_ANOMALIE = "id_anomalie";
 
     /** The Constant MARK_ALIAS_ANOMALIE. */
-    private static final String                      MARK_ALIAS_ANOMALIE                       = "alias_anomalie";
+    private static final String MARK_ALIAS_ANOMALIE = "alias_anomalie";
 
     /** The Constant PARAMETER_ID_SIGNALEMENT. */
     // PARAMETERS
-    private static final String                      PARAMETER_ID_SIGNALEMENT                  = "signalement_id";
+    private static final String PARAMETER_ID_SIGNALEMENT = "signalement_id";
 
     /** The Constant PARAMETER_PAGE. */
-    private static final String                      PARAMETER_PAGE                            = "page";
+    private static final String PARAMETER_PAGE = "page";
 
     /** The Constant PARAMETER_ID. */
-    private static final String                      PARAMETER_ID                              = "id";
+    private static final String PARAMETER_ID = "id";
 
     /** The Constant PARAMETER_TOKEN. */
-    private static final String                      PARAMETER_TOKEN                           = "token";
+    private static final String PARAMETER_TOKEN = "token";
 
     /** The Constant JSP_VIEW_SIGNALEMENT. */
     // JSP
-    private static final String                      JSP_VIEW_SIGNALEMENT                      = "jsp/admin/plugins/signalement/ViewSignalement.jsp";
+    private static final String JSP_VIEW_SIGNALEMENT = "jsp/admin/plugins/signalement/ViewSignalement.jsp";
 
     /** The Constant JSP_MANAGE_SIGNALEMENT_WITHOUT_WS. */
-    private static final String                      JSP_MANAGE_SIGNALEMENT_WITHOUT_WS         = "jsp/site/Portal.jsp";
+    private static final String JSP_MANAGE_SIGNALEMENT_WITHOUT_WS = "jsp/site/Portal.jsp";
 
     /** The unit service. */
     // SERVICES
-    private IUnitService                             _unitService                              = SpringContextService.getBean( IUnitService.BEAN_UNIT_SERVICE );
+    private IUnitService _unitService = SpringContextService.getBean( IUnitService.BEAN_UNIT_SERVICE );
 
     /** The notification signalement task config service. */
-    private NotificationSignalementTaskConfigService _notificationSignalementTaskConfigService = SpringContextService.getBean( "signalement.notificationSignalementTaskConfigService" );
+    private NotificationSignalementTaskConfigService _notificationSignalementTaskConfigService = SpringContextService
+            .getBean( "signalement.notificationSignalementTaskConfigService" );
 
     /** The signalement service. */
-    private ISignalementService                      _signalementService                       = SpringContextService.getBean( "signalementService" );
+    private ISignalementService _signalementService = SpringContextService.getBean( "signalementService" );
 
     /**
      * Process task.
@@ -173,11 +173,8 @@ public class NotificationSignalementTask extends AbstractSignalementTask
         NotificationSignalementTaskConfigDTO configDTOUnit = _notificationSignalementTaskConfigService.findByPrimaryKey( getId( ) );
         NotificationSignalementTaskConfigDTO configDTOType = _notificationSignalementTaskConfigService.findByPrimaryKeyWithTypeSignalement( getId( ) );
 
-        Integer typeSignalementId = AppPropertiesService.getPropertyInt( SignalementConstants.TYPE_SIGNALEMENT_ENCOMBRANT, -1 );
-        List<TypeSignalement> listeTypeSignalement = new ArrayList<>( );
-        getTypeSignalementService( ).getAllSousTypeSignalementCascade( typeSignalementId, listeTypeSignalement );
         // Check if the signalement type is not TypeEncombrant
-        if ( !TaskUtils.isSignalementOfTypeEncombrant( listeTypeSignalement, signalement ) && ( signalement.getSecteur( ) != null ) )
+        if ( signalement.getSecteur( ) != null )
         {
 
             List<String> listeAdressesEmail = getAdressesEmailANotifier( signalement.getSecteur( ).getIdSector( ), configDTOUnit, configDTOType, signalement );
@@ -268,31 +265,36 @@ public class NotificationSignalementTask extends AbstractSignalementTask
                     if ( ( photo.getImage( ) != null ) && ( photo.getImage( ).getImage( ) != null ) )
                     {
 
-                        String[] mime = photo.getImage( ).getMimeType( ).split( "/" );
+                        String [ ] mime = photo.getImage( ).getMimeType( ).split( "/" );
 
                         if ( photo.getVue( ).intValue( ) == SignalementConstants.OVERVIEW )
                         {
-                            files.add( new FileAttachment( SignalementConstants.NOM_PHOTO_ENSEMBLE_PJ + mime[1], photo.getImage( ).getImage( ), photo.getImage( ).getMimeType( ) ) );
-                        }
-                        else if ( photo.getVue( ).intValue( ) == SignalementConstants.SERVICE_DONE_VIEW )
-                        {
-                            files.add( new FileAttachment( SignalementConstants.NOM_PHOTO_SERVICE_FAIT_PJ + mime[1], photo.getImage( ).getImage( ), photo.getImage( ).getMimeType( ) ) );
+                            files.add( new FileAttachment( SignalementConstants.NOM_PHOTO_ENSEMBLE_PJ + mime [1], photo.getImage( ).getImage( ),
+                                    photo.getImage( ).getMimeType( ) ) );
                         }
                         else
-                        {
-                            files.add( new FileAttachment( SignalementConstants.NOM_PHOTO_PRES_PJ + mime[1], photo.getImage( ).getImage( ), photo.getImage( ).getMimeType( ) ) );
-                        }
+                            if ( photo.getVue( ).intValue( ) == SignalementConstants.SERVICE_DONE_VIEW )
+                            {
+                                files.add( new FileAttachment( SignalementConstants.NOM_PHOTO_SERVICE_FAIT_PJ + mime [1], photo.getImage( ).getImage( ),
+                                        photo.getImage( ).getMimeType( ) ) );
+                            }
+                            else
+                            {
+                                files.add( new FileAttachment( SignalementConstants.NOM_PHOTO_PRES_PJ + mime [1], photo.getImage( ).getImage( ),
+                                        photo.getImage( ).getMimeType( ) ) );
+                            }
                     }
                 }
 
-                if ( StringUtils.isNotBlank( configDTOUnit.getMessage( ) ) && StringUtils.isNotBlank( configDTOUnit.getSubject( ) ) && StringUtils.isNotBlank( configDTOUnit.getSender( ) ) )
+                if ( StringUtils.isNotBlank( configDTOUnit.getMessage( ) ) && StringUtils.isNotBlank( configDTOUnit.getSubject( ) )
+                        && StringUtils.isNotBlank( configDTOUnit.getSender( ) ) )
                 {
                     String message = AppTemplateService.getTemplateFromStringFtl( configDTOUnit.getMessage( ), locale, emailModel ).getHtml( );
                     String subject = AppTemplateService.getTemplateFromStringFtl( configDTOUnit.getSubject( ), locale, emailModel ).getHtml( );
                     for ( String email : listeAdressesEmail )
                     {
-                        MailService.sendMailMultipartHtml( email, null, null, configDTOUnit.getSender( ), AppPropertiesService.getProperty( "mail.noreply.email", "noreply-dansmarue@paris.fr" ),
-                                subject, message, null, files );
+                        MailService.sendMailMultipartHtml( email, null, null, configDTOUnit.getSender( ),
+                                AppPropertiesService.getProperty( "mail.noreply.email", "noreply-dansmarue@paris.fr" ), subject, message, null, files );
                     }
                 }
             }
@@ -311,7 +313,7 @@ public class NotificationSignalementTask extends AbstractSignalementTask
     {
         UrlItem urlItem;
 
-        urlItem = new UrlItem( AppPropertiesService.getProperty( PROPERTY_BASE_URL ) + JSP_MANAGE_SIGNALEMENT_WITHOUT_WS );
+        urlItem = new UrlItem( JSP_MANAGE_SIGNALEMENT_WITHOUT_WS );
 
         urlItem.addParameter( PARAMETER_PAGE, "webService" );
         urlItem.addParameter( PARAMETER_ID, signalement.getId( ).intValue( ) );
@@ -334,8 +336,8 @@ public class NotificationSignalementTask extends AbstractSignalementTask
      *            the signalement
      * @return the list of email
      */
-    private List<String> getAdressesEmailANotifier( int idSector, NotificationSignalementTaskConfigDTO configDTOUnit, NotificationSignalementTaskConfigDTO configDTOTypeSignalement,
-            Signalement signalement )
+    private List<String> getAdressesEmailANotifier( int idSector, NotificationSignalementTaskConfigDTO configDTOUnit,
+            NotificationSignalementTaskConfigDTO configDTOTypeSignalement, Signalement signalement )
     {
         List<String> resultList = new ArrayList<>( );
 
@@ -356,12 +358,13 @@ public class NotificationSignalementTask extends AbstractSignalementTask
         for ( Unit unitToNotify : unitsToNotifySector )
         {
             // récupérer la configUnit, puis le(s) destinataire(s)
-            NotificationSignalementTaskConfigUnit configUnit = _notificationSignalementTaskConfigService.findUnitByPrimaryKey( getId( ), unitToNotify.getIdUnit( ) );
+            NotificationSignalementTaskConfigUnit configUnit = _notificationSignalementTaskConfigService.findUnitByPrimaryKey( getId( ),
+                    unitToNotify.getIdUnit( ) );
 
             if ( configUnit != null )
             {
                 String strDestinataires = configUnit.getDestinataires( );
-                String[] tabDestinataires = strDestinataires.split( ";" );
+                String [ ] tabDestinataires = strDestinataires.split( ";" );
                 for ( String email : tabDestinataires )
                 {
                     if ( !resultList.contains( email.trim( ) ) )
@@ -376,12 +379,13 @@ public class NotificationSignalementTask extends AbstractSignalementTask
         for ( TypeSignalement typeToNotify : typesToNotify )
         {
             // récupérer la configType, puis le(s) destinataire(s)
-            NotificationSignalementTaskConfigUnit configType = _notificationSignalementTaskConfigService.findByIdTypeSignalement( getId( ), typeToNotify.getId( ) );
+            NotificationSignalementTaskConfigUnit configType = _notificationSignalementTaskConfigService.findByIdTypeSignalement( getId( ),
+                    typeToNotify.getId( ) );
 
             if ( configType != null )
             {
                 String strDestinataires = configType.getDestinataires( );
-                String[] tabDestinataires = strDestinataires.split( ";" );
+                String [ ] tabDestinataires = strDestinataires.split( ";" );
                 for ( String email : tabDestinataires )
                 {
                     if ( !resultList.contains( email.trim( ) ) )
@@ -453,7 +457,7 @@ public class NotificationSignalementTask extends AbstractSignalementTask
     {
         UrlItem urlItem;
 
-        urlItem = new UrlItem( AppPropertiesService.getProperty( PROPERTY_BASE_URL ) + JSP_VIEW_SIGNALEMENT );
+        urlItem = new UrlItem( JSP_VIEW_SIGNALEMENT );
 
         urlItem.addParameter( PARAMETER_ID_SIGNALEMENT, signalement.getId( ).intValue( ) );
 

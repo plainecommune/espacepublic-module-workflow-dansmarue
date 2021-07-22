@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -47,7 +47,6 @@ import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
-
 /**
  * RequalificationSignalementComponent.
  */
@@ -61,11 +60,11 @@ public class AjoutEntiteHistoriqueComponent extends AbstractTaskComponent
     // SERVICES
     @Inject
     @Named( "signalement.ajoutEntiteService" )
-    private AjoutEntiteService  _ajoutEntiteService;
+    private AjoutEntiteService _ajoutEntiteService;
 
     /** The Constant MARK_ENTITE. */
     // MARKERS
-    private static final String MARK_ENTITE                           = "entite";
+    private static final String MARK_ENTITE = "entite";
 
     /**
      * Gets the display task form.

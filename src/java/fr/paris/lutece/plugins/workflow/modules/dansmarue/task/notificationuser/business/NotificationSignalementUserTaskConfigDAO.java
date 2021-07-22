@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,24 +37,26 @@ import fr.paris.lutece.plugins.workflowcore.business.config.ITaskConfigDAO;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.util.sql.DAOUtil;
 
-
 /**
  * NotificationSignalementUserTaskConfigDAO class.
  */
 public class NotificationSignalementUserTaskConfigDAO implements ITaskConfigDAO<NotificationSignalementUserTaskConfig>
 {
-    
+
     /** The Constant SQL_QUERY_FIND_BY_PRIMARY_KEY. */
-    private static final String SQL_QUERY_FIND_BY_PRIMARY_KEY = "SELECT id_task,subject,sender,title,message " + " FROM signalement_workflow_notification_user_config WHERE id_task=?";
-    
+    private static final String SQL_QUERY_FIND_BY_PRIMARY_KEY = "SELECT id_task,subject,sender,title,message "
+            + " FROM signalement_workflow_notification_user_config WHERE id_task=?";
+
     /** The Constant SQL_QUERY_INSERT. */
-    private static final String SQL_QUERY_INSERT              = "INSERT INTO signalement_workflow_notification_user_config  " + "(id_task,subject,sender,message)VALUES(?,?,?,?)";
-    
+    private static final String SQL_QUERY_INSERT = "INSERT INTO signalement_workflow_notification_user_config  "
+            + "(id_task,subject,sender,message)VALUES(?,?,?,?)";
+
     /** The Constant SQL_QUERY_UPDATE. */
-    private static final String SQL_QUERY_UPDATE              = "UPDATE signalement_workflow_notification_user_config " + "SET id_task=?,subject=?,sender=?,message=?" + " WHERE id_task=?";
-    
+    private static final String SQL_QUERY_UPDATE = "UPDATE signalement_workflow_notification_user_config " + "SET id_task=?,subject=?,sender=?,message=?"
+            + " WHERE id_task=?";
+
     /** The Constant SQL_QUERY_DELETE. */
-    private static final String SQL_QUERY_DELETE              = "DELETE FROM signalement_workflow_notification_user_config WHERE id_task=? ";
+    private static final String SQL_QUERY_DELETE = "DELETE FROM signalement_workflow_notification_user_config WHERE id_task=? ";
 
     /**
      * Insert.
@@ -66,7 +68,7 @@ public class NotificationSignalementUserTaskConfigDAO implements ITaskConfigDAO<
      */
     public synchronized void insert( NotificationSignalementUserTaskConfig config, Plugin plugin )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) ; )
         {
 
             int nPos = 0;
@@ -90,7 +92,7 @@ public class NotificationSignalementUserTaskConfigDAO implements ITaskConfigDAO<
      */
     public void update( NotificationSignalementUserTaskConfig config, Plugin plugin )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) ; )
         {
 
             int nPos = 0;
@@ -117,7 +119,7 @@ public class NotificationSignalementUserTaskConfigDAO implements ITaskConfigDAO<
     public NotificationSignalementUserTaskConfig findByPrimaryKey( int nIdTask, Plugin plugin )
     {
         NotificationSignalementUserTaskConfig userTaskConfig = new NotificationSignalementUserTaskConfig( );
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_PRIMARY_KEY, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_PRIMARY_KEY, plugin ) ; )
         {
 
             daoUtil.setInt( 1, nIdTask );
@@ -150,7 +152,7 @@ public class NotificationSignalementUserTaskConfigDAO implements ITaskConfigDAO<
      */
     public void delete( int nIdTask, Plugin plugin )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ); )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ) ; )
         {
 
             daoUtil.setInt( 1, nIdTask );
@@ -162,7 +164,8 @@ public class NotificationSignalementUserTaskConfigDAO implements ITaskConfigDAO<
     /**
      * Insert.
      *
-     * @param config the config
+     * @param config
+     *            the config
      */
     @Override
     public void insert( NotificationSignalementUserTaskConfig config )
@@ -173,7 +176,8 @@ public class NotificationSignalementUserTaskConfigDAO implements ITaskConfigDAO<
     /**
      * Store.
      *
-     * @param config the config
+     * @param config
+     *            the config
      */
     @Override
     public void store( NotificationSignalementUserTaskConfig config )
@@ -184,7 +188,8 @@ public class NotificationSignalementUserTaskConfigDAO implements ITaskConfigDAO<
     /**
      * Load.
      *
-     * @param nIdTask the n id task
+     * @param nIdTask
+     *            the n id task
      * @return the notification signalement user task config
      */
     @Override
@@ -196,7 +201,8 @@ public class NotificationSignalementUserTaskConfigDAO implements ITaskConfigDAO<
     /**
      * Delete.
      *
-     * @param nIdTask the n id task
+     * @param nIdTask
+     *            the n id task
      */
     @Override
     public void delete( int nIdTask )

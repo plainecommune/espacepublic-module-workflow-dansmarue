@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -58,62 +58,63 @@ import fr.paris.lutece.util.beanvalidation.ValidationError;
 import fr.paris.lutece.util.html.HtmlTemplate;
 import fr.paris.lutece.util.url.UrlItem;
 
-
 /**
  * The class WebServiceSignalementTaskConfigJspBean.
  */
 public class WebServiceSignalementTaskConfigJspBean extends AbstractJspBean
 {
-    
+
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -2095279696670040204L;
-    
+
     /** The Constant MARK_CONFIG_UNIT. */
     // MARKERS
-    private static final String                    MARK_CONFIG_UNIT                                 = "configUnit";
-    
+    private static final String MARK_CONFIG_UNIT = "configUnit";
+
     /** The Constant MARK_UNIT. */
-    private static final String                    MARK_UNIT                                        = "unit";
+    private static final String MARK_UNIT = "unit";
 
     /** The Constant PARAMETER_ID_TASK. */
     // PARAMETERS
-    private static final String                    PARAMETER_ID_TASK                                = "id_task";
-    
+    private static final String PARAMETER_ID_TASK = "id_task";
+
     /** The Constant PARAMETER_ID_UNIT. */
-    private static final String                    PARAMETER_ID_UNIT                                = "id_unit";
-    
+    private static final String PARAMETER_ID_UNIT = "id_unit";
+
     /** The Constant PARAMETER_SAVE_BUTTON. */
-    private static final String                    PARAMETER_SAVE_BUTTON                            = "save";
+    private static final String PARAMETER_SAVE_BUTTON = "save";
 
     /** The Constant MESSAGE_CONFIRM_DELETE_SIGNALEMENT_TASK_UNIT. */
     // MESSAGES
-    private static final String                    MESSAGE_CONFIRM_DELETE_SIGNALEMENT_TASK_UNIT     = "module.workflow.dansmarue.message.confirm_delete_signalement_task_unit";
-    
+    private static final String MESSAGE_CONFIRM_DELETE_SIGNALEMENT_TASK_UNIT = "module.workflow.dansmarue.message.confirm_delete_signalement_task_unit";
+
     /** The Constant MESSAGE_MANDATORY_FIELD. */
-    private static final String                    MESSAGE_MANDATORY_FIELD                          = "module.workflow.dansmarue.task_webservice_config.modify.mandatory.field";
+    private static final String MESSAGE_MANDATORY_FIELD = "module.workflow.dansmarue.task_webservice_config.modify.mandatory.field";
 
     /** The Constant JSP_DO_DELETE_WEBSERVICE_SIGNALEMENT_UNIT. */
     // JSP
-    private static final String                    JSP_DO_DELETE_WEBSERVICE_SIGNALEMENT_UNIT        = "jsp/admin/plugins/workflow/modules/signalement/DoDeleteWebServiceSignalementTaskUnit.jsp";
-    
+    private static final String JSP_DO_DELETE_WEBSERVICE_SIGNALEMENT_UNIT = "jsp/admin/plugins/workflow/modules/signalement/DoDeleteWebServiceSignalementTaskUnit.jsp";
+
     /** The Constant JSP_MODIFY_TASK. */
-    private static final String                    JSP_MODIFY_TASK                                  = "jsp/admin/plugins/workflow/ModifyTask.jsp";
+    private static final String JSP_MODIFY_TASK = "jsp/admin/plugins/workflow/ModifyTask.jsp";
 
     /** The Constant TEMPLATE_MODIFY_WEBSERVICE_SIGNALEMENT_TASK_UNIT. */
     // TEMPLATES
-    private static final String                    TEMPLATE_MODIFY_WEBSERVICE_SIGNALEMENT_TASK_UNIT = "admin/plugins/workflow/modules/signalement/modify_webservice_signalement_task_unit.html";
+    private static final String TEMPLATE_MODIFY_WEBSERVICE_SIGNALEMENT_TASK_UNIT = "admin/plugins/workflow/modules/signalement/modify_webservice_signalement_task_unit.html";
 
     /** The webservice signalement task config service. */
     // SERVICES
-    private transient WebServiceSignalementTaskConfigService _webserviceSignalementTaskConfigService          = SpringContextService.getBean( "signalement.webserviceSignalementTaskConfigService" );
-    
+    private transient WebServiceSignalementTaskConfigService _webserviceSignalementTaskConfigService = SpringContextService
+            .getBean( "signalement.webserviceSignalementTaskConfigService" );
+
     /** The unit service. */
-    private transient IUnitService                           _unitService                                     = SpringContextService.getBean( IUnitService.BEAN_UNIT_SERVICE );
+    private transient IUnitService _unitService = SpringContextService.getBean( IUnitService.BEAN_UNIT_SERVICE );
 
     /**
      * Return AdminMessage page content to confirm the webserviceSignalementTaskUnit delete.
      *
-     * @param request            the HttpServletRequest
+     * @param request
+     *            the HttpServletRequest
      * @return the AdminMessage
      */
     public String confirmDeleteWebServiceSignalementTaskUnit( HttpServletRequest request )
@@ -131,7 +132,8 @@ public class WebServiceSignalementTaskConfigJspBean extends AbstractJspBean
     /**
      * The doDeleteWebServiceSignalementTaskUnit implementation.
      *
-     * @param request            the HttpServletRequest
+     * @param request
+     *            the HttpServletRequest
      * @return the url return
      */
     public String doDeleteWebServiceSignalementTaskUnit( HttpServletRequest request )
@@ -153,7 +155,8 @@ public class WebServiceSignalementTaskConfigJspBean extends AbstractJspBean
     /**
      * The ModifyWebServiceSignalementTaskUnit page.
      *
-     * @param request            the HttpServletRequest
+     * @param request
+     *            the HttpServletRequest
      * @return page content
      */
     public String getModifyWebServiceSignalementTaskUnit( HttpServletRequest request )
@@ -174,7 +177,7 @@ public class WebServiceSignalementTaskConfigJspBean extends AbstractJspBean
         FunctionnalException ve = getErrorOnce( request );
         if ( ve != null )
         {
-            configUnit = ( WebServiceSignalementTaskConfigUnit ) ve.getBean( );
+            configUnit = (WebServiceSignalementTaskConfigUnit) ve.getBean( );
             model.put( "error", getHtmlError( ve ) );
         }
         model.put( MARK_CONFIG_UNIT, configUnit );
@@ -190,7 +193,8 @@ public class WebServiceSignalementTaskConfigJspBean extends AbstractJspBean
     /**
      * The doModifyWebServiceSignalementTaskUnit implementation.
      *
-     * @param request            the HttpServletRequest
+     * @param request
+     *            the HttpServletRequest
      * @return url return
      */
     public String doModifyWebServiceSignalementTaskUnit( HttpServletRequest request )
