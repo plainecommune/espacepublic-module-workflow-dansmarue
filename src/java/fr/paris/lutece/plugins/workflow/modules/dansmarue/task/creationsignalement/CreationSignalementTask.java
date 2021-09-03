@@ -91,13 +91,8 @@ public class CreationSignalementTask extends AbstractSignalementTask
     {
         int idSignalement = getIdSignalement( nIdResourceHistory );
         Signalement signalement = getSignalementService( ).getSignalement( idSignalement );
-        boolean isDPE = false;
-        if ( ( signalement != null ) && ( signalement.getTypeSignalement( ) != null ) && ( signalement.getTypeSignalement( ).getUnit( ) != null )
-                && ( signalement.getTypeSignalement( ).getUnit( ).getIdUnit( ) == SignalementConstants.UNIT_DPE ) )
-        {
-            isDPE = true;
-        }
-        if ( ( signalement != null ) && isSignalementOfTypeEncombrant( signalement ) && isDPE )
+
+        if ( ( signalement != null ) && isSignalementOfTypeEncombrant( signalement ) )
         {
             int stateATraiter = AppPropertiesService.getPropertyInt( WorkflowSignalementConstants.ETAT_CREATION_ENCOMBRANT, -1 );
             getAction( ).setStateAfter( _stateService.findByPrimaryKey( stateATraiter ) );

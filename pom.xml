@@ -7,15 +7,15 @@
     <version>5.0.2</version>
   </parent>
   <groupId>fr.paris.lutece.plugins</groupId>
-  <artifactId>module-workflow-dansmarue</artifactId>
-  <version>6.5.13-SNAPSHOT</version>
+  <artifactId>module-workflow-bienvu</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
   <packaging>lutece-plugin</packaging>
-  <name>Workflow Dansmarue module</name>
-  <url>https://dev.lutece.paris.fr/gitlab/tmma/r59/module-workflow-signalement</url>
+  <name>Workflow bienVU module</name>
+  <url>https://github.com/plainecommune/espacepublic-module-workflow-dansmarue</url>
   <scm>
-    <connection>scm:git:https://dev.lutece.paris.fr/gitlab/tmma/r59/module-workflow-signalement.git</connection>
-    <developerConnection>scm:git:https://dev.lutece.paris.fr/gitlab/tmma/r59/module-workflow-signalement.git</developerConnection>
-    <url>https://dev.lutece.paris.fr/gitlab/tmma/r59/module-workflow-signalement</url>
+    <connection>scm:git:https://github.com/plainecommune/espacepublic-module-workflow-dansmarue.git</connection>
+    <developerConnection>scm:git:https://github.com/plainecommune/espacepublic-module-workflow-dansmarue.git</developerConnection>
+    <url>https://github.com/plainecommune/espacepublic-module-workflow-dansmarue</url>
     <tag>HEAD</tag>
   </scm>
   <properties>
@@ -58,8 +58,8 @@
     </dependency>
     <dependency>
       <groupId>fr.paris.lutece.plugins</groupId>
-      <artifactId>plugin-dansmarue</artifactId>
-      <version>[6.0.99,)</version>
+      <artifactId>plugin-bienvu</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
       <exclusions>
         <exclusion>
           <artifactId>lutece-core</artifactId>

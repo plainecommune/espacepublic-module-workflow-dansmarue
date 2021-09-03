@@ -149,7 +149,6 @@ import fr.paris.lutece.plugins.dansmarue.service.ISignalementWebService;
 import fr.paris.lutece.plugins.dansmarue.service.SignalementPlugin;
 import fr.paris.lutece.plugins.dansmarue.util.constants.SignalementConstants;
 import fr.paris.lutece.plugins.dansmarue.utils.SignalementUtils;
-import fr.paris.lutece.plugins.unittree.business.unit.Unit;
 import fr.paris.lutece.plugins.unittree.service.unit.IUnitService;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.service.TaskUtils;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.AbstractSignalementTask;
@@ -293,16 +292,6 @@ public class WebServiceSignalementTask extends AbstractSignalementTask
 
         int idUnit = bean.getTypeSignalement( ).getUnit( ).getIdUnit( );
 
-        // Specificity for DEVE entity
-
-        if ( idUnit == Integer.valueOf( AppPropertiesService.getProperty( SignalementConstants.UNIT_ATELIER_JARDINAGE ) ) )
-
-        {
-
-            idUnit = 1;
-
-        }
-
         // For service done case
         if ( getAction( ).getStateAfter( ).getId( ) == Integer
                 .parseInt( AppPropertiesService.getProperty( SignalementConstants.PROPERTY_SERVICE_FAIT_VALUE ) ) )
@@ -323,7 +312,7 @@ public class WebServiceSignalementTask extends AbstractSignalementTask
         int idTaskDaemonWSPartner = Integer.parseInt( AppPropertiesService.getProperty( ID_TASK_SIGNALEMENT_WS_DEFAULT_CONFIG ) );
         int idTaskToUse = getAction( ).getId( ) == AppPropertiesService.getPropertyInt( SignalementConstants.ID_ACTION_TRANSFERT_PARTNER, -1 )
                 ? idTaskDaemonWSPartner
-                : getId( );
+                        : getId( );
 
         WebServiceSignalementTaskConfig wsconfig = _configDAO.findByPrimaryKey( idTaskToUse,
 
@@ -363,8 +352,7 @@ public class WebServiceSignalementTask extends AbstractSignalementTask
 
         // Check if the signalement type is not TypeEncombrant and of unit DPE and in not direction DEVE
 
-        if ( !( TaskUtils.isSignalementOfTypeEncombrant( listeTypeSignalement, bean ) && ( idUnit == SignalementConstants.UNIT_DPE ) )
-                && !checkIsDirectionDEVE( bean ) )
+        if ( !( TaskUtils.isSignalementOfTypeEncombrant( listeTypeSignalement, bean ) ) )
 
         {
 
@@ -493,19 +481,14 @@ public class WebServiceSignalementTask extends AbstractSignalementTask
 
                         Locale.FRENCH ) );
 
+                nNewState = Integer.valueOf( AppPropertiesService.getProperty( ID_STATE_NOUVEAU ) );
+
             }
 
             // save the JSON response in the workflow history
 
             _webserviceValueService.create( webservicevalue, SignalementPlugin.getPlugin( ) );
 
-        }
-
-        // For Direction == DEVE new state is nouveau
-
-        if ( checkIsDirectionDEVE( bean ) )
-        {
-            nNewState = Integer.valueOf( AppPropertiesService.getProperty( ID_STATE_NOUVEAU ) );
         }
 
         State state = _stateService.findByPrimaryKey( nNewState );
@@ -565,28 +548,6 @@ public class WebServiceSignalementTask extends AbstractSignalementTask
             _webserviceValueService.create( webservicevalue, SignalementPlugin.getPlugin( ) );
         }
 
-    }
-
-    /**
-     * Check if direction of the signalement is DEVE.
-     *
-     * @param signalement
-     *            report to check
-     * @return true if is DEVE
-     */
-    private boolean checkIsDirectionDEVE( Signalement signalement )
-    {
-
-        boolean isDirectionDEVE = false;
-        List<Unit> listUnitsSector = _unitService.findBySectorId( signalement.getSecteur( ).getIdSector( ) );
-        for ( Unit unit : listUnitsSector )
-        {
-            if ( ( unit.getIdParent( ) == 0 ) && ( unit.getIdUnit( ) == Integer.parseInt( SignalementConstants.UNIT_DEVE ) ) )
-            {
-                isDirectionDEVE = true;
-            }
-        }
-        return isDirectionDEVE;
     }
 
     /**
@@ -701,7 +662,7 @@ public class WebServiceSignalementTask extends AbstractSignalementTask
 
     /**
      * Check if the signalement has a non null date service fait value
-     * 
+     *
      * @param signalement
      * @return False if the DateServiceFaitTraitement value is null (DateServiceFaitTraitement), True otherwise
      */

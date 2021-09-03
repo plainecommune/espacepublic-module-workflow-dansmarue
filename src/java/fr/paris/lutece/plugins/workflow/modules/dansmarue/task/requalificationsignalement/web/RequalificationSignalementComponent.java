@@ -309,7 +309,6 @@ public class RequalificationSignalementComponent extends AbstractTaskComponent
             // Récupération des secteurs liés à cette direction et celle de DEVE
             List<Integer> idUnits = new ArrayList<>( );
             idUnits.add( defaultUnit.getIdUnit( ) );
-            idUnits.add( Integer.parseInt( SignalementConstants.UNIT_DEVE ) );
 
             List<Sector> sectors = _sectorService.findSectorsByDirectionsAndGeom( adresse.getLng( ), adresse.getLat( ),
                     AppPropertiesService.getPropertyInt( PROPERTY_UNITS_RADIUS, 0 ), idUnits );
