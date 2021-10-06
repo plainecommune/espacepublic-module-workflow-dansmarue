@@ -482,6 +482,8 @@ public class WebServiceSignalementTask extends AbstractSignalementTask
                         Locale.FRENCH ) );
 
                 nNewState = Integer.valueOf( AppPropertiesService.getProperty( ID_STATE_NOUVEAU ) );
+                
+                _signalementService.update( bean );
 
             }
 
