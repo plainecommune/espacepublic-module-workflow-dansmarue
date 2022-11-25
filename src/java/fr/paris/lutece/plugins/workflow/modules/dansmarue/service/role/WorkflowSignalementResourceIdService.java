@@ -52,7 +52,7 @@ public class WorkflowSignalementResourceIdService extends ResourceIdService
 {
 
     /** The Constant KEY_ID_RESOURCE. */
-    public static final String KEY_ID_RESOURCE = "GESTION_SUIVI_DES_MESSAGES_DANSMARUE";
+    public static final String KEY_ID_RESOURCE = "GESTION_SUIVI_DES_MESSAGES_BIENVU";
 
     /** The Constant PERMISSION_GESTION_TRACKING_MESSAGE. */
     public static final String PERMISSION_GESTION_TRACKING_MESSAGE = "GESTION_SUIVI_MESSAGES_ADMIN";
