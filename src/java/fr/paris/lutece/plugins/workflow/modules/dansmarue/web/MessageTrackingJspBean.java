@@ -336,7 +336,20 @@ public class MessageTrackingJspBean extends AbstractJspBean
 
                 if ( configUnit.getDestinataires( ).contains( mailCurrentUser ) && ( exist < 1 ) )
                 {
-                    listTypesUser.add( _typeSignalementService.getTypeSignalementByIdWithParents( configUnit.getTypeSignalement( ).getId( ) ) );
+                    if ( ( configUnit.getTypeSignalement( ).getTypeSignalementParent( ) != null )
+                            && ( ( configUnit.getTypeSignalement( ).getTypeSignalementParent( ).getId( ) > 0 )
+                                    && ( configUnit.getTypeSignalement( ).getUnit( ).getIdUnit( ) > 0 ) ) )
+                    {
+                        listTypesUser.add( _typeSignalementService.getTypeSignalementByIdWithParents( configUnit.getTypeSignalement( ).getId( ) ) );
+                    }
+                    else
+                    {
+                        // Abonnement type signalement de niveau 1 ou 2
+                        TypeSignalement signalementN1 = new TypeSignalement( );
+                        signalementN1.setId( configUnit.getTypeSignalement( ).getId( ) );
+                        signalementN1.setLibelle( configUnit.getTypeSignalement( ).getLibelle( ) );
+                        listTypesUser.add( signalementN1 );
+                    }
                 }
             }
         }
