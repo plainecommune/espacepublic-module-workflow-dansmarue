@@ -135,7 +135,12 @@ public final class TaskUtils
 
         while ( !isLastLevel )
         {
-            if ( typeSignalement.getTypeSignalementParent( ).getTypeSignalementParent( ) != null )
+            if ( typeSignalement.getTypeSignalementParent( ) == null )
+            {
+                idTypeLvl1 = typeSignalement.getId( );
+                isLastLevel = true;
+            }
+            else if ( typeSignalement.getTypeSignalementParent( ).getTypeSignalementParent( ) != null )
             {
                 typeSignalement = typeSignalement.getTypeSignalementParent( );
             }
