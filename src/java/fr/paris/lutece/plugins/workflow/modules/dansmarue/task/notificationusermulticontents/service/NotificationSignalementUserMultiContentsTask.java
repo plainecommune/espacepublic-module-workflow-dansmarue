@@ -137,7 +137,7 @@ public class NotificationSignalementUserMultiContentsTask extends AbstractSignal
     private static final String PROPERTY_TACHES_NOTIF_SUIVEURS = "signalement.workflow.taches.notification.suiveurs";
 
     /** The Constant SUBJECT_MESSAGE_TYPOLOGIE. */
-    private static final String SUBJECT_MESSAGE_TYPOLOGIE = "Dansmarue : Suivi de l’anomalie ${numero}";
+    private static final String SUBJECT_MESSAGE_TYPOLOGIE = "bienVU : Suivi de l’anomalie ${numero}";
 
     /** The signalement service. */
     // SERVICES
@@ -219,7 +219,7 @@ public class NotificationSignalementUserMultiContentsTask extends AbstractSignal
                 : StringUtils.EMPTY;
         String attrChosenMessage = request.getSession( ).getAttribute( PARAMETER_CHOSEN_MESSAGE ) != null
                 ? request.getSession( ).getAttribute( PARAMETER_CHOSEN_MESSAGE ).toString( )
-                : StringUtils.EMPTY;
+                        : StringUtils.EMPTY;
 
         Boolean isMessageTypo = ( ( ( request.getParameter( PARAMETER_IS_MESSAGE_TYPO ) != null )
                 && Boolean.valueOf( request.getParameter( PARAMETER_IS_MESSAGE_TYPO ) ) )
