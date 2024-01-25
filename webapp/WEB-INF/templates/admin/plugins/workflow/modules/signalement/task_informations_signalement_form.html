@@ -54,9 +54,9 @@
 					</div>
 			</div>
 		</div>
-		<#if photos?has_content>
-			<#assign index = 1> 
-			<div class="form-group">
+		<#assign index = 1> 
+		<div class="form-group">
+			<#if photos?has_content>
 				<label class="<@labelStyle />" for="image">
 					#i18n{module.workflow.dansmarue.workflow.informationssignalement.photo}(s)
 				</label>
@@ -70,7 +70,8 @@
 					</#if>
 				</#list>
 				</div>
-				<#if isActionSF>
+			</#if>
+			<#if isActionSF>
 					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="left: 148px; top: 15px">
 						<div class="form-group">
 							<label class="<@labelStyle />" for="image">#i18n{module.workflow.dansmarue.workflow.informationssignalement.photoSF}</label>
@@ -82,9 +83,8 @@
 							</div>
 						</div>
 					</div>
-				</#if>
-			</div>
-		</#if>
+		        </#if>
+		</div>
 	</fieldset>
 </div>
 <@modalImage/>
