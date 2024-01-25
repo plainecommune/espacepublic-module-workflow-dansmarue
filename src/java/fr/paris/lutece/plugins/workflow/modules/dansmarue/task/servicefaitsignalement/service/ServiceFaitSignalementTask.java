@@ -33,6 +33,8 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.dansmarue.task.servicefaitsignalement.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
@@ -41,14 +43,26 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.lang.StringUtils;
 
+import fr.paris.lutece.plugins.dansmarue.business.entities.PhotoDMR;
+import fr.paris.lutece.plugins.dansmarue.business.entities.Signalement;
 import fr.paris.lutece.plugins.dansmarue.service.DepotManager;
+import fr.paris.lutece.plugins.dansmarue.service.IPhotoService;
 import fr.paris.lutece.plugins.dansmarue.service.ISignalementService;
+import fr.paris.lutece.plugins.dansmarue.util.constants.SignalementConstants;
 import fr.paris.lutece.plugins.dansmarue.utils.DateUtils;
+import fr.paris.lutece.plugins.dansmarue.utils.ImgUtils;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.AbstractSignalementTask;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.utils.ServiceOption;
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceHistory;
+import fr.paris.lutece.portal.service.fileupload.FileUploadService;
+import fr.paris.lutece.portal.service.image.ImageResource;
+import fr.paris.lutece.portal.service.util.AppLogService;
+import fr.paris.lutece.portal.service.util.AppPropertiesService;
+import fr.paris.lutece.portal.web.upload.MultipartHttpServletRequest;
+import fr.paris.lutece.util.image.ImageUtil;
 
 /**
  * The Class ServiceFaitSignalementTask.
@@ -69,11 +83,26 @@ public class ServiceFaitSignalementTask extends AbstractSignalementTask
     /** Le parametre pour le champ dateDePassage. */
     public static final String PARAMETER_DATE_DE_PASSAGE = "dateDePassage";
 
+    /** Le parametre pour le champ photo SF. */
+    public static final String PARAMETER_PHOTO_SF = "photoSF";
+
+    /** Le parametre pour le champ signalement id. */
+    public static final String PARAMETER_MARK_SIGNALEMENT_ID = "signalement_id";
+
+    public static final Integer VUE_SERVICE_FAIT = 2;
+
+
     /** The signalement service. */
     // SERVICES
     @Inject
     @Named( "signalementService" )
     private ISignalementService _signalementService;
+
+    /** The photo service. */
+    @Inject
+    @Named( "photoService" )
+    private IPhotoService _photoService;
+
 
     /**
      * Process task.
@@ -120,7 +149,62 @@ public class ServiceFaitSignalementTask extends AbstractSignalementTask
             String strHourPassage = DateUtils.getHourWithSecondsFr( dateDePassage );
             _signalementService.setDateDePassage( strDatePassage, strHourPassage, (long) getIdResourceFromIdHistory( nIdResourceHistory ) );
         }
+
+        try
+        {
+            if ( ( ( MultipartHttpServletRequest ) request ).getFile( PARAMETER_PHOTO_SF ) != null )
+            {
+                insertPhotoSF( Long.parseLong( request.getParameter( PARAMETER_MARK_SIGNALEMENT_ID ) ), ( ( MultipartHttpServletRequest ) request ).getFile( PARAMETER_PHOTO_SF ) );
+            }
+        }
+        catch ( ClassCastException e )
+        {
+            AppLogService.info( "" );
+        }
     }
+
+    /**
+     * Insert the report photo.
+     *
+     * @param idSignalement
+     *            the signalement id
+     * @param imageFile
+     *            the image
+     */
+    private void insertPhotoSF( long idSignalement, FileItem imageFile )
+    {
+        String strImageName = FileUploadService.getFileNameOnly( imageFile );
+        if ( StringUtils.isNotBlank( strImageName ) )
+        {
+            ImageResource image = new ImageResource( );
+            String width = AppPropertiesService.getProperty( SignalementConstants.IMAGE_THUMBNAIL_RESIZE_WIDTH );
+            String height = AppPropertiesService.getProperty( SignalementConstants.IMAGE_THUMBNAIL_RESIZE_HEIGHT );
+            byte [ ] resizeImage = ImageUtil.resizeImage( imageFile.get( ), width, height, 1 );
+
+            PhotoDMR photoSignalement = new PhotoDMR( );
+
+            image.setImage( imageFile.get( ) );
+            String mimeType = imageFile.getContentType( ).replace( "pjpeg", "jpeg" );
+            mimeType = mimeType.replace( "x-png", "png" );
+            image.setMimeType( mimeType );
+
+            photoSignalement.setImage( image );
+            photoSignalement.setImageContent( ImgUtils.checkQuality( image.getImage( ) ) );
+            photoSignalement.setImageThumbnailWithBytes( resizeImage );
+
+            Signalement signalement = new Signalement( );
+            signalement.setId( idSignalement );
+
+            photoSignalement.setSignalement( signalement );
+            photoSignalement.setVue( VUE_SERVICE_FAIT  );
+            SimpleDateFormat sdfDate = new SimpleDateFormat( "dd/MM/yyyy" );
+            photoSignalement.setDate( sdfDate.format( Calendar.getInstance( ).getTime( ) ) );
+
+            // creation of the image in the db linked to the report
+            _photoService.insert( photoSignalement );
+        }
+    }
+
 
     /**
      * Gets the title.

@@ -70,8 +70,39 @@
 					</#if>
 				</#list>
 				</div>
+				<#if isActionSF>
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="left: 148px; top: 15px">
+						<div class="form-group">
+							<label class="<@labelStyle />" for="image">#i18n{module.workflow.dansmarue.workflow.informationssignalement.photoSF}</label>
+							<div class="<@inputStyle />"><input type="file" id="photoSF" name="photoSF" /></div>
+						</div>
+						<div class="form-group">
+							<div class="control-label col-xs-12 col-sm-6 col-md-6">
+								#i18n{module.workflow.dansmarue.workflow.informationssignalement.photoSF.format}
+							</div>
+						</div>
+					</div>
+				</#if>
 			</div>
 		</#if>
 	</fieldset>
 </div>
 <@modalImage/>
+
+<script>
+	var file = document.getElementById('photoSF');
+
+	file.onchange = function(e)
+	{
+	  var extension = this.value.match(/\.([^\.]+)$/)[1];
+	  switch (extension)
+	  {
+	  	case 'jpg':
+		case 'png':
+		case 'jpeg':
+			break;
+		default:
+		  	this.value = '';
+	  }
+	};
+</script>

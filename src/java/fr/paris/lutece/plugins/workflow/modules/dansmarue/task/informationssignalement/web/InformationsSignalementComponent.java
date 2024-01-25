@@ -51,8 +51,11 @@ import fr.paris.lutece.plugins.dansmarue.service.IPhotoService;
 import fr.paris.lutece.plugins.dansmarue.service.ISignalementService;
 import fr.paris.lutece.plugins.dansmarue.service.ISignaleurService;
 import fr.paris.lutece.plugins.workflow.web.task.NoConfigTaskComponent;
+import fr.paris.lutece.plugins.workflowcore.business.action.Action;
+import fr.paris.lutece.plugins.workflowcore.service.action.IActionService;
 import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
+import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
 /**
@@ -73,6 +76,9 @@ public class InformationsSignalementComponent extends NoConfigTaskComponent
 
     /** The Constant MARK_SIGNALEUR. */
     private static final String MARK_SIGNALEUR = "signaleur";
+
+    /** The Constant MARK_IS_ACTION_SF. */
+    private static final String MARK_IS_ACTION_SF = "isActionSF";
 
     // PARAMETERS
 
@@ -107,6 +113,10 @@ public class InformationsSignalementComponent extends NoConfigTaskComponent
     @Named( "photoService" )
     private IPhotoService _photoService;
 
+    @Inject
+    @Named( "workflow.actionService" )
+    private IActionService _actionService;
+
     /**
      * Gets the display task form.
      *
@@ -135,7 +145,10 @@ public class InformationsSignalementComponent extends NoConfigTaskComponent
         adresse = _adresseService.loadByIdSignalement( nIdResource );
         signaleur = _signaleurService.loadByIdSignalement( nIdResource );
         photos = _photoService.findBySignalementId( nIdResource );
+        Action action = _actionService.findByPrimaryKey( task.getAction( ).getId( ) );
+        int idStatutServiceFait = AppPropertiesService.getPropertyInt( "signalement.idStateServiceFait", -1 );
 
+        model.put( MARK_IS_ACTION_SF, action.getStateAfter( ).getId( ) == idStatutServiceFait );
         model.put( MARK_SIGNALEMENT, signalement );
         model.put( MARK_PHOTOS, photos );
         model.put( MARK_ADRESSE, adresse );
