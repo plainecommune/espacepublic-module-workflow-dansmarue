@@ -294,7 +294,7 @@ public class NotificationSignalementTask extends AbstractSignalementTask
                     for ( String email : listeAdressesEmail )
                     {
                         MailService.sendMailMultipartHtml( email, null, null, configDTOUnit.getSender( ),
-                                AppPropertiesService.getProperty( "mail.noreply.email", "noreply-dansmarue@paris.fr" ), subject, message, null, files );
+                                AppPropertiesService.getProperty( "mail.noreply.email", "noreply@plainecommune.fr" ), subject, message, null, files );
                     }
                 }
             }
