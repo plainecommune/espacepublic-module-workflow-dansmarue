@@ -39,6 +39,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -500,7 +501,7 @@ public class NotificationComponent extends AbstractTaskComponent
                     return AdminMessageService.getMessageUrl( request, MESSAGE_MANDATORY_FIELD, tabRequiredFields, AdminMessage.TYPE_STOP );
                 }
                 else
-                    if ( _notificationSignalementTaskConfigService.findByIdTypeSignalement( task.getId( ), configUnit.getUnit( ).getIdUnit( ) ) != null )
+                    if ( _notificationSignalementTaskConfigService.findByIdTypeSignalement( task.getId( ), configUnit.getTypeSignalement( ).getId( ) ) != null )
                     {
                         return AdminMessageService.getMessageUrl( request, MESSAGE_ERROR_TYPE_ALLREADY_EXISTS, AdminMessage.TYPE_STOP );
                     }
@@ -521,7 +522,7 @@ public class NotificationComponent extends AbstractTaskComponent
                 List<NotificationSignalementTaskConfigUnit> listConfigType = _notificationSignalementTaskConfigUnitService
                         .findByIdTypeSignalement( configUnit.getTypeSignalement( ).getId( ), null );
 
-                if ( listConfigType.isEmpty( ) )
+                if ( listConfigType.stream( ).filter( c -> task.getId( ) == ( c.getIdTask( ) ) ).count( ) == 0 )
                 {
                     int nIdTask = task.getId( );
                     NotificationSignalementTaskConfigUnit configType = new NotificationSignalementTaskConfigUnit( );
