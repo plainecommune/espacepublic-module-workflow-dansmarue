@@ -64,7 +64,7 @@
     <dependency>
       <groupId>fr.paris.lutece.plugins</groupId>
       <artifactId>plugin-bienvu</artifactId>
-      <version>0.0.17-SNAPSHOT</version>
+      <version>1.0.0-SNAPSHOT</version>
       <exclusions>
         <exclusion>
           <artifactId>lutece-core</artifactId>
@@ -108,12 +108,12 @@
       <version>1.0.0.Beta6</version>
     </dependency>
   </dependencies>
- 
+
   <repositories>
         <repository>
             <id>luteceReleaseRepository</id>
             <name>luteceReleaseRepository</name>
-            <url>http://dev.lutece.paris.fr/nexus/content/groups/maven_repository/</url>
+            <url>https://dev.lutece.paris.fr/nexus/content/groups/maven_repository/</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -121,14 +121,14 @@
         <repository>
             <id>luteceSnapshotRepository</id>
             <name>luteceSnapshotRepository</name>
-            <url>http://dev.lutece.paris.fr/nexus/content/groups/snapshot_repository/</url>
+            <url>https://dev.lutece.paris.fr/nexus/content/groups/snapshot_repository/</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
-        </repository>       
+        </repository>
     </repositories>
 
- 
+
   <build>
     <plugins>
       <plugin>
