@@ -140,6 +140,9 @@ public class NotificationUserComponent extends AbstractTaskComponent
     /** The Constant MARK_HEURE_DE_TRAITEMENT. */
     private static final String MARK_HEURE_DE_TRAITEMENT = "heuretraitement";
 
+    /** The Constant MARK_HEURE_DE_TRAITEMENT. */
+    private static final String MARK_URL_FORMULAIRE_SATISFACTION = "urlFormulaireSatisfaction";
+
     /** The Constant MARK_HAS_EMAIL_SIGNALEUR. */
     private static final String MARK_HAS_EMAIL_SIGNALEUR = "has_email_signaleur";
 
@@ -325,6 +328,7 @@ public class NotificationUserComponent extends AbstractTaskComponent
 
             emailModel.put( MARK_URL_SONDAGE_DEMANDE, DatastoreService.getDataValue( URL_SONDAGE_DEMANDE, "" ) );
             emailModel.put( MARK_URL_SONDAGE_SERVICE, DatastoreService.getDataValue( URL_SONDAGE_SERVICE, "" ) );
+            emailModel.put( MARK_URL_FORMULAIRE_SATISFACTION, _signalementService.getLienFormulaireSatisfaction( signalement, request ) );
 
             if ( ( signalement.getAdresses( ) != null ) && ( signalement.getAdresses( ).get( 0 ) != null )
                     && ( signalement.getAdresses( ).get( 0 ).getAdresse( ) != null ) )
@@ -455,6 +459,12 @@ public class NotificationUserComponent extends AbstractTaskComponent
         dto.setNom( "Lien de consultation du message" );
         dto.setValeur( MARK_LIEN_CONSULTATION );
         balises.add( dto );
+        dto = new BaliseFreemarkerDTO( );
+        dto.setNom( "Url de formulaire de satisfaction" );
+        dto.setValeur( MARK_URL_FORMULAIRE_SATISFACTION );
+        balises.add( dto );
+
+
         model.put( MARK_BALISES, balises );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_TASK_NOTIFICATION_CONFIG, locale, model );

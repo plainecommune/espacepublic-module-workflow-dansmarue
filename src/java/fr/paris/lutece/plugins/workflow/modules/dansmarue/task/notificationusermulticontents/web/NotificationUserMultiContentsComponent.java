@@ -142,6 +142,9 @@ public class NotificationUserMultiContentsComponent extends AbstractTaskComponen
     /** The Constant MARK_HEURE_DE_TRAITEMENT. */
     private static final String MARK_HEURE_DE_TRAITEMENT = "heuretraitement";
 
+    /** The Constant MARK_HEURE_DE_TRAITEMENT. */
+    private static final String MARK_URL_FORMULAIRE_SATISFACTION = "urlFormulaireSatisfaction";
+
     /** The Constant MARK_ISROADMAP. */
     private static final String MARK_ISROADMAP = "isRoadMap";
 
@@ -421,6 +424,10 @@ public class NotificationUserMultiContentsComponent extends AbstractTaskComponen
         dto.setNom( DTO_NAME_HEURE_DE_TRAITEMENT );
         dto.setValeur( MARK_HEURE_DE_TRAITEMENT );
         balises.add( dto );
+        dto = new BaliseFreemarkerDTO( );
+        dto.setNom( "Url de formulaire de satisfaction" );
+        dto.setValeur( MARK_URL_FORMULAIRE_SATISFACTION );
+        balises.add( dto );
         model.put( MARK_BALISES, balises );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_TASK_NOTIFICATION_CONFIG, locale, model );
@@ -646,6 +653,7 @@ public class NotificationUserMultiContentsComponent extends AbstractTaskComponen
         emailModel.put( MARK_PRIORITE, signalement.getPrioriteName( ) );
         emailModel.put( MARK_COMMENTAIRE, signalement.getCommentaire( ) );
         emailModel.put( MARK_LIEN_CONSULTATION, _signalementService.getLienConsultation( signalement, request ) );
+        emailModel.put( MARK_URL_FORMULAIRE_SATISFACTION, _signalementService.getLienFormulaireSatisfaction( signalement, request ) );
         if ( StringUtils.isNotBlank( signalement.getDatePrevueTraitement( ) ) )
         {
             emailModel.put( MARK_DATE_PROGRAMMATION, signalement.getDatePrevueTraitement( ) );
@@ -674,7 +682,6 @@ public class NotificationUserMultiContentsComponent extends AbstractTaskComponen
             heureDeTraitement = StringUtils.EMPTY;
         }
         emailModel.put( MARK_HEURE_DE_TRAITEMENT, heureDeTraitement );
-
         emailModel.put( MARK_URL_SONDAGE_DEMANDE, DatastoreService.getDataValue( URL_SONDAGE_DEMANDE, "" ) );
         emailModel.put( MARK_URL_SONDAGE_SERVICE, DatastoreService.getDataValue( URL_SONDAGE_SERVICE, "" ) );
 
