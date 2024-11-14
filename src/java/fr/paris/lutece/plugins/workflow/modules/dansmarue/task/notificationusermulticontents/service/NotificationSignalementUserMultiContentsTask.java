@@ -112,6 +112,7 @@ public class NotificationSignalementUserMultiContentsTask extends AbstractSignal
     private static final String MARK_ID_ANOMALIE = "id_anomalie";
     private static final String MARK_URL_SONDAGE_DEMANDE = "urlSondageDemande";
     private static final String MARK_URL_SONDAGE_SERVICE = "urlSondageService";
+    private static final String MARK_URL_FORMULAIRE_SATISFACTION = "urlFormulaireSatisfaction";
     private static final String URL_SONDAGE_DEMANDE = "sitelabels.site_property.message.url.sondage.demande";
     private static final String URL_SONDAGE_SERVICE = "sitelabels.site_property.message.url.sondage.sevice";
     private static final String MARK_CP = "code_postal";
@@ -358,6 +359,7 @@ public class NotificationSignalementUserMultiContentsTask extends AbstractSignal
 
         emailModel.put( MARK_URL_SONDAGE_DEMANDE, DatastoreService.getDataValue( URL_SONDAGE_DEMANDE, "" ) );
         emailModel.put( MARK_URL_SONDAGE_SERVICE, DatastoreService.getDataValue( URL_SONDAGE_SERVICE, "" ) );
+        emailModel.put( MARK_URL_FORMULAIRE_SATISFACTION, _signalementService.getLienFormulaireSatisfaction( signalement, request ) );
 
         if ( ( signalement.getAdresses( ) != null ) && ( signalement.getAdresses( ).get( 0 ) != null )
                 && ( signalement.getAdresses( ).get( 0 ).getAdresse( ) != null ) )
