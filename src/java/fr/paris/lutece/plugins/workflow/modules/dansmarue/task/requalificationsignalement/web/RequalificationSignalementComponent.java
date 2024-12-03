@@ -98,7 +98,7 @@ public class RequalificationSignalementComponent extends AbstractTaskComponent
     private static final String MESSAGE_ERROR_ADRESSE_NULL = "module.workflow.dansmarue.requalification.adresseNull";
 
     /** The Constant MESSAGE_ERROR_ADRESSE_HORS_PARIS. */
-    private static final String MESSAGE_ERROR_ADRESSE_HORS_PARIS = "module.workflow.dansmarue.requalification.horsParis";
+    private static final String MESSAGE_ERROR_ADRESSE_HORS_PLAINE_COMMUNE = "module.workflow.dansmarue.requalification.horsPlaineCommune";
 
     /** The Constant MESSAGE_ERROR_TYPE_SIGNALEMENT_NULL. */
     private static final String MESSAGE_ERROR_TYPE_SIGNALEMENT_NULL = "module.workflow.dansmarue.requalification.typeNull";
@@ -453,7 +453,7 @@ public class RequalificationSignalementComponent extends AbstractTaskComponent
         if ( StringUtils.isBlank( request.getParameter( "searchAddress" ) ) && StringUtils.isBlank( request.getParameter( VALID_ADDRESS ) )
                 && ( _adresseService.getArrondissementByGeom( requalification.getLng( ), requalification.getLat( ) ) == null ) )
         {
-            return AdminMessageService.getMessageUrl( request, MESSAGE_ERROR_ADRESSE_HORS_PARIS, AdminMessage.TYPE_STOP );
+            return AdminMessageService.getMessageUrl( request, MESSAGE_ERROR_ADRESSE_HORS_PLAINE_COMMUNE, AdminMessage.TYPE_STOP );
         }
 
         // teste si un type signalement a bien été choisi sinon erreur
