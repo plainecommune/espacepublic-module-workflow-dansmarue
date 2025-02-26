@@ -45,6 +45,7 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.lang.StringUtils;
 
 import fr.paris.lutece.plugins.dansmarue.business.entities.PhotoDMR;
@@ -54,6 +55,7 @@ import fr.paris.lutece.plugins.dansmarue.service.IObservationRejetService;
 import fr.paris.lutece.plugins.dansmarue.service.ISignalementService;
 import fr.paris.lutece.plugins.dansmarue.util.constants.SignalementConstants;
 import fr.paris.lutece.plugins.dansmarue.utils.DateUtils;
+import fr.paris.lutece.plugins.dansmarue.utils.ImgUtils;
 import fr.paris.lutece.plugins.dansmarue.utils.SignalementUtils;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.service.TaskUtils;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.AbstractSignalementTask;
@@ -154,6 +156,9 @@ public class NotificationSignalementUserTask extends AbstractSignalementTask
     private static final String PARAMETER_MESSAGE_FOR_USER = "messageForUser";
 
     private static final String PARAMETER_WEBSERVICE_RAISON_REJET = "rejection_reason";
+
+    /** The Constant PARAMETER_PHOTO_DONE. */
+    private static final String PARAMETER_PHOTO_DONE = "photoDone";
 
     /** The signalement service. */
     // SERVICES
@@ -395,6 +400,18 @@ public class NotificationSignalementUserTask extends AbstractSignalementTask
                     }
                 }
             }
+
+
+            if(( request != null ) && ( request.getSession( ).getAttribute(PARAMETER_PHOTO_DONE) != null )) {
+                FileItem fileItem = (FileItem) request.getSession( ).getAttribute(PARAMETER_PHOTO_DONE);
+
+                String mimeType = fileItem.getContentType().replace("pjpeg", "jpeg").replace("x-png", "png");
+
+                files.add( new FileAttachment( SignalementConstants.NOM_PHOTO_SERVICE_FAIT_PJ + mimeType.split( "/" )[1], ImgUtils.checkQuality( fileItem.get() ),
+                        mimeType) );
+
+            }
+
 
             MailService.sendMailMultipartHtml( email, null, null, config.getSender( ),
                     AppPropertiesService.getProperty( "mail.noreply.email", "noreply-dansmarue@paris.fr" ), subject, message, null, files );
