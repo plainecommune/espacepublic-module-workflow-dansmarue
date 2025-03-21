@@ -120,6 +120,7 @@ public class NotificationSignalementUserTask extends AbstractSignalementTask
 
     /** The Constant MARK_HEURE_DE_TRAITEMENT. */
     private static final String MARK_HEURE_DE_TRAITEMENT = "heuretraitement";
+    private static final String MARK_URL_FORMULAIRE_SATISFACTION = "urlFormulaireSatisfaction";
     private static final String MARK_URL_SONDAGE_DEMANDE = "urlSondageDemande";
     private static final String MARK_URL_SONDAGE_SERVICE = "urlSondageService";
     private static final String URL_SONDAGE_DEMANDE = "sitelabels.site_property.message.url.sondage.demande";
@@ -318,6 +319,7 @@ public class NotificationSignalementUserTask extends AbstractSignalementTask
 
         emailModel.put( MARK_URL_SONDAGE_DEMANDE, DatastoreService.getDataValue( URL_SONDAGE_DEMANDE, "" ) );
         emailModel.put( MARK_URL_SONDAGE_SERVICE, DatastoreService.getDataValue( URL_SONDAGE_SERVICE, "" ) );
+        emailModel.put( MARK_URL_FORMULAIRE_SATISFACTION, _signalementService.getLienFormulaireSatisfaction( signalement, request ) );
 
         if ( ( signalement.getAdresses( ) != null ) && ( CollectionUtils.isNotEmpty( signalement.getAdresses( ) ) )
                 && ( signalement.getAdresses( ).get( 0 ) != null ) && ( signalement.getAdresses( ).get( 0 ).getAdresse( ) != null ) )
