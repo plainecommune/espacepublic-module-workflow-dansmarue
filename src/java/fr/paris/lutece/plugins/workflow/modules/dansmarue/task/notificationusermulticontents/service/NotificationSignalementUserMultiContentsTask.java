@@ -42,6 +42,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.lang.StringUtils;
 
 import fr.paris.lutece.plugins.dansmarue.business.entities.MessageTypologie;
@@ -51,6 +52,7 @@ import fr.paris.lutece.plugins.dansmarue.business.entities.Signaleur;
 import fr.paris.lutece.plugins.dansmarue.service.IMessageTypologieService;
 import fr.paris.lutece.plugins.dansmarue.service.impl.SignalementService;
 import fr.paris.lutece.plugins.dansmarue.util.constants.SignalementConstants;
+import fr.paris.lutece.plugins.dansmarue.utils.ImgUtils;
 import fr.paris.lutece.plugins.dansmarue.utils.SignalementUtils;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.service.TaskUtils;
 import fr.paris.lutece.plugins.workflow.modules.dansmarue.task.AbstractSignalementTask;
@@ -132,6 +134,9 @@ public class NotificationSignalementUserMultiContentsTask extends AbstractSignal
 
     /** The Constant PARAMETER_ISROADMAP. */
     private static final String PARAMETER_ISROADMAP = "isRoadMap";
+    
+    /** The Constant PARAMETER_PHOTO_DONE. */
+    private static final String PARAMETER_PHOTO_DONE = "photoDone";
 
     /** The Constant PROPERTY_TACHES_NOTIF_SUIVEURS. */
     // PROPERTY
@@ -429,6 +434,16 @@ public class NotificationSignalementUserMultiContentsTask extends AbstractSignal
                                     photo.getImage( ).getMimeType( ) ) );
                         }
                 }
+            }
+            
+            if(( request != null ) && ( request.getSession( ).getAttribute(PARAMETER_PHOTO_DONE) != null )) {
+                FileItem fileItem = (FileItem) request.getSession( ).getAttribute(PARAMETER_PHOTO_DONE);
+
+                String mimeType = fileItem.getContentType().replace("pjpeg", "jpeg").replace("x-png", "png");
+
+                files.add( new FileAttachment( SignalementConstants.NOM_PHOTO_SERVICE_FAIT_PJ + mimeType.split( "/" )[1], ImgUtils.checkQuality( fileItem.get() ),
+                        mimeType) );
+
             }
 
             if ( listTachesNotifSuiveurs.contains( String.valueOf( getId( ) ) ) )
