@@ -131,6 +131,9 @@ public class NotificationComponent extends AbstractTaskComponent
 
     /** The Constant MARK_EMAIL_USAGER. */
     private static final String MARK_EMAIL_USAGER = "emailUsager";
+    
+    /** The Constant MARK_EMAIL_USAGER. */
+    private static final String MARK_COMMENTAIRE_AGENT = "commentaireAgent";
 
     /** The Constant MARK_ALIAS_ANOMALIE. */
     private static final String MARK_ALIAS_ANOMALIE = "alias_anomalie";
@@ -347,6 +350,10 @@ public class NotificationComponent extends AbstractTaskComponent
         dto = new BaliseFreemarkerDTO( );
         dto.setNom( LABEL_EMAIL_USAGER );
         dto.setValeur( MARK_EMAIL_USAGER );
+        balises.add( dto );
+        dto = new BaliseFreemarkerDTO( );
+        dto.setNom( "Commentaire agent" );
+        dto.setValeur( MARK_COMMENTAIRE_AGENT );
         balises.add( dto );
         model.put( MARK_BALISES, balises );
 

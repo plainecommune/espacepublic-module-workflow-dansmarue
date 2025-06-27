@@ -110,6 +110,9 @@ public class NotificationSignalementTask extends AbstractSignalementTask
 
     /** The Constant MARK_EMAIL_USAGER. */
     private static final String MARK_EMAIL_USAGER = "emailUsager";
+    
+    /** The Constant MARK_COMMENTAIRE. */
+    private static final String MARK_COMMENTAIRE_AGENT = "commentaireAgent";
 
     /** The Constant MARK_ID_ANOMALIE. */
     private static final String MARK_ID_ANOMALIE = "id_anomalie";
@@ -256,6 +259,8 @@ public class NotificationSignalementTask extends AbstractSignalementTask
                 {
                     emailModel.put( MARK_HEURE_ENVOI, StringUtils.EMPTY );
                 }
+                
+                emailModel.put( MARK_COMMENTAIRE_AGENT, signalement.getCommentaireAgentTerrain() );
 
                 List<PhotoDMR> photos = signalement.getPhotos( );
                 List<FileAttachment> files = new ArrayList<>( );
