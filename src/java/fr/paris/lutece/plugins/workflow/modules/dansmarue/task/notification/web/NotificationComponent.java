@@ -112,7 +112,7 @@ public class NotificationComponent extends AbstractTaskComponent
     private static final String MARK_PRIORITE = "priorite";
 
     /** The Constant MARK_COMMENTAIRE. */
-    private static final String MARK_COMMENTAIRE = "commentaire";
+    private static final String MARK_COMMENTAIRE = "description";
 
     /** The Constant MARK_PRECISION. */
     private static final String MARK_PRECISION = "precision";
