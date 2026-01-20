@@ -386,19 +386,19 @@ public class NotificationSignalementUserTask extends AbstractSignalementTask
                 if ( ( photo.getImage( ) != null ) && ( photo.getImage( ).getImage( ) != null ) )
                 {
 
-                    String [ ] mime = photo.getImage( ).getMimeType( ).split( "/" );
+                    String[] mime = photo.getImage( ).getMimeType( ).split( "/" );
 
-                    if ( photo.getVue( ) == 1 )
+                    if ( photo.getVue( ).intValue( ) == SignalementConstants.OVERVIEW )
                     {
-
-                        files.add( new FileAttachment( SignalementConstants.NOM_PHOTO_ENSEMBLE_PJ + mime [1], photo.getImage( ).getImage( ),
-                                photo.getImage( ).getMimeType( ) ) );
-
+                        files.add( new FileAttachment( SignalementConstants.NOM_PHOTO_ENSEMBLE_PJ + mime[1], photo.getImage( ).getImage( ), photo.getImage( ).getMimeType( ) ) );
+                    }
+                    else if ( photo.getVue( ).intValue( ) == SignalementConstants.SERVICE_DONE_VIEW )
+                    {
+                        files.add( new FileAttachment( SignalementConstants.NOM_PHOTO_SERVICE_FAIT_PJ + mime[1], photo.getImage( ).getImage( ), photo.getImage( ).getMimeType( ) ) );
                     }
                     else
                     {
-                        files.add( new FileAttachment( SignalementConstants.NOM_PHOTO_PRES_PJ + mime [1], photo.getImage( ).getImage( ),
-                                photo.getImage( ).getMimeType( ) ) );
+                        files.add( new FileAttachment( SignalementConstants.NOM_PHOTO_PRES_PJ + mime[1], photo.getImage( ).getImage( ), photo.getImage( ).getMimeType( ) ) );
                     }
                 }
             }
